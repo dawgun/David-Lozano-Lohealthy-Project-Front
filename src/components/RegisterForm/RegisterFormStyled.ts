@@ -5,7 +5,6 @@ const RegisterStyled = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1rem;
   max-width: 600px;
 
   .form-container {
@@ -18,23 +17,6 @@ const RegisterStyled = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
-    &__header {
-      padding-left: 1rem;
-      padding-right: 1rem;
-      display: flex;
-      background-color: #d43521;
-      width: 100%;
-      justify-content: flex-start;
-      margin-bottom: 1rem;
-    }
-
-    &__title {
-      color: #fff;
-      font-size: 16px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
 
     &__button {
       background-color: #d43521;

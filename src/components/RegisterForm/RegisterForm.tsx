@@ -27,9 +27,7 @@ export const RegisterForm = () => {
 
   return (
     <RegisterStyled className="register-form">
-      <div className="register-form__header">
-        <h2 className="register-form__title">Registro</h2>
-      </div>
+      <div className="register-form__header"></div>
       <div className="form-container">
         <form onSubmit={() => {}} noValidate>
           <div>
