@@ -5,14 +5,20 @@ const useUser = () => {
 
   const userRegister = async (formRegisterData: ProtoUser) => {
     try {
-      await fetch(urlAPI + "user/register/", {
+      const response = await fetch(urlAPI + "user/register/", {
         method: "POST",
         body: JSON.stringify(formRegisterData),
         headers: {
           "Content-type": "application/json",
         },
       });
-    } catch (error) {}
+      if (!response.ok) {
+        throw new Error();
+      }
+    } catch (error) {
+      return false;
+    }
+    return true;
   };
 
   return { userRegister };
