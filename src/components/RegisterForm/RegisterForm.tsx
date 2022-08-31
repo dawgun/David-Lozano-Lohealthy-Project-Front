@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
 import RegisterStyled from "./RegisterFormStyled";
+import useUser from "../../hooks/useUser/useUser";
 
 export const RegisterForm = () => {
   const initialState = {
@@ -11,9 +12,16 @@ export const RegisterForm = () => {
   };
 
   const [formData, setFormData] = useState(initialState);
+  const { userRegister } = useUser();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (event: SyntheticEvent) => {
+    event.preventDefault();
+    await userRegister(formData);
+    setFormData(initialState);
   };
 
   const isSamePassword = formData.password === formData.repeat_password;
@@ -29,7 +37,7 @@ export const RegisterForm = () => {
     <RegisterStyled className="register-form">
       <div className="register-form__header"></div>
       <div className="form-container">
-        <form onSubmit={() => {}} noValidate>
+        <form onSubmit={handleSubmit} noValidate>
           <div>
             <input
               type="text"
