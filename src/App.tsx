@@ -1,5 +1,7 @@
+import RegisterForm from "./components/RegisterForm/RegisterForm";
+
 function App() {
-  return <h1>Hola</h1>;
+  return <RegisterForm />;
 }
 
 export default App;
