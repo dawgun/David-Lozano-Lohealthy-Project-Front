@@ -16,7 +16,20 @@ const RegisterPageStyled = styled.section`
       text-transform: uppercase;
       background-color: #d43521;
       width: 100%;
-      margin-bottom: 1rem;
+    }
+
+    &__login-link {
+      color: #d43521;
+      font-weight: 900;
+    }
+
+    &__footer {
+      display: flex;
+      background-color: #eeeeee;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
     }
   }
 `;
