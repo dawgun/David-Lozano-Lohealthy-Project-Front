@@ -28,4 +28,21 @@ describe("Given the UISlicer", () => {
       expect(newUI).toStrictEqual(expectedNewUI);
     });
   });
+
+  describe("When call closeModal reducer with previousUIState and a payload", () => {
+    test("Then should return same previosUIState with isModalShowing property to false", () => {
+      const UIPayload = {
+        type: "ui/closeModal",
+      };
+      const expectedNewUI = {
+        isModalShowing: false,
+        message: "",
+        type: true,
+      };
+
+      const newUI = UIReducer(previousUIPayload, UIPayload);
+
+      expect(newUI).toStrictEqual(expectedNewUI);
+    });
+  });
 });
