@@ -15,7 +15,7 @@ describe("Given the Register component", () => {
     const passwordPlaceholder = "Password";
     const passwordRepeatPlaceholder = "Repeat password";
 
-    const userNameTextInput = "Dan";
+    const userNameTextInput = "Adamov";
     const emailTextInput = "nachus@hotmail.com";
     const passwordTextInput = "12345";
     const passwordRepeatTextInput = "12345";
