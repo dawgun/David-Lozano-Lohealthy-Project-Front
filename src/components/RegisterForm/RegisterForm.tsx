@@ -2,6 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
 import RegisterStyled from "./RegisterFormStyled";
 import useUser from "../../hooks/useUser/useUser";
+import validateEmail from "../../utils/emailValidator/emailValidator";
 
 export const RegisterForm = () => {
   const initialState = {
@@ -10,6 +11,7 @@ export const RegisterForm = () => {
     password: "",
     repeat_password: "",
   };
+  const minLenght = 4;
 
   const [formData, setFormData] = useState(initialState);
   const { userRegister } = useUser();
@@ -26,12 +28,15 @@ export const RegisterForm = () => {
 
   const isSamePassword = formData.password === formData.repeat_password;
 
+  const isEmailValid = validateEmail(formData.email);
+
   const isFormValid =
-    formData.userName !== "" &&
+    formData.userName.length > minLenght &&
     formData.email !== "" &&
-    formData.password !== "" &&
+    formData.password.length > minLenght &&
     formData.repeat_password !== "" &&
-    isSamePassword;
+    isSamePassword &&
+    isEmailValid;
 
   return (
     <RegisterStyled className="register-form">
@@ -57,6 +62,7 @@ export const RegisterForm = () => {
               placeholder="Email"
               onChange={handleChange}
               autoComplete="off"
+              className={!isEmailValid ? "input-incorrect" : ""}
               required
             />
           </div>
@@ -73,7 +79,7 @@ export const RegisterForm = () => {
           </div>
           <div>
             <input
-              className={!isSamePassword ? "password-incorrect" : ""}
+              className={!isSamePassword ? "input-incorrect" : ""}
               type="password"
               value={formData.repeat_password}
               name="repeat_password"
