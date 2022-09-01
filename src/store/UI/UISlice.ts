@@ -14,9 +14,16 @@ const UISlice = createSlice({
     openModal: (_previousUI: UIState, action: PayloadAction<UIState>) => ({
       ...action.payload,
     }),
+    closeModal: (previousUI: UIState) => ({
+      ...previousUI,
+      isModalShowing: false,
+    }),
   },
 });
 
 export const UIReducer = UISlice.reducer;
 
-export const { openModal: openModalActionCreator } = UISlice.actions;
+export const {
+  openModal: openModalActionCreator,
+  closeModal: closeModalActionCreator,
+} = UISlice.actions;
