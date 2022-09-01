@@ -1,0 +1,27 @@
+import styled from "styled-components";
+
+const FooterStyled = styled.section`
+  background-color: #d43521;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 0.9rem;
+  padding: 1rem;
+  gap: 1rem;
+
+  .footer {
+    &__social {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    &__copyright {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+`;
+
+export default FooterStyled;
