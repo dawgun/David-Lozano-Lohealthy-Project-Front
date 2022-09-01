@@ -10,10 +10,10 @@ jest.mock("../../hooks/useUser/useUser", () => () => ({
 
 describe("Given the Register component", () => {
   describe("When it's instantiated", () => {
-    const userNamePlaceholder = "Username";
+    const userNamePlaceholder = "Usuario";
     const emailPlaceholder = "Email";
-    const passwordPlaceholder = "Password";
-    const passwordRepeatPlaceholder = "Repeat password";
+    const passwordPlaceholder = "Contraseña";
+    const passwordRepeatPlaceholder = "Repite contraseña";
 
     const userNameTextInput = "Adamov";
     const emailTextInput = "nachus@hotmail.com";

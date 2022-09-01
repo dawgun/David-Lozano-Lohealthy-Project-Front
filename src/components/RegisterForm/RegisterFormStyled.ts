@@ -6,11 +6,11 @@ const RegisterStyled = styled.section`
   align-items: center;
   justify-content: center;
   max-width: 600px;
+  background-color: white;
 
   .form-container {
     width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 1rem;
   }
 
   .register-form {
@@ -28,24 +28,6 @@ const RegisterStyled = styled.section`
       padding: 1rem;
       font-family: "Roboto";
       font-weight: bold;
-    }
-
-    &__login {
-      padding: 1rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    &__login-link {
-      color: #d43521;
-    }
-
-    &__footer {
-      margin-top: 1rem;
-      display: flex;
-      background-color: #eeeeee;
-      gap: 1rem;
-      justify-content: center;
     }
   }
   .button-disabled {

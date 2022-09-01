@@ -48,7 +48,7 @@ export const RegisterForm = () => {
               type="text"
               value={formData.userName}
               name="userName"
-              placeholder="Username"
+              placeholder="Usuario"
               onChange={handleChange}
               autoComplete="off"
               required
@@ -71,7 +71,7 @@ export const RegisterForm = () => {
               type="password"
               value={formData.password}
               name="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               onChange={handleChange}
               autoComplete="off"
               required
@@ -83,7 +83,7 @@ export const RegisterForm = () => {
               type="password"
               value={formData.repeat_password}
               name="repeat_password"
-              placeholder="Repeat password"
+              placeholder="Repite contraseña"
               onChange={handleChange}
               autoComplete="off"
               required
@@ -99,12 +99,6 @@ export const RegisterForm = () => {
             Crear cuenta
           </button>
         </form>
-        <div className="register-form__footer">
-          <span className="register-form__login">
-            ¿Ya tienes cuenta?
-            <span className="register-form__login-link">Log in</span>
-          </span>
-        </div>
       </div>
     </RegisterStyled>
   );

@@ -6,6 +6,10 @@ const RegisterPage = (): JSX.Element => {
     <RegisterPageStyled className="register-page">
       <h2 className="register-page__title">Registro</h2>
       <RegisterForm />
+      <div className="register-page__footer">
+        <span className="register-page__login">¿Ya tienes cuenta?</span>
+        <span className="register-page__login-link">Log in</span>
+      </div>
     </RegisterPageStyled>
   );
 };
