@@ -53,7 +53,7 @@ const RegisterStyled = styled.section`
   }
 
   .password-incorrect {
-    background-color: #d4352133;
+    border: 2px solid #d43521;
   }
 
   input {
