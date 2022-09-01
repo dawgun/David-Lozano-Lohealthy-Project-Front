@@ -1,46 +1,99 @@
-# Getting Started with Create React App
+# Component list
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+## App:
 
-## Available Scripts
+- Muestra: Los componentes que se hayan instanciado en su interior.
+- Recibe: Nada.
+- Estado: Mostrar/Cerrar el menu de login/logout.
+- Accion: Nada.
 
-In the project directory, you can run:
+## Header
 
-### `npm start`
+- Muestra: El titulo de la aplicacion y un boton hamburguesa.
+- Recibe: Una funcion.
+- Estado: Nada.
+- Accion: Al clicar la hamburguesa, llamar a la función recibida.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Footer
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Muestra: Las imagenes de redes sociales y texto.
+- Recibe: Nada.
+- Estado: Nada.
+- Accion: Al clicar en las imagenes de red social, redirigirte a la red social.
 
-### `npm test`
+## GameCard
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Muestra: Información básica del videojuego.
+- Recibe: La información básica del videojuego.
+- Estado: Nada.
+- Accion: Nada.
 
-### `npm run build`
+## GameCardList
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Muestra: Tantas cards de juegos como haya recibido.
+- Recibe: Una lista de juegos.
+- Estado: Nada.
+- Accion: Nada.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## GameDetail
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Muestra: La información completa de un videojuego.
+- Recibe: La información de un videojuego.
+- Estado: Nada.
+- Accion: Nada.
 
-### `npm run eject`
+## LoginForm
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Muestra: Varios inputs y un botón.
+- Recibe: Nada.
+- Estado: Los datos del formulario.
+- Accion: Al clicar en el botón de login, loginearse si es correcto el usuario introducido.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## RegisterForm
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Muestra: Varios inputs y un botón.
+- Recibe: Nada.
+- Estado: Los datos del formulario.
+- Accion: Al clicar en el botón de registrar, crear un usuario en la base de datos.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Search/Filter Form
 
-## Learn More
+- Muestra: Un formulario con un desplegable para filtar (Quizas un buscador tambien).
+- Recibe: La lista de juegos buscados/filtrados.
+- Estado: Los datos escritos en los inputs del formulario.
+- Accion: Al seleccionar un filtro, se muestre los juegos con ese filtro.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Modal
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Muestra: Un texto y color segun el error.
+- Recibe: Un texto y el tipo de error.
+- Estado: Ninguno.
+- Accion: Al clicar en el boton X cerrar el modal.
+
+## Loading
+
+- Muestra: Una imagen dinamica.
+- Recibe: Si debe mostrarse o no.
+- Estado: Nada.
+- Accion: Nada.
+
+# Data layer
+
+## Games
+
+- Crear juego
+- Borrar juego
+- Modificar juego
+- Eliminar juego
+
+## UI
+
+- Mostrar/no mostrar modal
+- Tipo de modal
+- Mensaje de modal
+- Mostrar/no mostrar loading
+
+## User
+
+- Estar/no estar logeado
+- Agregar nombre
