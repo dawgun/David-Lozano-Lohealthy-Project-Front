@@ -2,7 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
 import RegisterStyled from "./RegisterFormStyled";
 import useUser from "../../hooks/useUser/useUser";
-import validateEmail from "../../utils/emailValidator/emailValidator";
+import emailValidator from "../../utils/emailValidator/emailValidator";
 
 export const RegisterForm = () => {
   const initialState = {
@@ -28,7 +28,7 @@ export const RegisterForm = () => {
 
   const isSamePassword = formData.password === formData.repeat_password;
 
-  const isEmailValid = validateEmail(formData.email);
+  const isEmailValid = emailValidator(formData.email);
 
   const isFormValid =
     formData.userName.length > minLenght &&
