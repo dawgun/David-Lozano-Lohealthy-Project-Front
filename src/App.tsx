@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Modal from "./components/Modal/Modal";
+import Navigation from "./components/Navigation/Navigation";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { useAppSelector } from "./store/hooks";
@@ -12,6 +13,7 @@ function App() {
     <div className="main-container">
       {isModalShowing && <Modal />}
       <Header />
+      <Navigation />
       <Routes>
         <Route path="/" element={<Navigate to="/register" />} />
         <Route path="/register" element={<RegisterPage />} />
