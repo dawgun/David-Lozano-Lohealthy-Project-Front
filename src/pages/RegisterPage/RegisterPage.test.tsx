@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { store } from "../../store/store";
 import RegisterPage from "./RegisterPage";
 
 describe("Given the RegisterPage page", () => {
@@ -8,9 +10,11 @@ describe("Given the RegisterPage page", () => {
       const headingText = "Registro";
 
       render(
-        <BrowserRouter>
-          <RegisterPage />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <RegisterPage />
+          </BrowserRouter>
+        </Provider>
       );
       const expectedText = screen.getByRole("heading", { name: headingText });
 
