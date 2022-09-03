@@ -5,6 +5,12 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "../../store/store";
 import LoginForm from "./LoginForm";
 
+const mockuserLogin = jest.fn();
+
+jest.mock("../../hooks/useUser/useUser", () => () => ({
+  userLogin: mockuserLogin,
+}));
+
 describe("Given the Register component", () => {
   describe("When it's instantiated", () => {
     const userNamePlaceholder = "Usuario";
@@ -59,6 +65,45 @@ describe("Given the Register component", () => {
         await userEvent.type(passwordInput, passwordTextInput);
 
         expect(passwordInput).toHaveValue(passwordTextInput);
+      });
+    });
+
+    describe("And user doesn't type and click on register button", () => {
+      test("Then it doesn't call userLogin function", async () => {
+        render(
+          <Provider store={store}>
+            <BrowserRouter>
+              <LoginForm />
+            </BrowserRouter>
+          </Provider>
+        );
+        const button = screen.getByRole("button", { name: "Login" });
+        await userEvent.click(button);
+
+        expect(mockuserLogin).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("And user types correctly in form and click on register button", () => {
+      test("Then it call userLogin function", async () => {
+        render(
+          <Provider store={store}>
+            <BrowserRouter>
+              <LoginForm />
+            </BrowserRouter>
+          </Provider>
+        );
+        const button = screen.getByRole("button", {
+          name: "Login",
+        });
+        const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
+        const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
+
+        await userEvent.type(userNameInput, userNameTextInput);
+        await userEvent.type(passwordInput, passwordTextInput);
+        await userEvent.click(button);
+
+        expect(mockuserLogin).toHaveBeenCalled();
       });
     });
   });
