@@ -1,12 +1,15 @@
+import { Navigate, useNavigate } from "react-router-dom";
 import { ProtoUser } from "../../models/Users/Users";
 import { useAppDispatch } from "../../store/hooks";
-import { User } from "../../store/user/model/user";
+import { openModalActionCreator } from "../../store/UI/UISlice";
+import { UserLogin } from "../../store/user/model/user";
 import { loginUserActionCreator } from "../../store/user/userSlice";
 import fetchToken from "../../utils/auth/auth";
 
 const useUser = () => {
   const urlAPI = process.env.REACT_APP_API_URL;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const userRegister = async (formRegisterData: ProtoUser) => {
     try {
@@ -17,6 +20,7 @@ const useUser = () => {
           "Content-type": "application/json",
         },
       });
+
       if (!response.ok) {
         throw new Error();
       }
@@ -26,21 +30,34 @@ const useUser = () => {
     return true;
   };
 
-  const userLogin = async (formLoginData: User) => {
-    const data = await fetch(urlAPI + "user/login/", {
-      method: "POST",
-      body: JSON.stringify(formLoginData),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
+  const userLogin = async (formLoginData: UserLogin) => {
+    let response;
+    try {
+      response = await fetch(urlAPI + "user/login/", {
+        method: "POST",
+        body: JSON.stringify(formLoginData),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
 
-    const { userToken } = await data.json();
-
-    const user = fetchToken(userToken);
+      if (!response.ok) {
+        throw new Error();
+      }
+    } catch (error) {
+      dispatch(
+        openModalActionCreator({
+          message: "Usuario o contraseña incorrecta",
+          type: false,
+        })
+      );
+    }
+    const { token } = await (response as Response).json();
+    const user = fetchToken(token);
 
     dispatch(loginUserActionCreator(user));
     localStorage.setItem("token", user.token);
+    navigate("/home");
   };
 
   return { userRegister, userLogin };
