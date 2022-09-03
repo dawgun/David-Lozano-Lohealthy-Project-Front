@@ -1,7 +1,10 @@
-interface UIState {
+export interface UIState {
   isModalShowing: boolean;
   message: string;
   type: boolean;
 }
 
-export default UIState;
+export interface Modal {
+  message: string;
+  type: boolean;
+}
