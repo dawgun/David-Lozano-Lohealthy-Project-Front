@@ -6,7 +6,8 @@ const RegisterPageStyled = styled.section`
   margin-top: 0;
   padding: 1rem;
 
-  .register-page {
+  .register-page,
+  .login-page {
     &__title {
       color: white;
       margin: 0;
@@ -18,7 +19,8 @@ const RegisterPageStyled = styled.section`
       width: 100%;
     }
 
-    &__login-link {
+    &__login-link,
+    &__register-link {
       color: #d43521;
       font-weight: 900;
     }
@@ -31,6 +33,12 @@ const RegisterPageStyled = styled.section`
       align-items: center;
       padding: 1rem;
     }
+  }
+
+  .nav-link {
+    color: #d43521;
+    font-weight: 900;
+    text-decoration: none;
   }
 `;
 
