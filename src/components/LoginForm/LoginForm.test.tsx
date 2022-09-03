@@ -1,5 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { store } from "../../store/store";
 import LoginForm from "./LoginForm";
 
 describe("Given the Register component", () => {
@@ -11,7 +14,13 @@ describe("Given the Register component", () => {
     const passwordTextInput = "12345";
 
     test("Then should show userName and password inputs", () => {
-      render(<LoginForm />);
+      render(
+        <Provider store={store}>
+          <BrowserRouter>
+            <LoginForm />
+          </BrowserRouter>
+        </Provider>
+      );
       const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
       const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
 
@@ -21,7 +30,13 @@ describe("Given the Register component", () => {
 
     describe("And user type 'Dan' in userName input", () => {
       test("Then should show 'Dan' in userName input", async () => {
-        render(<LoginForm />);
+        render(
+          <Provider store={store}>
+            <BrowserRouter>
+              <LoginForm />
+            </BrowserRouter>
+          </Provider>
+        );
 
         const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
         await userEvent.type(userNameInput, userNameTextInput);
@@ -32,7 +47,13 @@ describe("Given the Register component", () => {
 
     describe("And user type '12345' in password input", () => {
       test("Then should show '12345' in password input", async () => {
-        render(<LoginForm />);
+        render(
+          <Provider store={store}>
+            <BrowserRouter>
+              <LoginForm />
+            </BrowserRouter>
+          </Provider>
+        );
 
         const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
         await userEvent.type(passwordInput, passwordTextInput);

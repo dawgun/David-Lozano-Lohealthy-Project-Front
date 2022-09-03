@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { store } from "../../store/store";
 import LoginPage from "./LoginPage";
 
 describe("Given the LoginPage page", () => {
@@ -8,9 +10,11 @@ describe("Given the LoginPage page", () => {
       const headingText = "Login";
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <LoginPage />
+          </BrowserRouter>
+        </Provider>
       );
       const expectedText = screen.getByRole("heading", { name: headingText });
 
@@ -21,9 +25,11 @@ describe("Given the LoginPage page", () => {
       const text = "¿No tienes cuenta?";
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <LoginPage />
+          </BrowserRouter>
+        </Provider>
       );
       const expectedText = screen.getByText(text);
 
@@ -34,9 +40,11 @@ describe("Given the LoginPage page", () => {
       const text = "Registrate";
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <LoginPage />
+          </BrowserRouter>
+        </Provider>
       );
       const expectedText = screen.getByRole("link", { name: text });
 

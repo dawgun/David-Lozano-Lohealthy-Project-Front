@@ -1,5 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
+import useUser from "../../hooks/useUser/useUser";
 import LoginStyled from "../RegisterForm/RegisterFormStyled";
 
 export const LoginForm = () => {
@@ -10,6 +11,7 @@ export const LoginForm = () => {
   const minLenght = 4;
 
   const [formData, setFormData] = useState(initialState);
+  const { userLogin } = useUser();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -17,6 +19,7 @@ export const LoginForm = () => {
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
+    await userLogin(formData);
     setFormData(initialState);
   };
 
