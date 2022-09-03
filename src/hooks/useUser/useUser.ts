@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProtoUser } from "../../models/Users/Users";
 import { useAppDispatch } from "../../store/hooks";
 import { openModalActionCreator } from "../../store/UI/UISlice";
