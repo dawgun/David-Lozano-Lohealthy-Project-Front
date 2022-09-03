@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import RegisterPage from "./RegisterPage";
 
 describe("Given the RegiterPage page", () => {
@@ -6,7 +7,11 @@ describe("Given the RegiterPage page", () => {
     test("Then should show 'Registro' in heading", () => {
       const headingText = "Registro";
 
-      render(<RegisterPage />);
+      render(
+        <BrowserRouter>
+          <RegisterPage />
+        </BrowserRouter>
+      );
       const expectedText = screen.getByRole("heading", { name: headingText });
 
       expect(expectedText).toBeInTheDocument();

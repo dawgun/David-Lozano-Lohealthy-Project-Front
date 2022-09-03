@@ -40,66 +40,63 @@ export const RegisterForm = () => {
 
   return (
     <RegisterStyled className="register-form">
-      <div className="register-form__header"></div>
-      <div className="form-container">
-        <form onSubmit={handleSubmit} noValidate>
-          <div>
-            <input
-              type="text"
-              value={formData.userName}
-              name="userName"
-              placeholder="Usuario"
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              value={formData.email}
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              autoComplete="off"
-              className={!isEmailValid ? "input-incorrect" : ""}
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              value={formData.password}
-              name="password"
-              placeholder="Contraseña"
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
-          </div>
-          <div>
-            <input
-              className={!isSamePassword ? "input-incorrect" : ""}
-              type="password"
-              value={formData.repeat_password}
-              name="repeat_password"
-              placeholder="Repite contraseña"
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
-          </div>
-          <button
-            className={`register-form__button${
-              !isFormValid ? " button-disabled" : ""
-            }`}
-            type="submit"
-            disabled={!isFormValid}
-          >
-            Crear cuenta
-          </button>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit} noValidate>
+        <div>
+          <input
+            type="text"
+            value={formData.userName}
+            name="userName"
+            placeholder="Usuario"
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            value={formData.email}
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            autoComplete="off"
+            className={!isEmailValid ? "input-incorrect" : ""}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            value={formData.password}
+            name="password"
+            placeholder="Contraseña"
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+        </div>
+        <div>
+          <input
+            className={!isSamePassword ? "input-incorrect" : ""}
+            type="password"
+            value={formData.repeat_password}
+            name="repeat_password"
+            placeholder="Repite contraseña"
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+        </div>
+        <button
+          className={`register-form__button${
+            !isFormValid ? " button-disabled" : ""
+          }`}
+          type="submit"
+          disabled={!isFormValid}
+        >
+          Crear cuenta
+        </button>
+      </form>
     </RegisterStyled>
   );
 };

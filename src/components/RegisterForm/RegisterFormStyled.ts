@@ -7,13 +7,11 @@ const RegisterStyled = styled.section`
   justify-content: center;
   max-width: 600px;
   background-color: white;
+  width: 100%;
+  padding: 1rem;
 
-  .form-container {
-    width: 100%;
-    padding: 1rem;
-  }
-
-  .register-form {
+  .register-form,
+  .login-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -30,6 +28,7 @@ const RegisterStyled = styled.section`
       font-weight: bold;
     }
   }
+
   .button-disabled {
     background-color: #d43521aa;
   }
