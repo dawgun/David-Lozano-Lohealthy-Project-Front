@@ -86,6 +86,11 @@ describe("Given the Register component", () => {
 
     describe("And user types correctly in form and click on register button", () => {
       test("Then it call userLogin function", async () => {
+        const formData = {
+          userName: userNameTextInput,
+          password: passwordTextInput,
+        };
+
         render(
           <Provider store={store}>
             <BrowserRouter>
@@ -103,7 +108,7 @@ describe("Given the Register component", () => {
         await userEvent.type(passwordInput, passwordTextInput);
         await userEvent.click(button);
 
-        expect(mockuserLogin).toHaveBeenCalled();
+        expect(mockuserLogin).toHaveBeenCalledWith(formData);
       });
     });
   });
