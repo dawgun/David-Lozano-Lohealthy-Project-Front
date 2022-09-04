@@ -5,6 +5,12 @@ const NotFoundPageStyled = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+
+  .notfound-page {
+    &__title {
+      margin-bottom: 1rem;
+    }
+  }
 `;
 
 export default NotFoundPageStyled;
