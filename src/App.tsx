@@ -8,11 +8,20 @@ import UserMenu from "./components/UserMenu/UserMenu";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import { useAppSelector } from "./store/hooks";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { loginUserActionCreator } from "./store/user/userSlice";
+import fetchToken from "./utils/auth/auth";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const { isModalShowing } = useAppSelector((state) => state.ui);
+  const token = localStorage.getItem("token");
+  const dispach = useAppDispatch();
+
+  if (token) {
+    const user = fetchToken(token);
+    dispach(loginUserActionCreator(user));
+  }
 
   const menuToogleHandler = () => {
     setIsOpen(!isOpen);
