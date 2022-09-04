@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import useUser from "../../hooks/useUser/useUser";
 import { useAppSelector } from "../../store/hooks";
 import UserMenuStyled from "./UserMenuStyled";
 
@@ -8,6 +9,11 @@ interface UserMenuProps {
 
 const UserMenu = ({ actionOnClick }: UserMenuProps): JSX.Element => {
   const { isLogged, user } = useAppSelector((state) => state.user);
+  const { userLogout } = useUser();
+
+  const logoutHandler = () => {
+    userLogout();
+  };
 
   if (!isLogged) {
     return (
@@ -32,7 +38,9 @@ const UserMenu = ({ actionOnClick }: UserMenuProps): JSX.Element => {
           alt={"Profile pic representing user"}
         ></img>
       </span>
-      <span className="menu-user__logout">Logout</span>
+      <button className="menu-user__logout" onClick={logoutHandler}>
+        Logout
+      </button>
     </UserMenuStyled>
   );
 };

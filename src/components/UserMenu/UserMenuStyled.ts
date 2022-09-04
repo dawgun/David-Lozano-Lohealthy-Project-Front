@@ -23,6 +23,14 @@ const UserMenuStyled = styled.section`
 
     &__logout {
       padding: 1rem;
+      background-color: inherit;
+      border: 0;
+      color: white;
+      display: inherit;
+      font-weight: 900;
+      font-size: 1rem;
+      font-family: Roboto;
+      cursor: pointer;
     }
   }
 
