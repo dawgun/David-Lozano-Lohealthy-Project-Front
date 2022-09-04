@@ -3,7 +3,7 @@ interface Game {
   image: string;
   players: string;
   genre: string;
-  release: Date;
+  release: string;
   synopsis: string;
   id: string;
 }
