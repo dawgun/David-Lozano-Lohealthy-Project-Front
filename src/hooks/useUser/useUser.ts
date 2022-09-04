@@ -3,7 +3,10 @@ import { ProtoUser } from "../../models/Users/Users";
 import { useAppDispatch } from "../../store/hooks";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import { UserLogin } from "../../store/user/model/user";
-import { loginUserActionCreator } from "../../store/user/userSlice";
+import {
+  loginUserActionCreator,
+  logoutUserActionCreator,
+} from "../../store/user/userSlice";
 import fetchToken from "../../utils/auth/auth";
 
 const useUser = () => {
@@ -60,7 +63,12 @@ const useUser = () => {
     navigate("/home");
   };
 
-  return { userRegister, userLogin };
+  const userLogout = () => {
+    dispatch(logoutUserActionCreator());
+    localStorage.removeItem("token");
+  };
+
+  return { userRegister, userLogin, userLogout };
 };
 
 export default useUser;

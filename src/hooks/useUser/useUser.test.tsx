@@ -4,7 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import { ProtoUser } from "../../models/Users/Users";
 import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
-import { loginUserActionCreator } from "../../store/user/userSlice";
+import {
+  loginUserActionCreator,
+  logoutUserActionCreator,
+} from "../../store/user/userSlice";
 import useUser from "./useUser";
 
 const mockDispatch = jest.fn();
@@ -83,7 +86,7 @@ describe("Given the useUser custom hook", () => {
       password: "facherito",
     };
     describe("And called with a valid user", () => {
-      test("Then should dispatch has been called with", async () => {
+      test("Then should dispatch has been called with an user", async () => {
         const { result } = renderHook(() => useUser(), {
           wrapper: Wrapper,
         });
@@ -92,6 +95,22 @@ describe("Given the useUser custom hook", () => {
 
         expect(mockDispatch).toHaveBeenCalledWith(
           loginUserActionCreator(mockuserWithToken)
+        );
+      });
+
+      test("Then should localStorage with setItem method has been called with 'token' and user token", async () => {
+        jest.spyOn(Storage.prototype, "setItem");
+        Storage.prototype.setItem = jest.fn();
+        const localStorageKey = "token";
+
+        const { result } = renderHook(() => useUser(), {
+          wrapper: Wrapper,
+        });
+        await result.current.userLogin(userLogin);
+
+        expect(localStorage.setItem).toHaveBeenCalledWith(
+          localStorageKey,
+          mockuserWithToken.token
         );
       });
 
@@ -124,6 +143,32 @@ describe("Given the useUser custom hook", () => {
           openModalActionCreator(payloadModal)
         );
       });
+    });
+  });
+
+  describe("When userLogout it's called", () => {
+    test("Then dispatch to have been called with logout action", async () => {
+      const { result } = renderHook(() => useUser(), {
+        wrapper: Wrapper,
+      });
+
+      await result.current.userLogout();
+
+      expect(mockDispatch).toHaveBeenCalledWith(logoutUserActionCreator());
+    });
+
+    test("Then localStorage with removeItem method to have been called with key 'token'", async () => {
+      jest.spyOn(Storage.prototype, "removeItem");
+      Storage.prototype.removeItem = jest.fn();
+      const localStorageKey = "token";
+
+      const { result } = renderHook(() => useUser(), {
+        wrapper: Wrapper,
+      });
+
+      await result.current.userLogout();
+
+      expect(localStorage.removeItem).toHaveBeenCalledWith(localStorageKey);
     });
   });
 });

@@ -11,7 +11,7 @@ const Navigation = (): JSX.Element => {
         <NavLink to={"/juegos"} className="nav-link">
           Juegos
         </NavLink>
-        <NavLink to={"/misjuegos"} className="nav-link">
+        <NavLink to={"/mis-juegos"} className="nav-link">
           Mis Juegos
         </NavLink>
       </div>
