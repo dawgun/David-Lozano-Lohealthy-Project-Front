@@ -13,6 +13,12 @@ const mockSelectorReturn = {
   },
 };
 
+const mockuserLogout = jest.fn();
+
+jest.mock("../../hooks/useUser/useUser", () => () => ({
+  userLogout: mockuserLogout,
+}));
+
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useSelector: () => mockSelectorReturn,
@@ -76,19 +82,22 @@ describe("Given the UserMenu component", () => {
       expect(image).toBeInTheDocument();
     });
 
-    test("Then should show 'Logout'", async () => {
-      const logoutText = "Logout";
+    describe("And user click on button 'Logout'", () => {
+      test("Then should have been called userLogout function", async () => {
+        const logoutText = "Logout";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <UserMenu actionOnClick={() => {}} />
-          </BrowserRouter>
-        </Provider>
-      );
-      const text = screen.getByText(logoutText);
+        render(
+          <Provider store={store}>
+            <BrowserRouter>
+              <UserMenu actionOnClick={() => {}} />
+            </BrowserRouter>
+          </Provider>
+        );
+        const button = screen.getByRole("button", { name: logoutText });
+        await userEvent.click(button);
 
-      expect(text).toBeInTheDocument();
+        expect(mockuserLogout).toHaveBeenCalled();
+      });
     });
   });
 });

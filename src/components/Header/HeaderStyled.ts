@@ -14,6 +14,7 @@ const HeaderStyled = styled.header`
       background: inherit;
       border: 0;
       padding: 0;
+      cursor: pointer;
     }
     &-title {
       margin: 0;
