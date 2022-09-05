@@ -33,7 +33,7 @@ describe("Given the GameCard component", () => {
     });
 
     test("Then should show the synopsys cutted", () => {
-      const title = `${game.synopsis.slice(0, 50)}...`;
+      const title = `${game.synopsis.slice(0, 100)}...`;
 
       render(<GameCard game={game} />);
       const gameSynopsis = screen.getByText(title);

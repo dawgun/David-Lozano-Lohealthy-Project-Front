@@ -10,8 +10,8 @@ const HomePage = (): JSX.Element => {
   }, [getAllGames]);
 
   return (
-    <HomePageStyled>
-      <h2>Home</h2>
+    <HomePageStyled className="homepage-container">
+      <h2 className="homepage__title">Home</h2>
       <GameCardList />
     </HomePageStyled>
   );
