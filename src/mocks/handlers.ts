@@ -14,4 +14,12 @@ export const handlers = [
     const status = userName === "" ? 400 : 200;
     return res(ctx.status(status), ctx.json("token"));
   }),
+
+  rest.get(`${apiUrl}games`, async (req, res, ctx) => {
+    return res.once(ctx.status(200), ctx.json([]));
+  }),
+
+  rest.get(`${apiUrl}games`, async (req, res, ctx) => {
+    return res.once(ctx.status(400));
+  }),
 ];
