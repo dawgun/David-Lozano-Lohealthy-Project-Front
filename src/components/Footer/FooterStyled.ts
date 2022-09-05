@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FooterStyled = styled.section`
+const FooterStyled = styled.footer`
   background-color: #d43521;
   color: white;
   display: flex;
