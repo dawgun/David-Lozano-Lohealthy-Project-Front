@@ -6,26 +6,26 @@ interface GameCardProps {
 }
 
 const GameCard = ({ game }: GameCardProps): JSX.Element => {
-  const maxLettersSynopsis = 50;
+  const maxLettersSynopsis = 100;
   return (
-    <GameCardStyled>
-      <div className="game">
-        <img
-          src={game.image}
-          alt={`${game.title} game`}
-          className="game__image"
-        ></img>
-        <div className="game__info">
-          <h3 className="game__title">{game.title}</h3>
-          <div className="game__details">
-            <p className="game__synopsis">{`${game.synopsis.slice(
-              0,
-              maxLettersSynopsis
-            )}...`}</p>
-            <button className="game__button" onClick={() => {}}>
-              Info
-            </button>
-          </div>
+    <GameCardStyled className="game">
+      <img
+        width={320}
+        height={180}
+        src={game.image}
+        alt={`${game.title} game`}
+        className="game__image"
+      ></img>
+      <div className="game__info">
+        <h3 className="game__title">{game.title}</h3>
+        <div className="game__details">
+          <p className="game__synopsis">{`${game.synopsis.slice(
+            0,
+            maxLettersSynopsis
+          )}...`}</p>
+          <button className="game__button" onClick={() => {}}>
+            Info
+          </button>
         </div>
       </div>
     </GameCardStyled>
