@@ -16,7 +16,7 @@ export const handlers = [
   }),
 
   rest.get(`${apiUrl}games`, async (req, res, ctx) => {
-    return res.once(ctx.status(200), ctx.json([]));
+    return res.once(ctx.status(200), ctx.json({ games: [] }));
   }),
 
   rest.get(`${apiUrl}games`, async (req, res, ctx) => {
