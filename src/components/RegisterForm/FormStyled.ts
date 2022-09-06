@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const RegisterStyled = styled.section`
+const FormStyled = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,13 +9,11 @@ const RegisterStyled = styled.section`
   background-color: white;
   width: 100%;
   padding: 1rem;
+  max-width: 50rem;
+  min-width: 20rem;
 
   .register-form,
   .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
     &__button {
       background-color: #d43521;
       font-size: 1rem;
@@ -41,11 +39,17 @@ const RegisterStyled = styled.section`
     border-radius: 1px;
     border: 1px solid #858383;
     margin-bottom: 1rem;
-    min-width: 100%;
     padding: 1rem;
     font-size: 16px;
     font-weight: bold;
+    min-width: 18rem;
+    max-width: 48rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: 40rem;
+    }
   }
 `;
 
-export default RegisterStyled;
+export default FormStyled;
