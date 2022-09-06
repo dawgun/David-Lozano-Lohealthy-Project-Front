@@ -4,6 +4,7 @@ const GameCardStyled = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 20rem;
 
   .game {
     &__button {
@@ -21,10 +22,6 @@ const GameCardStyled = styled.article`
     &__details {
       display: flex;
       align-items: center;
-    }
-
-    &__image {
-      width: 100%;
     }
 
     &__synopsis {

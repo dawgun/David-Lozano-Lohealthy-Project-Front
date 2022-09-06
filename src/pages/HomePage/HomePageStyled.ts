@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const HomePageStyled = styled.section`
   padding: 1rem;
+  flex: 1;
 
   .homepage {
     &__title {
