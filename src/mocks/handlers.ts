@@ -22,4 +22,12 @@ export const handlers = [
   rest.get(`${apiUrl}games`, async (req, res, ctx) => {
     return res.once(ctx.status(400));
   }),
+
+  rest.delete(`${apiUrl}games/delete/1`, async (req, res, ctx) => {
+    return res(ctx.status(200));
+  }),
+
+  rest.delete(`${apiUrl}games/delete/2`, async (req, res, ctx) => {
+    return res(ctx.status(400));
+  }),
 ];

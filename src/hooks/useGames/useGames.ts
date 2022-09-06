@@ -25,7 +25,7 @@ const useGames = () => {
     }
   }, [urlAPI, dispatch]);
 
-  const deleteGame = async (idGame: number) => {
+  const deleteGame = async (idGame: string) => {
     try {
       const response = await fetch(`${urlAPI}games/delete/${idGame}`, {
         method: "DELETE",
