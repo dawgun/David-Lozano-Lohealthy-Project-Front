@@ -7,6 +7,7 @@ const FormPageStyled = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 
   .register-page,
   .login-page {
