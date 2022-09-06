@@ -60,7 +60,7 @@ const useUser = () => {
 
     dispatch(loginUserActionCreator(user));
     localStorage.setItem("token", user.token);
-    navigate("/home");
+    navigate(-1);
   };
 
   const userLogout = () => {

@@ -115,7 +115,7 @@ describe("Given the useUser custom hook", () => {
       });
 
       test("Then should navigation has been called with '/home'", async () => {
-        const pathNavigate = "/home";
+        const pathNavigate = -1;
         const { result } = renderHook(() => useUser(), {
           wrapper: Wrapper,
         });
