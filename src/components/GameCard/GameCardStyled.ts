@@ -24,7 +24,7 @@ const GameCardStyled = styled.article`
     }
 
     &__image {
-      min-width: 100%;
+      width: 100%;
     }
 
     &__synopsis {

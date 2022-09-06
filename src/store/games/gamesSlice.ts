@@ -7,12 +7,17 @@ const gamesSlice = createSlice({
   name: "games",
   initialState: gameInitialState,
   reducers: {
-    loadGames: (_previousUI: Game[], action: PayloadAction<Game[]>) => [
+    loadGames: (_previousGame: Game[], action: PayloadAction<Game[]>) => [
       ...action.payload,
     ],
+    deleteGame: (previousGame: Game[], action: PayloadAction<string>) =>
+      previousGame.filter((game) => game.id !== action.payload),
   },
 });
 
 export const gameReducer = gamesSlice.reducer;
 
-export const { loadGames: loadGamesActionCreator } = gamesSlice.actions;
+export const {
+  loadGames: loadGamesActionCreator,
+  deleteGame: deleteGameActionCreator,
+} = gamesSlice.actions;
