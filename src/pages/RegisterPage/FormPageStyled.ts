@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const FormPageStyled = styled.section`
   background-color: #292929;
-  height: 100vh;
   margin-top: 0;
   padding: 1rem;
   display: flex;

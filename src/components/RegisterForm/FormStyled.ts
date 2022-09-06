@@ -11,7 +11,6 @@ const FormStyled = styled.section`
   padding: 1rem;
   max-width: 50rem;
   min-width: 20rem;
-  height: 20rem;
 
   .register-form,
   .login-form {
