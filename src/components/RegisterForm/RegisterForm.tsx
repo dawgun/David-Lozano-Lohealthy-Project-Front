@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
-import RegisterStyled from "./RegisterFormStyled";
+import RegisterStyled from "./FormStyled";
 import useUser from "../../hooks/useUser/useUser";
 import emailValidator from "../../utils/emailValidator/emailValidator";
 

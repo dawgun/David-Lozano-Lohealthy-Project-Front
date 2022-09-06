@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
 import useUser from "../../hooks/useUser/useUser";
-import LoginStyled from "../RegisterForm/RegisterFormStyled";
+import LoginStyled from "../RegisterForm/FormStyled";
 
 export const LoginForm = () => {
   const initialState = {
