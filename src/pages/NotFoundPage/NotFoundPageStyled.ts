@@ -5,6 +5,7 @@ const NotFoundPageStyled = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  flex: 1;
 
   .notfound-page {
     &__title {

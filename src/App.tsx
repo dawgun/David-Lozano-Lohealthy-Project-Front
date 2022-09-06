@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import AppStyled from "./AppStyled";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Modal from "./components/Modal/Modal";
@@ -29,7 +30,7 @@ function App() {
   };
 
   return (
-    <div className="main-container">
+    <AppStyled className="main-container">
       {isModalShowing && <Modal />}
       <Header actionOnClick={menuToogleHandler} />
       <Navigation />
@@ -42,7 +43,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
-    </div>
+    </AppStyled>
   );
 }
 
