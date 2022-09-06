@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
-import RegisterPageStyled from "./RegisterPageStyled";
+import RegisterPageStyled from "./FormPageStyled";
 
 const RegisterPage = (): JSX.Element => {
   return (

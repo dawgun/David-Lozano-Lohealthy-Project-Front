@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-const RegisterPageStyled = styled.section`
+const FormPageStyled = styled.section`
   background-color: #292929;
   height: 100vh;
   margin-top: 0;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .register-page,
   .login-page {
@@ -17,6 +20,8 @@ const RegisterPageStyled = styled.section`
       text-transform: uppercase;
       background-color: #d43521;
       width: 100%;
+      max-width: 50rem;
+      min-width: 20rem;
     }
 
     &__login-link,
@@ -32,6 +37,9 @@ const RegisterPageStyled = styled.section`
       justify-content: center;
       align-items: center;
       padding: 1rem;
+      max-width: 50rem;
+      min-width: 20rem;
+      width: 100%;
     }
   }
 
@@ -42,4 +50,4 @@ const RegisterPageStyled = styled.section`
   }
 `;
 
-export default RegisterPageStyled;
+export default FormPageStyled;

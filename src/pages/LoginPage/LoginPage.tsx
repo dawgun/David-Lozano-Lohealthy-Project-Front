@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import LoginForm from "../../components/LoginForm/LoginForm";
-import LoginPageStyled from "../RegisterPage/RegisterPageStyled";
+import LoginPageStyled from "../RegisterPage/FormPageStyled";
 
 const LoginPage = (): JSX.Element => {
   return (
