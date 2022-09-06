@@ -11,6 +11,7 @@ const FormStyled = styled.section`
   padding: 1rem;
   max-width: 50rem;
   min-width: 20rem;
+  height: 20rem;
 
   .register-form,
   .login-form {
@@ -38,7 +39,7 @@ const FormStyled = styled.section`
   input {
     border-radius: 1px;
     border: 1px solid #858383;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     padding: 1rem;
     font-size: 16px;
     font-weight: bold;
