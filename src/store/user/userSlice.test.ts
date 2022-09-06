@@ -9,15 +9,16 @@ describe("Given userSlice", () => {
         user: {
           userName: "",
           image: "",
+          token: "",
         },
       };
       const userPayload = {
         type: "user/loginUser",
-        payload: { userName: "Pablo", image: "" },
+        payload: { userName: "Pablo", image: "pablo.jpg", token: "g7s8ag8a" },
       };
       const expectedNewState: UserLoginState = {
         isLogged: true,
-        user: { userName: "Pablo", image: "" },
+        user: { userName: "Pablo", image: "pablo.jpg", token: "g7s8ag8a" },
       };
 
       const newState = userReducer(previousUserState, userPayload);
@@ -33,6 +34,7 @@ describe("Given userSlice", () => {
         user: {
           userName: "Marius",
           image: "marius.jpg",
+          token: "87f8fa8asf0s",
         },
       };
       const userPayload = {
@@ -40,7 +42,7 @@ describe("Given userSlice", () => {
       };
       const expectedNewState: UserLoginState = {
         isLogged: false,
-        user: { userName: "", image: "" },
+        user: { userName: "", image: "", token: "" },
       };
 
       const newState = userReducer(previousUserState, userPayload);

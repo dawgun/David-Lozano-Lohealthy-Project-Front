@@ -1,11 +1,12 @@
 import { useCallback } from "react";
 import { loadGamesActionCreator } from "../../store/games/gamesSlice";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 
 const useGames = () => {
   const urlAPI = process.env.REACT_APP_API_URL;
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
 
   const getAllGames = useCallback(async () => {
     try {
@@ -23,7 +24,33 @@ const useGames = () => {
       );
     }
   }, [urlAPI, dispatch]);
-  return { getAllGames };
+
+  const deleteGame = async (idGame: string) => {
+    try {
+      const response = await fetch(`${urlAPI}games/delete/${idGame}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+    } catch {
+      dispatch(
+        openModalActionCreator({
+          message: "Error borrando el juego",
+          type: false,
+        })
+      );
+    }
+
+    dispatch(openModalActionCreator({ message: "Juego borrado", type: true }));
+  };
+
+  return { getAllGames, deleteGame };
 };
 
 export default useGames;
