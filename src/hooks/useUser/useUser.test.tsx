@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { Provider, useDispatch } from "react-redux";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 import { ProtoUser } from "../../models/Users/Users";
 import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
@@ -59,23 +59,44 @@ describe("Given the useUser custom hook", () => {
 
   describe("When userRegister it's called", () => {
     describe("And called with a valid user", () => {
-      test("Then should return true", async () => {
+      test("Then should navigate has been called with '/login'", async () => {
+        const linkNavigate = "/login";
+
         const { result } = renderHook(() => useUser(), { wrapper: Wrapper });
+        await result.current.userRegister(user);
 
-        const resultUserRegister = await result.current.userRegister(user);
+        expect(mockNavigate).toHaveBeenCalledWith(linkNavigate);
+      });
 
-        expect(resultUserRegister).toBe(true);
+      test("Then should dispatch has been called with action openModal with succesful message", async () => {
+        const payloadModalSuccessfulAction = {
+          message: "Cuenta creada satisfactoriamente",
+          type: true,
+        };
+
+        const { result } = renderHook(() => useUser(), { wrapper: Wrapper });
+        await result.current.userRegister(user);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadModalSuccessfulAction)
+        );
       });
     });
 
     describe("And called with a invalid user", () => {
-      test("Then should return false", async () => {
+      test("Then should dispatch has been called with action openModal with error message", async () => {
         user.userName = "";
+        const payloadModalErrorAction = {
+          message: "Error al crear cuenta",
+          type: false,
+        };
         const { result } = renderHook(() => useUser(), { wrapper: Wrapper });
 
-        const resultUserRegister = await result.current.userRegister(user);
+        await result.current.userRegister(user);
 
-        expect(resultUserRegister).toBe(false);
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadModalErrorAction)
+        );
       });
     });
   });
@@ -86,7 +107,7 @@ describe("Given the useUser custom hook", () => {
       password: "facherito",
     };
     describe("And called with a valid user", () => {
-      test("Then should dispatch has been called with an user", async () => {
+      test("Then should dispatch has been called with action login with an user", async () => {
         const { result } = renderHook(() => useUser(), {
           wrapper: Wrapper,
         });
