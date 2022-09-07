@@ -28,9 +28,15 @@ const useUser = () => {
         throw new Error();
       }
     } catch (error) {
-      return false;
+      dispatch(
+        openModalActionCreator({
+          message: "Error al crear cuenta",
+          type: false,
+        })
+      );
+      return;
     }
-    return true;
+    navigate("/login");
   };
 
   const userLogin = async (formLoginData: UserLogin) => {
