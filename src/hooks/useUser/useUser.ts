@@ -36,6 +36,12 @@ const useUser = () => {
       );
       return;
     }
+    dispatch(
+      openModalActionCreator({
+        message: "Cuenta creada satisfactoriamente",
+        type: true,
+      })
+    );
     navigate("/login");
   };
 
