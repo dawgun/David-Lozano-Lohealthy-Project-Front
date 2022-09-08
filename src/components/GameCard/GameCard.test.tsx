@@ -102,7 +102,9 @@ describe("Given the GameCard component", () => {
     });
 
     describe("And user is owner of game owner", () => {
-      test("Then show button with 'X'", () => {
+      const iconId = "delete-icon";
+
+      test("Then show button with icon 'X'", () => {
         mockSelectorReturn.user.id = "2";
 
         render(
@@ -111,7 +113,7 @@ describe("Given the GameCard component", () => {
           </Provider>
         );
 
-        const buttonDelete = screen.getByRole("button", { name: "X" });
+        const buttonDelete = screen.getByTestId(iconId);
 
         expect(buttonDelete).toBeInTheDocument();
       });
@@ -124,7 +126,7 @@ describe("Given the GameCard component", () => {
             <GameCard game={game} />
           </Provider>
         );
-        const buttonDelete = screen.getByRole("button", { name: "X" });
+        const buttonDelete = screen.getByTestId(iconId);
         await userEvent.click(buttonDelete);
 
         expect(mockDeleteGame).toHaveBeenCalledWith(game.id);

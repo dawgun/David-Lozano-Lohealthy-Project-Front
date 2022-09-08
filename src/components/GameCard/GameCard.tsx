@@ -36,7 +36,7 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
       </div>
       {isSamePerson && (
         <button className="game__delete" onClick={() => deleteGame(game.id)}>
-          <TiDelete />
+          <TiDelete data-testid="delete-icon" />
         </button>
       )}
     </GameCardStyled>
