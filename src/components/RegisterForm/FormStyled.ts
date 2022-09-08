@@ -5,12 +5,17 @@ const FormStyled = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 600px;
   background-color: white;
-  width: 100%;
+  width: 20rem;
   padding: 1rem;
-  max-width: 50rem;
-  min-width: 20rem;
+
+  @media (min-width: 768px) {
+    width: 30rem;
+  }
+
+  form {
+    width: 100%;
+  }
 
   .register-form,
   .login-form {
@@ -42,13 +47,7 @@ const FormStyled = styled.section`
     padding: 1rem;
     font-size: 16px;
     font-weight: bold;
-    min-width: 18rem;
-    max-width: 48rem;
     width: 100%;
-
-    @media (min-width: 768px) {
-      width: 40rem;
-    }
   }
 `;
 

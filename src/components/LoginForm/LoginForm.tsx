@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
 import useUser from "../../hooks/useUser/useUser";
-import LoginStyled from "../RegisterForm/FormStyled";
+import FormStyled from "../RegisterForm/FormStyled";
 
 export const LoginForm = () => {
   const initialState = {
@@ -28,7 +28,7 @@ export const LoginForm = () => {
     formData.password.length > minLenght;
 
   return (
-    <LoginStyled className="login-form">
+    <FormStyled className="login-form">
       <form onSubmit={handleSubmit} noValidate>
         <div>
           <input
@@ -62,7 +62,7 @@ export const LoginForm = () => {
           Login
         </button>
       </form>
-    </LoginStyled>
+    </FormStyled>
   );
 };
 

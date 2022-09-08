@@ -19,9 +19,11 @@ const FormPageStyled = styled.section`
       font-weight: 900;
       text-transform: uppercase;
       background-color: #d43521;
-      width: 100%;
-      max-width: 50rem;
-      min-width: 20rem;
+      width: 20rem;
+
+      @media (min-width: 768px) {
+        width: 30rem;
+      }
     }
 
     &__login-link,
@@ -37,9 +39,11 @@ const FormPageStyled = styled.section`
       justify-content: center;
       align-items: center;
       padding: 1rem;
-      max-width: 50rem;
-      min-width: 20rem;
-      width: 100%;
+      width: 20rem;
+
+      @media (min-width: 768px) {
+        width: 30rem;
+      }
     }
   }
 
