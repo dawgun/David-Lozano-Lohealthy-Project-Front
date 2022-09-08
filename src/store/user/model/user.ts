@@ -3,6 +3,13 @@ export interface UserLoginState {
   user: User;
 }
 
+export interface ProtoUser {
+  userName: string;
+  email: string;
+  password: string;
+  repeat_password: string;
+}
+
 export interface User {
   userName: string;
   image: string;

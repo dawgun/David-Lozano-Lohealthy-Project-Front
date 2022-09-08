@@ -5,6 +5,7 @@ const GameCardStyled = styled.article`
   flex-direction: column;
   gap: 1rem;
   width: 20rem;
+  position: relative;
 
   .game {
     &__button {
@@ -17,6 +18,16 @@ const GameCardStyled = styled.article`
       text-transform: uppercase;
       font-family: "Roboto";
       font-weight: bold;
+    }
+
+    &__delete {
+      background-color: inherit;
+      border: none;
+      position: absolute;
+      right: -15px;
+      top: -10px;
+      cursor: pointer;
+      font-size: 5rem;
     }
 
     &__details {

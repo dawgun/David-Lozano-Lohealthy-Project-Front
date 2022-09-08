@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { ProtoUser } from "../../models/Users/Users";
 import { useAppDispatch } from "../../store/hooks";
 import { openModalActionCreator } from "../../store/UI/UISlice";
-import { UserLogin } from "../../store/user/model/user";
+import { ProtoUser, UserLogin } from "../../store/user/model/user";
 import {
   loginUserActionCreator,
   logoutUserActionCreator,
