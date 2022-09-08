@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
-import RegisterStyled from "./FormStyled";
+import FormStyled from "./FormStyled";
 import useUser from "../../hooks/useUser/useUser";
 import emailValidator from "../../utils/emailValidator/emailValidator";
 
@@ -39,7 +39,7 @@ export const RegisterForm = () => {
     isEmailValid;
 
   return (
-    <RegisterStyled className="register-form">
+    <FormStyled className="register-form">
       <form onSubmit={handleSubmit} noValidate>
         <div>
           <input
@@ -97,7 +97,7 @@ export const RegisterForm = () => {
           Crear cuenta
         </button>
       </form>
-    </RegisterStyled>
+    </FormStyled>
   );
 };
 
