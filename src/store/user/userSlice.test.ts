@@ -10,15 +10,26 @@ describe("Given userSlice", () => {
           userName: "",
           image: "",
           token: "",
+          id: "",
         },
       };
       const userPayload = {
         type: "user/loginUser",
-        payload: { userName: "Pablo", image: "pablo.jpg", token: "g7s8ag8a" },
+        payload: {
+          userName: "Pablo",
+          image: "pablo.jpg",
+          token: "g7s8ag8a",
+          id: "f87dfs89fs",
+        },
       };
       const expectedNewState: UserLoginState = {
         isLogged: true,
-        user: { userName: "Pablo", image: "pablo.jpg", token: "g7s8ag8a" },
+        user: {
+          userName: "Pablo",
+          image: "pablo.jpg",
+          token: "g7s8ag8a",
+          id: "f87dfs89fs",
+        },
       };
 
       const newState = userReducer(previousUserState, userPayload);
@@ -35,6 +46,7 @@ describe("Given userSlice", () => {
           userName: "Marius",
           image: "marius.jpg",
           token: "87f8fa8asf0s",
+          id: "a9ga8g0a8",
         },
       };
       const userPayload = {
@@ -42,7 +54,7 @@ describe("Given userSlice", () => {
       };
       const expectedNewState: UserLoginState = {
         isLogged: false,
-        user: { userName: "", image: "", token: "" },
+        user: { userName: "", image: "", token: "", id: "" },
       };
 
       const newState = userReducer(previousUserState, userPayload);

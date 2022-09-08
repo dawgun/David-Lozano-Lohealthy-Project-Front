@@ -1,21 +1,24 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import Game from "../../store/games/model/game";
 import { store } from "../../store/store";
 import HomePage from "./HomePage";
 
-let mockSelectorReturn: Game[] = [
-  {
-    title: "Super Mario",
-    image: "mario.jpg",
-    players: "",
-    genre: "",
-    release: "",
-    synopsis:
-      "Un divertido fontanero con bigote y traje rojo, se aventura a salvar a la princesa del reino Champiñon",
-    id: "1",
-  },
-];
+let mockSelectorReturn = {
+  user: { id: "1" },
+  games: [
+    {
+      title: "Super Mario",
+      image: "mario.jpg",
+      players: "",
+      genre: "",
+      release: "",
+      synopsis:
+        "Un divertido fontanero con bigote y traje rojo, se aventura a salvar a la princesa del reino Champiñon",
+      id: "1",
+      owner: "2",
+    },
+  ],
+};
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
