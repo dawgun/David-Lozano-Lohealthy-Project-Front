@@ -6,6 +6,7 @@ interface Game {
   release: string;
   synopsis: string;
   id: string;
+  owner: string;
 }
 
 export default Game;
