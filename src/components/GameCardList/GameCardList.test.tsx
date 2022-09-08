@@ -1,29 +1,35 @@
 import { render, screen } from "@testing-library/react";
-import Game from "../../store/games/model/game";
+import { Provider } from "react-redux";
+import { store } from "../../store/store";
 import GameCardList from "./GameCardList";
 
-let mockSelectorReturn: Game[] = [
-  {
-    title: "The Legend of Zelda",
-    image: "zelda.jpg",
-    players: "",
-    genre: "",
-    release: "",
-    synopsis:
-      "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
-    id: "1",
-  },
-  {
-    title: "Terranigma",
-    image: "terranigma.jpg",
-    players: "",
-    genre: "",
-    release: "",
-    synopsis:
-      "Un juego donde la fortaleza de mana vuelve a las andadas para detruir el mundo y el arbol sagrado",
-    id: "2",
-  },
-];
+let mockSelectorReturn = {
+  user: { id: "1" },
+  games: [
+    {
+      title: "The Legend of Zelda",
+      image: "zelda.jpg",
+      players: "",
+      genre: "",
+      release: "",
+      synopsis:
+        "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
+      id: "1",
+      owner: "24",
+    },
+    {
+      title: "Terranigma",
+      image: "terranigma.jpg",
+      players: "",
+      genre: "",
+      release: "",
+      synopsis:
+        "Un juego donde la fortaleza de mana vuelve a las andadas para detruir el mundo y el arbol sagrado",
+      id: "2",
+      owner: "24",
+    },
+  ],
+};
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
@@ -35,7 +41,11 @@ describe("Given the GameCardList component", () => {
     test("Then should show two game cards with titles of Zelda and Secret of mana", () => {
       const cardListLength = 2;
 
-      render(<GameCardList />);
+      render(
+        <Provider store={store}>
+          <GameCardList />
+        </Provider>
+      );
       const listOfTitles = screen.getAllByRole("heading");
 
       expect(listOfTitles).toHaveLength(cardListLength);
@@ -45,7 +55,11 @@ describe("Given the GameCardList component", () => {
       const firstTitle = "The Legend of Zelda";
       const secondTitle = "Terranigma";
 
-      render(<GameCardList />);
+      render(
+        <Provider store={store}>
+          <GameCardList />
+        </Provider>
+      );
       const zeldaTitle = screen.getByRole("heading", { name: firstTitle });
       const terranigmaTitle = screen.getByRole("heading", {
         name: secondTitle,

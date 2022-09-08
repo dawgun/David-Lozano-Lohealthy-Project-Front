@@ -8,7 +8,6 @@ interface GameCardProps {
 }
 
 const GameCard = ({ game }: GameCardProps): JSX.Element => {
-  debugger;
   const { deleteGame } = useGames();
   const { user } = useAppSelector((state) => state.user);
   const maxLettersSynopsis = 100;
