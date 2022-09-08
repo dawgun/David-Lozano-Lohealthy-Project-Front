@@ -1,53 +1,134 @@
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "../../store/store";
 import GameCard from "./GameCard";
+import userEvent from "@testing-library/user-event";
+
+let mockSelectorReturn = {
+  user: {
+    id: "1",
+  },
+};
+
+const mockDeleteGame = jest.fn();
+
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useSelector: () => mockSelectorReturn,
+}));
+
+jest.mock("../../hooks/useGames/useGames", () => () => ({
+  deleteGame: mockDeleteGame,
+}));
+
+const game = {
+  title: "The Legend of Zelda",
+  image: "zelda.jpg",
+  players: "One Player",
+  genre: "RPG",
+  release: "88/08/23",
+  synopsis:
+    "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
+  id: "1",
+  owner: "2",
+};
 
 describe("Given the GameCard component", () => {
-  const game = {
-    title: "The Legend of Zelda",
-    image: "zelda.jpg",
-    players: "",
-    genre: "",
-    release: "",
-    synopsis:
-      "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
-    id: "",
-  };
-
   describe("When it's instantiated", () => {
-    test("Then should show an image with alternative text of game", () => {
-      const alternativeText = game.title + " game";
+    describe("And user not owner of game", () => {
+      test("Then should show an image with alternative text of game", () => {
+        const alternativeText = game.title + " game";
 
-      render(<GameCard game={game} />);
-      const gameImage = screen.getByRole("img", { name: alternativeText });
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+        const gameImage = screen.getByRole("img", { name: alternativeText });
 
-      expect(gameImage).toBeInTheDocument();
+        expect(gameImage).toBeInTheDocument();
+      });
+
+      test("Then should show the title 'The Legend of Zelda' in a heading", () => {
+        const title = "The Legend of Zelda";
+
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+        const gameTitle = screen.getByRole("heading", { name: title });
+
+        expect(gameTitle).toBeInTheDocument();
+      });
+
+      test("Then should show the synopsys cutted", () => {
+        const title = `${game.synopsis.slice(0, 100)}...`;
+
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+        const gameSynopsis = screen.getByText(title);
+
+        expect(gameSynopsis).toBeInTheDocument();
+      });
+
+      test("Then should show a button with text 'Info'", () => {
+        const textButton = "Info";
+
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+        const gameButton = screen.getByRole("button", { name: textButton });
+
+        expect(gameButton).toBeInTheDocument();
+      });
+
+      test("Then don't show button with 'X'", () => {
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+
+        const button = screen.queryByRole("button", { name: "X" });
+
+        expect(button).not.toBeInTheDocument();
+      });
     });
 
-    test("Then should show the title 'The Legend of Zelda' in a heading", () => {
-      const title = "The Legend of Zelda";
+    describe("And user is owner of game owner", () => {
+      test("Then show button with 'X'", () => {
+        mockSelectorReturn.user.id = "2";
 
-      render(<GameCard game={game} />);
-      const gameTitle = screen.getByRole("heading", { name: title });
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
 
-      expect(gameTitle).toBeInTheDocument();
-    });
+        const buttonDelete = screen.getByRole("button", { name: "X" });
 
-    test("Then should show the synopsys cutted", () => {
-      const title = `${game.synopsis.slice(0, 100)}...`;
+        expect(buttonDelete).toBeInTheDocument();
+      });
 
-      render(<GameCard game={game} />);
-      const gameSynopsis = screen.getByText(title);
+      test("Then deleteGame is called when button is clicked", async () => {
+        mockSelectorReturn.user.id = "2";
 
-      expect(gameSynopsis).toBeInTheDocument();
-    });
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+        const buttonDelete = screen.getByRole("button", { name: "X" });
+        await userEvent.click(buttonDelete);
 
-    test("Then should show a button with text 'Info'", () => {
-      const textButton = "Info";
-
-      render(<GameCard game={game} />);
-      const gameButton = screen.getByRole("button", { name: textButton });
-
-      expect(gameButton).toBeInTheDocument();
+        expect(mockDeleteGame).toHaveBeenCalledWith(game.id);
+      });
     });
   });
 });
