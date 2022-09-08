@@ -1,5 +1,8 @@
 import { useCallback } from "react";
-import { loadGamesActionCreator } from "../../store/games/gamesSlice";
+import {
+  deleteGameActionCreator,
+  loadGamesActionCreator,
+} from "../../store/games/gamesSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 
@@ -46,7 +49,7 @@ const useGames = () => {
         })
       );
     }
-
+    dispatch(deleteGameActionCreator(idGame));
     dispatch(openModalActionCreator({ message: "Juego borrado", type: true }));
   };
 
