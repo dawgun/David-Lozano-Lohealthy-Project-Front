@@ -2,6 +2,7 @@ import useGames from "../../hooks/useGames/useGames";
 import Game from "../../store/games/model/game";
 import { useAppSelector } from "../../store/hooks";
 import GameCardStyled from "./GameCardStyled";
+import { TiDelete } from "react-icons/ti";
 
 interface GameCardProps {
   game: Game;
@@ -31,16 +32,13 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
           <button className="game__button" onClick={() => {}}>
             Info
           </button>
-          {isSamePerson && (
-            <button
-              className="game__delete"
-              onClick={() => deleteGame(game.id)}
-            >
-              X
-            </button>
-          )}
         </div>
       </div>
+      {isSamePerson && (
+        <button className="game__delete" onClick={() => deleteGame(game.id)}>
+          <TiDelete data-testid="delete-icon" />
+        </button>
+      )}
     </GameCardStyled>
   );
 };

@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { ProtoUser } from "../../models/Users/Users";
+import { ProtoUser } from "../../store/user/model/user";
 import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import {

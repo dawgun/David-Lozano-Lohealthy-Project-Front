@@ -3,9 +3,10 @@ import "@fontsource/roboto";
 import FormStyled from "./FormStyled";
 import useUser from "../../hooks/useUser/useUser";
 import emailValidator from "../../utils/emailValidator/emailValidator";
+import { ProtoUser } from "../../store/user/model/user";
 
 export const RegisterForm = () => {
-  const initialState = {
+  const initialState: ProtoUser = {
     userName: "",
     email: "",
     password: "",
