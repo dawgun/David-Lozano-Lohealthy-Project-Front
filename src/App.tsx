@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Modal from "./components/Modal/Modal";
 import Navigation from "./components/Navigation/Navigation";
+import ReverseRouteProtector from "./components/ReverseRouteProtector/ReverseRouteProtector";
 import UserMenu from "./components/UserMenu/UserMenu";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -38,8 +39,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/register"
+          element={
+            <ReverseRouteProtector>
+              <RegisterPage />
+            </ReverseRouteProtector>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ReverseRouteProtector>
+              <LoginPage />
+            </ReverseRouteProtector>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
