@@ -15,6 +15,7 @@ describe("Given the gamesSlice", () => {
       players: "One player",
       release: "2022-09-04T17:14:58.542Z",
       synopsis: "Great game",
+      owner: "1",
     },
     {
       title: "Super Mario",
@@ -24,6 +25,7 @@ describe("Given the gamesSlice", () => {
       players: "Two players",
       release: "2021-09-04T17:14:58.542Z",
       synopsis: "Great game with moustach",
+      owner: "1",
     },
   ];
 
@@ -38,6 +40,7 @@ describe("Given the gamesSlice", () => {
           players: "One player",
           release: "2022-09-04T17:14:58.542Z",
           synopsis: "Great game",
+          owner: "3",
         },
       ];
 
@@ -62,6 +65,7 @@ describe("Given the gamesSlice", () => {
           players: "One player",
           release: "2022-09-04T17:14:58.542Z",
           synopsis: "Great game",
+          owner: "1",
         },
       ];
 

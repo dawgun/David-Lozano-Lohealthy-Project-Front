@@ -1,4 +1,6 @@
+import useGames from "../../hooks/useGames/useGames";
 import Game from "../../store/games/model/game";
+import { useAppSelector } from "../../store/hooks";
 import GameCardStyled from "./GameCardStyled";
 
 interface GameCardProps {
@@ -6,7 +8,10 @@ interface GameCardProps {
 }
 
 const GameCard = ({ game }: GameCardProps): JSX.Element => {
+  const { deleteGame } = useGames();
+  const { user } = useAppSelector((state) => state.user);
   const maxLettersSynopsis = 100;
+  const isSamePerson = game.owner === user.id;
   return (
     <GameCardStyled className="game">
       <img
@@ -26,6 +31,14 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
           <button className="game__button" onClick={() => {}}>
             Info
           </button>
+          {isSamePerson && (
+            <button
+              className="game__delete"
+              onClick={() => deleteGame(game.id)}
+            >
+              X
+            </button>
+          )}
         </div>
       </div>
     </GameCardStyled>

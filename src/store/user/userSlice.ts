@@ -7,6 +7,7 @@ const userInitialState: UserLoginState = {
     userName: "",
     image: "",
     token: "",
+    id: "",
   },
 };
 

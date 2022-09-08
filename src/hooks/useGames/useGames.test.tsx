@@ -1,6 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { loadGamesActionCreator } from "../../store/games/gamesSlice";
+import {
+  deleteGameActionCreator,
+  loadGamesActionCreator,
+} from "../../store/games/gamesSlice";
 import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import useGames from "./useGames";
@@ -56,6 +59,19 @@ describe("Given the useGames custom hook", () => {
 
   describe("When deleteGame it's called", () => {
     describe("And fetch is done with existent id game", () => {
+      test("Then dispatch must be called with delete action openModal with id '2'", async () => {
+        const payloadDelete = "2";
+
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+        await result.current.deleteGame("2");
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          deleteGameActionCreator(payloadDelete)
+        );
+      });
+
       test("Then dispatch must be called with correct action openModal", async () => {
         const payloadModal = { message: "Juego borrado", type: true };
 
