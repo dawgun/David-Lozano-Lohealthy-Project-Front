@@ -1,4 +1,5 @@
 import {
+  createGameActionCreator,
   deleteGameActionCreator,
   gameReducer,
   loadGamesActionCreator,
@@ -72,6 +73,29 @@ describe("Given the gamesSlice", () => {
       const newGameList = gameReducer(
         previousGameState,
         deleteGameActionCreator(idToDelete)
+      );
+
+      expect(newGameList).toStrictEqual(expectedNewGameList);
+    });
+  });
+
+  describe("When call createGame reducer with previousGameState and a game", () => {
+    test("Then should return a new list of games same as previous list with new game", () => {
+      const newGame = {
+        title: "Fortnite",
+        image: "fortnite.jpg",
+        genre: "Shooter",
+        id: "3",
+        players: "MMO",
+        release: "2019-09-04T17:14:58.542Z",
+        synopsis: "Great shooter multiplayer",
+        owner: "1",
+      };
+      const expectedNewGameList = [...previousGameState, newGame];
+
+      const newGameList = gameReducer(
+        previousGameState,
+        createGameActionCreator(newGame)
       );
 
       expect(newGameList).toStrictEqual(expectedNewGameList);

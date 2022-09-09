@@ -24,4 +24,5 @@ export const gameReducer = gamesSlice.reducer;
 export const {
   loadGames: loadGamesActionCreator,
   deleteGame: deleteGameActionCreator,
+  createGame: createGameActionCreator,
 } = gamesSlice.actions;
