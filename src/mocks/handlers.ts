@@ -2,6 +2,17 @@ import { rest } from "msw";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+const gameReturn = {
+  title: "Zelda",
+  genre: "",
+  image: "",
+  players: "",
+  synopsis: "",
+  release: "",
+  owner: "2",
+  id: "1",
+};
+
 export const handlers = [
   rest.post(`${apiUrl}user/register`, async (req, res, ctx) => {
     const { userName } = await req.json();
@@ -29,5 +40,11 @@ export const handlers = [
 
   rest.delete(`${apiUrl}games/delete/2`, async (req, res, ctx) => {
     return res(ctx.status(400));
+  }),
+
+  rest.post(`${apiUrl}games/create`, async (req, res, ctx) => {
+    const { title } = await req.json();
+    const status = title === "" ? 400 : 201;
+    return res(ctx.status(status), ctx.json({ game: gameReturn }));
   }),
 ];

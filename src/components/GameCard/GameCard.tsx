@@ -1,5 +1,5 @@
 import useGames from "../../hooks/useGames/useGames";
-import Game from "../../store/games/model/game";
+import { Game } from "../../store/games/model/game";
 import { useAppSelector } from "../../store/hooks";
 import GameCardStyled from "./GameCardStyled";
 import { TiDelete } from "react-icons/ti";

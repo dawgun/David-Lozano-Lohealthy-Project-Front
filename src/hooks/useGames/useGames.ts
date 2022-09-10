@@ -4,6 +4,7 @@ import {
   deleteGameActionCreator,
   loadGamesActionCreator,
 } from "../../store/games/gamesSlice";
+import { ProtoGame } from "../../store/games/model/game";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 
@@ -54,7 +55,7 @@ const useGames = () => {
     dispatch(openModalActionCreator({ message: "Juego borrado", type: true }));
   };
 
-  const createGame = async (formGameData: any) => {
+  const createGame = async (formGameData: ProtoGame) => {
     try {
       const response = await fetch(`${urlAPI}games/create`, {
         method: "POST",
@@ -64,6 +65,11 @@ const useGames = () => {
         },
         body: JSON.stringify(formGameData),
       });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
       const { game } = await response.json();
 
       dispatch(createGameActionCreator(game));

@@ -4,7 +4,7 @@ import {
   gameReducer,
   loadGamesActionCreator,
 } from "./gamesSlice";
-import Game from "./model/game";
+import { Game } from "./model/game";
 
 describe("Given the gamesSlice", () => {
   const previousGameState: Game[] = [
