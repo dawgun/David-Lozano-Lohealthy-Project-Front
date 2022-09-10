@@ -1,9 +1,11 @@
 import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
 import {
+  createGameActionCreator,
   deleteGameActionCreator,
   loadGamesActionCreator,
 } from "../../store/games/gamesSlice";
+import { ProtoGame } from "../../store/games/model/game";
 import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import useGames from "./useGames";
@@ -100,6 +102,75 @@ describe("Given the useGames custom hook", () => {
 
         expect(mockDispatch).toHaveBeenCalledWith(
           openModalActionCreator(payloadModal)
+        );
+      });
+    });
+  });
+
+  describe("When createGame it's called", () => {
+    let game: ProtoGame;
+
+    beforeEach(() => {
+      game = {
+        title: "Zelda",
+        genre: "",
+        image: "",
+        players: "",
+        synopsis: "",
+        release: "",
+      };
+    });
+    describe("And fetch is done with a correct form game", () => {
+      test("Then dispatch must be called with correct action createGame with game", async () => {
+        const payloadActionCreator = {
+          title: "Zelda",
+          genre: "",
+          image: "",
+          players: "",
+          synopsis: "",
+          release: "",
+          owner: "2",
+          id: "1",
+        };
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+        await result.current.createGame(game);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          createGameActionCreator(payloadActionCreator)
+        );
+      });
+
+      test("Then dispatch must be called with correct action openModal", async () => {
+        const payloadModal = { message: "Juego creado", type: true };
+
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+        await result.current.createGame(game);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadModal)
+        );
+      });
+    });
+
+    describe("And fetch is done with incorrect form game", () => {
+      test("Then dispatch must be called with correct action createGame with game", async () => {
+        const payloadErrorModal = {
+          message: "Error creando el juego",
+          type: false,
+        };
+        game.title = "";
+
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+        await result.current.createGame(game);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadErrorModal)
         );
       });
     });
