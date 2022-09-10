@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import {
+  createGameActionCreator,
   deleteGameActionCreator,
   loadGamesActionCreator,
 } from "../../store/games/gamesSlice";
@@ -53,7 +54,31 @@ const useGames = () => {
     dispatch(openModalActionCreator({ message: "Juego borrado", type: true }));
   };
 
-  return { getAllGames, deleteGame };
+  const createGame = async (formGameData: any) => {
+    try {
+      const response = await fetch(`${urlAPI}games/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(formGameData),
+      });
+      const { game } = await response.json();
+
+      dispatch(createGameActionCreator(game));
+      dispatch(openModalActionCreator({ message: "Juego creado", type: true }));
+    } catch {
+      dispatch(
+        openModalActionCreator({
+          message: "Error creando el juego",
+          type: false,
+        })
+      );
+    }
+  };
+
+  return { getAllGames, deleteGame, createGame };
 };
 
 export default useGames;
