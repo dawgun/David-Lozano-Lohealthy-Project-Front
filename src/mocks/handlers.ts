@@ -43,8 +43,9 @@ export const handlers = [
   }),
 
   rest.post(`${apiUrl}games/create`, async (req, res, ctx) => {
-    const { title } = await req.json();
-    const status = title === "" ? 400 : 201;
+    const request: any = await req;
+    const titleData: string = await request._body.get("title");
+    const status = titleData === "" ? 400 : 201;
     return res(ctx.status(status), ctx.json({ game: gameReturn }));
   }),
 ];

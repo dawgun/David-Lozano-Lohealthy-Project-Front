@@ -5,7 +5,6 @@ import {
   deleteGameActionCreator,
   loadGamesActionCreator,
 } from "../../store/games/gamesSlice";
-import { ProtoGame } from "../../store/games/model/game";
 import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import useGames from "./useGames";
@@ -108,19 +107,10 @@ describe("Given the useGames custom hook", () => {
   });
 
   describe("When createGame it's called", () => {
-    let game: ProtoGame;
-
-    beforeEach(() => {
-      game = {
-        title: "Zelda",
-        genre: "",
-        image: "",
-        players: "",
-        synopsis: "",
-        release: "",
-      };
-    });
     describe("And fetch is done with a correct form game", () => {
+      const correctFormGameData = new FormData();
+      correctFormGameData.append("title", "zelda");
+
       test("Then dispatch must be called with correct action createGame with game", async () => {
         const payloadActionCreator = {
           title: "Zelda",
@@ -135,7 +125,7 @@ describe("Given the useGames custom hook", () => {
         const { result } = renderHook(() => useGames(), {
           wrapper: Wrapper,
         });
-        await result.current.createGame(game);
+        await result.current.createGame(correctFormGameData);
 
         expect(mockDispatch).toHaveBeenCalledWith(
           createGameActionCreator(payloadActionCreator)
@@ -148,7 +138,7 @@ describe("Given the useGames custom hook", () => {
         const { result } = renderHook(() => useGames(), {
           wrapper: Wrapper,
         });
-        await result.current.createGame(game);
+        await result.current.createGame(correctFormGameData);
 
         expect(mockDispatch).toHaveBeenCalledWith(
           openModalActionCreator(payloadModal)
@@ -157,17 +147,18 @@ describe("Given the useGames custom hook", () => {
     });
 
     describe("And fetch is done with incorrect form game", () => {
-      test("Then dispatch must be called with correct action createGame with game", async () => {
+      test("Then dispatch must be called with error action openModal", async () => {
         const payloadErrorModal = {
           message: "Error creando el juego",
           type: false,
         };
-        game.title = "";
+        const incorrectFormGameData = new FormData();
+        incorrectFormGameData.append("title", "");
 
         const { result } = renderHook(() => useGames(), {
           wrapper: Wrapper,
         });
-        await result.current.createGame(game);
+        await result.current.createGame(incorrectFormGameData);
 
         expect(mockDispatch).toHaveBeenCalledWith(
           openModalActionCreator(payloadErrorModal)
