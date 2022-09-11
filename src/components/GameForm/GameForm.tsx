@@ -49,6 +49,7 @@ export const GameForm = () => {
 
   const isFormValid =
     formGameData.title !== "" &&
+    formGameData.genre !== "" &&
     formGameData.players !== "" &&
     formGameData.release !== "" &&
     formGameData.synopsis.length > minLength;

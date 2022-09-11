@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { store } from "../../store/store";
 import GameCardList from "./GameCardList";
 
@@ -43,7 +44,9 @@ describe("Given the GameCardList component", () => {
 
       render(
         <Provider store={store}>
-          <GameCardList />
+          <BrowserRouter>
+            <GameCardList />
+          </BrowserRouter>
         </Provider>
       );
       const listOfTitles = screen.getAllByRole("heading");
@@ -57,7 +60,9 @@ describe("Given the GameCardList component", () => {
 
       render(
         <Provider store={store}>
-          <GameCardList />
+          <BrowserRouter>
+            <GameCardList />
+          </BrowserRouter>
         </Provider>
       );
       const zeldaTitle = screen.getByRole("heading", { name: firstTitle });

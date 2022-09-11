@@ -10,7 +10,8 @@ const FormPageStyled = styled.section`
   flex: 1;
 
   .register-page,
-  .login-page {
+  .login-page,
+  .create-game-page {
     &__title {
       color: white;
       margin: 0;
