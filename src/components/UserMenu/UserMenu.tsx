@@ -1,15 +1,18 @@
 import { NavLink } from "react-router-dom";
 import useUser from "../../hooks/useUser/useUser";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { closeMenuActionCreator } from "../../store/UI/UISlice";
 import UserMenuStyled from "./UserMenuStyled";
 
-interface UserMenuProps {
-  actionOnClick: () => void;
-}
-
-const UserMenu = ({ actionOnClick }: UserMenuProps): JSX.Element => {
+const UserMenu = (): JSX.Element => {
   const { isLogged, user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
   const { userLogout } = useUser();
+
+  const closeMenuHandler = () => {
+    dispatch(closeMenuActionCreator());
+  };
 
   const logoutHandler = () => {
     userLogout();
@@ -18,10 +21,14 @@ const UserMenu = ({ actionOnClick }: UserMenuProps): JSX.Element => {
   if (!isLogged) {
     return (
       <UserMenuStyled className="menu-user">
-        <NavLink to={"/login"} className="nav-link" onClick={actionOnClick}>
+        <NavLink to={"/login"} className="nav-link" onClick={closeMenuHandler}>
           Login
         </NavLink>
-        <NavLink to={"/register"} className="nav-link" onClick={actionOnClick}>
+        <NavLink
+          to={"/register"}
+          className="nav-link"
+          onClick={closeMenuHandler}
+        >
           Registrar
         </NavLink>
       </UserMenuStyled>
