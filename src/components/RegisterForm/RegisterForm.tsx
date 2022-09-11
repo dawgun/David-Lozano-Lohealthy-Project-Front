@@ -6,15 +6,22 @@ import emailValidator from "../../utils/emailValidator/emailValidator";
 import { ProtoUser } from "../../store/user/model/user";
 
 export const RegisterForm = () => {
+  const minLenght = 4;
+
   const initialState: ProtoUser = {
     userName: "",
     email: "",
     password: "",
     repeat_password: "",
   };
-  const minLenght = 4;
+
+  const initialChecker = {
+    samePassword: "",
+    validEmail: "",
+  };
 
   const [formData, setFormData] = useState(initialState);
+  const [checker, setChecker] = useState(initialChecker);
   const { userRegister } = useUser();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,17 +34,31 @@ export const RegisterForm = () => {
     setFormData(initialState);
   };
 
-  const isSamePassword = formData.password === formData.repeat_password;
+  const passwordChecker = () => {
+    if (formData.password !== formData.repeat_password) {
+      setChecker({ ...checker, samePassword: "No" });
+      return;
+    }
+    setChecker({ ...checker, samePassword: "Yes" });
+  };
 
-  const isEmailValid = emailValidator(formData.email);
+  const emailChecker = () => {
+    const isValidEmail = emailValidator(formData.email);
+
+    if (!isValidEmail) {
+      setChecker({ ...checker, validEmail: "No" });
+      return;
+    }
+    setChecker({ ...checker, validEmail: "Yes" });
+  };
 
   const isFormValid =
     formData.userName.length > minLenght &&
     formData.email !== "" &&
     formData.password.length > minLenght &&
     formData.repeat_password !== "" &&
-    isSamePassword &&
-    isEmailValid;
+    checker.samePassword === "Yes" &&
+    checker.validEmail === "Yes";
 
   return (
     <FormStyled className="register-form">
@@ -57,13 +78,14 @@ export const RegisterForm = () => {
         <div>
           <input
             type="email"
+            onBlur={emailChecker}
             value={formData.email}
             name="email"
             placeholder="Email"
             onChange={handleChange}
             autoComplete="off"
             className={`register-form__control${
-              !isEmailValid ? " input-incorrect" : ""
+              checker.validEmail === "No" ? " input-incorrect" : ""
             }`}
             required
           />
@@ -83,9 +105,10 @@ export const RegisterForm = () => {
         <div>
           <input
             className={`register-form__control${
-              !isSamePassword ? " input-incorrect" : ""
+              checker.samePassword === "No" ? " input-incorrect" : ""
             }`}
             type="password"
+            onBlur={passwordChecker}
             value={formData.repeat_password}
             name="repeat_password"
             placeholder="Repite contraseña"
