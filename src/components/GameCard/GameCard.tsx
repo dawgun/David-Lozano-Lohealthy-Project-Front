@@ -20,7 +20,7 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
       <img
         width={320}
         height={180}
-        src={`${urlAPI}game.image`}
+        src={`${urlAPI}${game.image}`}
         alt={`${game.title} game`}
         onError={({ currentTarget }) => {
           currentTarget.onerror = null;
