@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import GameCard from "./GameCard";
@@ -131,6 +131,24 @@ describe("Given the GameCard component", () => {
         await userEvent.click(buttonDelete);
 
         expect(mockDeleteGame).toHaveBeenCalledWith(game.id);
+      });
+    });
+
+    describe("And original image throw an error", () => {
+      test("Then should show the image backup", () => {
+        const alternativeText = game.title + " game";
+
+        render(
+          <Provider store={store}>
+            <GameCard game={game} />
+          </Provider>
+        );
+        const gameImage = screen.getByRole("img", {
+          name: alternativeText,
+        });
+        fireEvent.error(gameImage);
+
+        expect(gameImage.getAttribute("src")).toBe(game.backupImage);
       });
     });
   });
