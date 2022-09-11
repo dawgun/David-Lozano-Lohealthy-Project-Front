@@ -10,4 +10,5 @@ export interface ProtoGame {
 export interface Game extends ProtoGame {
   id: string;
   owner: string;
+  backupImage: string;
 }
