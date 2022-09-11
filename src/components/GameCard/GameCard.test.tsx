@@ -24,6 +24,7 @@ jest.mock("../../hooks/useGames/useGames", () => () => ({
 const game = {
   title: "The Legend of Zelda",
   image: "zelda.jpg",
+  backupImage: "backup-zelda.jpg",
   players: "One Player",
   genre: "RPG",
   release: "88/08/23",

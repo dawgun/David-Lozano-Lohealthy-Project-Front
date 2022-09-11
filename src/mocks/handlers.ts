@@ -6,6 +6,7 @@ const gameReturn = {
   title: "Zelda",
   genre: "",
   image: "",
+  backupImage: "",
   players: "",
   synopsis: "",
   release: "",

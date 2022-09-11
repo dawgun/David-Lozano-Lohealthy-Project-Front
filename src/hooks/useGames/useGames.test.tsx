@@ -152,6 +152,7 @@ describe("Given the useGames custom hook", () => {
           title: "Zelda",
           genre: "",
           image: "",
+          backupImage: "",
           players: "",
           synopsis: "",
           release: "",

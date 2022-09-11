@@ -11,6 +11,7 @@ describe("Given the gamesSlice", () => {
     {
       title: "The Legend of Zelda",
       image: "",
+      backupImage: "",
       genre: "Action-RPG",
       id: "1",
       players: "One player",
@@ -21,6 +22,7 @@ describe("Given the gamesSlice", () => {
     {
       title: "Super Mario",
       image: "",
+      backupImage: "",
       genre: "Adventure",
       id: "2",
       players: "Two players",
@@ -36,6 +38,7 @@ describe("Given the gamesSlice", () => {
         {
           title: "The Legend of Zelda",
           image: "",
+          backupImage: "",
           genre: "Action-RPG",
           id: "",
           players: "One player",
@@ -61,6 +64,7 @@ describe("Given the gamesSlice", () => {
         {
           title: "The Legend of Zelda",
           image: "",
+          backupImage: "",
           genre: "Action-RPG",
           id: "1",
           players: "One player",
@@ -84,6 +88,7 @@ describe("Given the gamesSlice", () => {
       const newGame = {
         title: "Fortnite",
         image: "fortnite.jpg",
+        backupImage: "backup-fortnite.jpg",
         genre: "Shooter",
         id: "3",
         players: "MMO",
