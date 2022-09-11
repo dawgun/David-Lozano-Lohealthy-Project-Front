@@ -5,7 +5,7 @@ import { ProtoGame } from "../../store/games/model/game";
 import useGames from "../../hooks/useGames/useGames";
 
 export const GameForm = () => {
-  const formData = new FormData();
+  let formData = new FormData();
   const minLength = 50;
 
   const initialState: ProtoGame = {
@@ -40,13 +40,18 @@ export const GameForm = () => {
 
     await createGame(formData);
     setFormGameData(initialState);
+    formData = new FormData();
   };
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     formData.append("image", event.target.files![0]);
   };
 
-  const isFormValid = true;
+  const isFormValid =
+    formGameData.title !== "" &&
+    formGameData.players !== "" &&
+    formGameData.release !== "" &&
+    formGameData.synopsis.length > minLength;
 
   return (
     <FormStyled className="game-form">
@@ -65,6 +70,7 @@ export const GameForm = () => {
         </div>
         <div>
           <select
+            placeholder="Género"
             className="game-form__control"
             value={formGameData.genre}
             onChange={handleChange}
@@ -88,6 +94,7 @@ export const GameForm = () => {
         </div>
         <div>
           <select
+            placeholder="Jugadores"
             className="game-form__control"
             value={formGameData.players}
             onChange={handleChange}
@@ -105,6 +112,7 @@ export const GameForm = () => {
         </div>
         <div>
           <input
+            placeholder="Fecha"
             className="game-form__control"
             type="date"
             value={formGameData.release}
@@ -127,6 +135,7 @@ export const GameForm = () => {
         </div>
         <div>
           <input
+            placeholder="Imagen"
             className="game-form__control"
             type="file"
             value={formGameData.image}
