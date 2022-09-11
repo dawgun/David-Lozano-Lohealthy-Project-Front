@@ -6,7 +6,9 @@ import Header from "./components/Header/Header";
 import Modal from "./components/Modal/Modal";
 import Navigation from "./components/Navigation/Navigation";
 import ReverseRouteProtector from "./components/ReverseRouteProtector/ReverseRouteProtector";
+import RouteProtector from "./components/RouteProtector/RouteProtector";
 import UserMenu from "./components/UserMenu/UserMenu";
+import CreateGamePage from "./pages/CreateGamePage/CreateGamePage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
@@ -39,6 +41,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
+        <Route
+          path="/mis-juegos/create"
+          element={
+            <RouteProtector>
+              <CreateGamePage />
+            </RouteProtector>
+          }
+        />
         <Route
           path="/register"
           element={
