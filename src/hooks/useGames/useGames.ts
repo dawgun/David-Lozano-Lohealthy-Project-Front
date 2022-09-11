@@ -6,7 +6,11 @@ import {
   loadGamesActionCreator,
 } from "../../store/games/gamesSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { openModalActionCreator } from "../../store/UI/UISlice";
+import {
+  closeLoaderActionCreator,
+  openModalActionCreator,
+  showLoaderActionCreator,
+} from "../../store/UI/UISlice";
 
 const useGames = () => {
   const urlAPI = process.env.REACT_APP_API_URL;
@@ -16,6 +20,7 @@ const useGames = () => {
 
   const getAllGames = useCallback(async () => {
     try {
+      dispatch(showLoaderActionCreator());
       const response = await fetch(urlAPI + "games/");
 
       if (!response.ok) {
@@ -23,6 +28,7 @@ const useGames = () => {
       }
 
       const gameList = await response.json();
+      dispatch(closeLoaderActionCreator());
       dispatch(loadGamesActionCreator(gameList.games));
     } catch {
       dispatch(

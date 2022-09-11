@@ -7,7 +7,11 @@ import {
   loadGamesActionCreator,
 } from "../../store/games/gamesSlice";
 import { store } from "../../store/store";
-import { openModalActionCreator } from "../../store/UI/UISlice";
+import {
+  closeLoaderActionCreator,
+  openModalActionCreator,
+  showLoaderActionCreator,
+} from "../../store/UI/UISlice";
 import useGames from "./useGames";
 
 interface WrapperProps {
@@ -40,18 +44,6 @@ jest.mock("react-router-dom", () => ({
 
 describe("Given the useGames custom hook", () => {
   describe("When getAllGames it's called", () => {
-    describe("And fetch resolve with a list of games", () => {
-      test("Then dispatch must be called with action loadGames", async () => {
-        const { result } = renderHook(() => useGames(), {
-          wrapper: Wrapper,
-        });
-
-        await result.current.getAllGames();
-
-        expect(mockDispatch).toHaveBeenCalledWith(loadGamesActionCreator([]));
-      });
-    });
-
     describe("And fetch have an error", () => {
       test("Then dispatch must be called with action openModal", async () => {
         const { result } = renderHook(() => useGames(), {
@@ -66,6 +58,38 @@ describe("Given the useGames custom hook", () => {
             type: false,
           })
         );
+      });
+    });
+
+    describe("And fetch resolve with a list of games", () => {
+      test("Then dispatch must be called with action showLoader", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getAllGames();
+
+        expect(mockDispatch).toHaveBeenCalledWith(showLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action closeLoader", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getAllGames();
+
+        expect(mockDispatch).toHaveBeenCalledWith(closeLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action loadGames", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getAllGames();
+
+        expect(mockDispatch).toHaveBeenCalledWith(loadGamesActionCreator([]));
       });
     });
   });
