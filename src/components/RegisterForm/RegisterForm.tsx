@@ -44,6 +44,7 @@ export const RegisterForm = () => {
       <form onSubmit={handleSubmit} noValidate>
         <div>
           <input
+            className="register-form__control"
             type="text"
             value={formData.userName}
             name="userName"
@@ -61,12 +62,15 @@ export const RegisterForm = () => {
             placeholder="Email"
             onChange={handleChange}
             autoComplete="off"
-            className={!isEmailValid ? "input-incorrect" : ""}
+            className={`register-form__control${
+              !isEmailValid ? " input-incorrect" : ""
+            }`}
             required
           />
         </div>
         <div>
           <input
+            className="register-form__control"
             type="password"
             value={formData.password}
             name="password"
@@ -78,7 +82,9 @@ export const RegisterForm = () => {
         </div>
         <div>
           <input
-            className={!isSamePassword ? "input-incorrect" : ""}
+            className={`register-form__control${
+              !isSamePassword ? " input-incorrect" : ""
+            }`}
             type="password"
             value={formData.repeat_password}
             name="repeat_password"
