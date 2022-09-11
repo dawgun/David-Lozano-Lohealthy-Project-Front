@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AppStyled from "./AppStyled";
 import Footer from "./components/Footer/Footer";
@@ -19,8 +18,7 @@ import { loginUserActionCreator } from "./store/user/userSlice";
 import fetchToken from "./utils/auth/auth";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { isModalShowing, isLoadingShowing } = useAppSelector(
+  const { isModalShowing, isLoadingShowing, isMenuShowing } = useAppSelector(
     (state) => state.ui
   );
   const token = localStorage.getItem("token");
@@ -31,17 +29,13 @@ function App() {
     dispach(loginUserActionCreator(user));
   }
 
-  const menuToogleHandler = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <AppStyled className="main-container">
       {isLoadingShowing && <Loading />}
       {isModalShowing && <Modal />}
-      <Header actionOnClick={menuToogleHandler} />
+      <Header />
       <Navigation />
-      {isOpen && <UserMenu actionOnClick={menuToogleHandler} />}
+      {isMenuShowing && <UserMenu />}
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />

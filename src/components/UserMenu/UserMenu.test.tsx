@@ -14,6 +14,7 @@ const mockSelectorReturn = {
 };
 
 const mockuserLogout = jest.fn();
+const mockDispatch = jest.fn();
 
 jest.mock("../../hooks/useUser/useUser", () => () => ({
   userLogout: mockuserLogout,
@@ -22,6 +23,7 @@ jest.mock("../../hooks/useUser/useUser", () => () => ({
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useSelector: () => mockSelectorReturn,
+  useDispatch: () => mockDispatch,
 }));
 
 describe("Given the UserMenu component", () => {
@@ -32,7 +34,7 @@ describe("Given the UserMenu component", () => {
       render(
         <Provider store={store}>
           <BrowserRouter>
-            <UserMenu actionOnClick={() => {}} />
+            <UserMenu />
           </BrowserRouter>
         </Provider>
       );
@@ -43,13 +45,12 @@ describe("Given the UserMenu component", () => {
 
     describe("And user click on 'Registrar' or 'Login'", () => {
       test("Then should functions has been called", async () => {
-        const mockFunction = jest.fn();
         const calledTimes = 2;
 
         render(
           <Provider store={store}>
             <BrowserRouter>
-              <UserMenu actionOnClick={mockFunction} />
+              <UserMenu />
             </BrowserRouter>
           </Provider>
         );
@@ -57,7 +58,7 @@ describe("Given the UserMenu component", () => {
         await userEvent.click(navlinks[0]);
         await userEvent.click(navlinks[1]);
 
-        expect(mockFunction).toHaveBeenCalledTimes(calledTimes);
+        expect(mockDispatch).toHaveBeenCalledTimes(calledTimes);
       });
     });
   });
@@ -71,7 +72,7 @@ describe("Given the UserMenu component", () => {
       render(
         <Provider store={store}>
           <BrowserRouter>
-            <UserMenu actionOnClick={() => {}} />
+            <UserMenu />
           </BrowserRouter>
         </Provider>
       );
@@ -89,7 +90,7 @@ describe("Given the UserMenu component", () => {
         render(
           <Provider store={store}>
             <BrowserRouter>
-              <UserMenu actionOnClick={() => {}} />
+              <UserMenu />
             </BrowserRouter>
           </Provider>
         );
