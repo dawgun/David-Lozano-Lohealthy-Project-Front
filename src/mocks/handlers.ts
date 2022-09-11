@@ -27,11 +27,11 @@ export const handlers = [
   }),
 
   rest.get(`${apiUrl}games`, async (req, res, ctx) => {
-    return res.once(ctx.status(200), ctx.json({ games: [] }));
+    return res.once(ctx.status(400));
   }),
 
   rest.get(`${apiUrl}games`, async (req, res, ctx) => {
-    return res.once(ctx.status(400));
+    return res(ctx.status(200), ctx.json({ games: [] }));
   }),
 
   rest.delete(`${apiUrl}games/delete/1`, async (req, res, ctx) => {

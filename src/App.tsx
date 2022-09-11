@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import AppStyled from "./AppStyled";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import Loading from "./components/Loading/Loading";
 import Modal from "./components/Modal/Modal";
 import Navigation from "./components/Navigation/Navigation";
 import ReverseRouteProtector from "./components/ReverseRouteProtector/ReverseRouteProtector";
@@ -19,7 +20,9 @@ import fetchToken from "./utils/auth/auth";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isModalShowing } = useAppSelector((state) => state.ui);
+  const { isModalShowing, isLoadingShowing } = useAppSelector(
+    (state) => state.ui
+  );
   const token = localStorage.getItem("token");
   const dispach = useAppDispatch();
 
@@ -34,6 +37,7 @@ function App() {
 
   return (
     <AppStyled className="main-container">
+      {isLoadingShowing && <Loading />}
       {isModalShowing && <Modal />}
       <Header actionOnClick={menuToogleHandler} />
       <Navigation />
