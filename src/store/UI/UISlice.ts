@@ -4,6 +4,7 @@ import { UIState, Modal } from "./model/UI";
 const UIInitialState: UIState = {
   isLoadingShowing: false,
   isModalShowing: false,
+  isMenuShowing: false,
   message: "",
   type: true,
 };
@@ -32,6 +33,16 @@ const UISlice = createSlice({
       ...previousUI,
       isLoadingShowing: false,
     }),
+
+    toggleMenu: (previousUI: UIState) => ({
+      ...previousUI,
+      isMenuShowing: !previousUI.isMenuShowing,
+    }),
+
+    closeMenu: (previousUI: UIState) => ({
+      ...previousUI,
+      isMenuShowing: false,
+    }),
   },
 });
 
@@ -42,4 +53,6 @@ export const {
   closeModal: closeModalActionCreator,
   showLoader: showLoaderActionCreator,
   closeLoader: closeLoaderActionCreator,
+  toggleMenu: toggleMenuActionCreator,
+  closeMenu: closeMenuActionCreator,
 } = UISlice.actions;

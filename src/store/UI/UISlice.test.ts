@@ -3,6 +3,7 @@ import { UIReducer } from "./UISlice";
 
 describe("Given the UISlicer", () => {
   const previousUIPayload: UIState = {
+    isMenuShowing: true,
     isLoadingShowing: false,
     isModalShowing: true,
     message: "",
@@ -19,6 +20,7 @@ describe("Given the UISlicer", () => {
         },
       };
       const expectedNewUI = {
+        isMenuShowing: true,
         isLoadingShowing: false,
         isModalShowing: true,
         message: "It's all ok",
@@ -37,6 +39,7 @@ describe("Given the UISlicer", () => {
         type: "ui/closeModal",
       };
       const expectedNewUI = {
+        isMenuShowing: true,
         isLoadingShowing: false,
         isModalShowing: false,
         message: "",
@@ -55,6 +58,7 @@ describe("Given the UISlicer", () => {
         type: "ui/showLoader",
       };
       const expectedNewUI = {
+        isMenuShowing: true,
         isLoadingShowing: true,
         isModalShowing: true,
         message: "",
@@ -73,6 +77,45 @@ describe("Given the UISlicer", () => {
         type: "ui/closeLoader",
       };
       const expectedNewUI = {
+        isMenuShowing: true,
+        isLoadingShowing: false,
+        isModalShowing: true,
+        message: "",
+        type: true,
+      };
+
+      const newUI = UIReducer(previousUIPayload, UIPayload);
+
+      expect(newUI).toStrictEqual(expectedNewUI);
+    });
+  });
+
+  describe("When call toggleMenu reducer with previousUIState", () => {
+    test("Then should return same previosUIState with isMenuShowing toggled", () => {
+      const UIPayload = {
+        type: "ui/toggleMenu",
+      };
+      const expectedNewUI = {
+        isMenuShowing: false,
+        isLoadingShowing: false,
+        isModalShowing: true,
+        message: "",
+        type: true,
+      };
+
+      const newUI = UIReducer(previousUIPayload, UIPayload);
+
+      expect(newUI).toStrictEqual(expectedNewUI);
+    });
+  });
+
+  describe("When call closeMenu reducer with previousUIState", () => {
+    test("Then should return same previosUIState with isMenuShowing to false", () => {
+      const UIPayload = {
+        type: "ui/closeMenu",
+      };
+      const expectedNewUI = {
+        isMenuShowing: false,
         isLoadingShowing: false,
         isModalShowing: true,
         message: "",

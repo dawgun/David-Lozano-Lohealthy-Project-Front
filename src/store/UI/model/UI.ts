@@ -6,4 +6,5 @@ export interface Modal {
 export interface UIState extends Modal {
   isModalShowing: boolean;
   isLoadingShowing: boolean;
+  isMenuShowing: boolean;
 }
