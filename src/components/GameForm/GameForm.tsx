@@ -1,11 +1,11 @@
 import { SyntheticEvent, useState } from "react";
-import "@fontsource/roboto";
 import FormStyled from "../RegisterForm/FormStyled";
 import { ProtoGame } from "../../store/games/model/game";
 import useGames from "../../hooks/useGames/useGames";
+import "@fontsource/roboto";
 
 export const GameForm = () => {
-  let formData = new FormData();
+  const initialFormData = new FormData();
   const minLength = 50;
 
   const initialState: ProtoGame = {
@@ -18,6 +18,7 @@ export const GameForm = () => {
   };
 
   const [formGameData, setFormGameData] = useState(initialState);
+  const [gameData, setGameData] = useState(initialFormData);
   const { createGame } = useGames();
 
   const handleChange = (event: SyntheticEvent) => {
@@ -32,19 +33,20 @@ export const GameForm = () => {
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    formData.append("title", formGameData.title);
-    formData.append("genre", formGameData.genre);
-    formData.append("players", formGameData.players);
-    formData.append("release", formGameData.release);
-    formData.append("synopsis", formGameData.synopsis);
+    gameData.append("title", formGameData.title);
+    gameData.append("genre", formGameData.genre);
+    gameData.append("players", formGameData.players);
+    gameData.append("release", formGameData.release);
+    gameData.append("synopsis", formGameData.synopsis);
 
-    await createGame(formData);
+    await createGame(gameData);
     setFormGameData(initialState);
-    formData = new FormData();
+    setGameData(new FormData());
   };
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    formData.append("image", event.target.files![0]);
+    gameData.append("image", event.target.files![0]);
+    setFormGameData({ ...formGameData, image: event.target.value });
   };
 
   const isFormValid =
@@ -52,6 +54,7 @@ export const GameForm = () => {
     formGameData.genre !== "" &&
     formGameData.players !== "" &&
     formGameData.release !== "" &&
+    formGameData.image !== "" &&
     formGameData.synopsis.length > minLength;
 
   return (
