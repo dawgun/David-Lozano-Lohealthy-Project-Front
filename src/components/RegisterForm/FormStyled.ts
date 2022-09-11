@@ -18,7 +18,8 @@ const FormStyled = styled.section`
   }
 
   .register-form,
-  .login-form {
+  .login-form,
+  .game-form {
     &__button {
       background-color: #d43521;
       font-size: 1rem;
@@ -30,6 +31,17 @@ const FormStyled = styled.section`
       font-family: "Roboto";
       font-weight: bold;
     }
+
+    &__control {
+      border-radius: 1px;
+      border: 1px solid #858383;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      background-color: white;
+    }
   }
 
   .button-disabled {
@@ -40,14 +52,8 @@ const FormStyled = styled.section`
     border: 2px solid #d43521;
   }
 
-  input {
-    border-radius: 1px;
-    border: 1px solid #858383;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    font-size: 16px;
-    font-weight: bold;
-    width: 100%;
+  textarea {
+    max-width: 100%;
   }
 `;
 

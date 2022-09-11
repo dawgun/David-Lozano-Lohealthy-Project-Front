@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createGameActionCreator,
   deleteGameActionCreator,
@@ -10,6 +11,7 @@ import { openModalActionCreator } from "../../store/UI/UISlice";
 const useGames = () => {
   const urlAPI = process.env.REACT_APP_API_URL;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
 
   const getAllGames = useCallback(async () => {
@@ -72,6 +74,7 @@ const useGames = () => {
 
       dispatch(createGameActionCreator(game));
       dispatch(openModalActionCreator({ message: "Juego creado", type: true }));
+      navigate("/mis-juegos");
     } catch {
       dispatch(
         openModalActionCreator({

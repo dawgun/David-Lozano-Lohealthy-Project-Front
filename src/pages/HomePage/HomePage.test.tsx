@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { store } from "../../store/store";
 import HomePage from "./HomePage";
 
@@ -31,7 +32,9 @@ describe("Given the HomePage page", () => {
       const homeHeading = "Home";
       render(
         <Provider store={store}>
-          <HomePage />
+          <BrowserRouter>
+            <HomePage />
+          </BrowserRouter>
         </Provider>
       );
       const homeTitle = screen.getByRole("heading", {
@@ -45,7 +48,9 @@ describe("Given the HomePage page", () => {
       const gameHeading = "Super Mario";
       render(
         <Provider store={store}>
-          <HomePage />
+          <BrowserRouter>
+            <HomePage />
+          </BrowserRouter>
         </Provider>
       );
       const homeTitle = screen.getByRole("heading", {

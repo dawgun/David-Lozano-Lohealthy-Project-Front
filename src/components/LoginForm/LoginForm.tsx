@@ -32,6 +32,7 @@ export const LoginForm = () => {
       <form onSubmit={handleSubmit} noValidate>
         <div>
           <input
+            className="login-form__control"
             type="text"
             value={formData.userName}
             name="userName"
@@ -43,6 +44,7 @@ export const LoginForm = () => {
         </div>
         <div>
           <input
+            className="login-form__control"
             type="password"
             value={formData.password}
             name="password"

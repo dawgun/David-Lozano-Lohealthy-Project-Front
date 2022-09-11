@@ -1,5 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import {
   createGameActionCreator,
   deleteGameActionCreator,
@@ -16,7 +17,11 @@ interface WrapperProps {
 let Wrapper: ({ children }: WrapperProps) => JSX.Element;
 
 Wrapper = ({ children }: WrapperProps): JSX.Element => {
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store}>
+      <BrowserRouter>{children}</BrowserRouter>
+    </Provider>
+  );
 };
 
 const mockDispatch = jest.fn();
@@ -24,6 +29,13 @@ const mockDispatch = jest.fn();
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useDispatch: () => mockDispatch,
+}));
+
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockNavigate,
 }));
 
 describe("Given the useGames custom hook", () => {
@@ -143,6 +155,17 @@ describe("Given the useGames custom hook", () => {
         expect(mockDispatch).toHaveBeenCalledWith(
           openModalActionCreator(payloadModal)
         );
+      });
+
+      test("Then navigate must be called with '/mis-juegos'", async () => {
+        const navigatePath = "/mis-juegos";
+
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+        await result.current.createGame(correctFormGameData);
+
+        expect(mockNavigate).toHaveBeenCalledWith(navigatePath);
       });
     });
 
