@@ -33,9 +33,11 @@ function App() {
     <AppStyled className="main-container">
       {isLoadingShowing && <Loading />}
       {isModalShowing && <Modal />}
-      <Header />
-      <Navigation />
-      {isMenuShowing && <UserMenu />}
+      <section className="menu-container">
+        <Header />
+        <Navigation />
+        {isMenuShowing && <UserMenu />}
+      </section>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
