@@ -13,13 +13,19 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
   const { user } = useAppSelector((state) => state.user);
   const maxLettersSynopsis = 100;
   const isSamePerson = game.owner === user.id;
+  const urlAPI = process.env.REACT_APP_API_URL;
+
   return (
     <GameCardStyled className="game">
       <img
         width={320}
         height={180}
-        src={game.image}
+        src={`${urlAPI}game.image`}
         alt={`${game.title} game`}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = game.backupImage;
+        }}
         className="game__image"
       ></img>
       <div className="game__info">
