@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RegisterForm from "./RegisterForm";
 
@@ -77,6 +77,46 @@ describe("Given the Register component", () => {
         await userEvent.type(passwordRepeatInput, passwordRepeatTextInput);
 
         expect(passwordRepeatInput).toHaveValue(passwordRepeatTextInput);
+      });
+    });
+
+    describe("And user type nachus in email input", () => {
+      test("Then the border color of email input would be #d43521", async () => {
+        const wrongEmailText = "nachus";
+        const expectedColor = "#d43521";
+
+        render(<RegisterForm />);
+
+        const emailInput = screen.getByPlaceholderText(emailPlaceholder);
+        await userEvent.type(emailInput, wrongEmailText);
+        await userEvent.tab();
+
+        const emailStyle = getComputedStyle(emailInput);
+
+        expect(emailStyle.borderColor).toBe(expectedColor);
+      });
+    });
+
+    describe("And user type '1234' in password and '12345' in repeat password", () => {
+      test("Then the border color of repeat_password input would be #d43521", async () => {
+        const password = "1234";
+        const repeatPassword = "12345";
+        const expectedColor = "#d43521";
+
+        render(<RegisterForm />);
+
+        const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
+        const passwordRepeatInput = screen.getByPlaceholderText(
+          passwordRepeatPlaceholder
+        );
+
+        await userEvent.type(passwordInput, password);
+        await userEvent.type(passwordRepeatInput, repeatPassword);
+        await userEvent.tab();
+
+        const repeatPasswordStyle = getComputedStyle(passwordRepeatInput);
+
+        expect(repeatPasswordStyle.borderColor).toBe(expectedColor);
       });
     });
 
