@@ -29,13 +29,12 @@ Wrapper = ({ children }: WrapperProps): JSX.Element => {
 };
 
 const mockDispatch = jest.fn();
+const mockNavigate = jest.fn();
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useDispatch: () => mockDispatch,
 }));
-
-const mockNavigate = jest.fn();
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -211,6 +210,59 @@ describe("Given the useGames custom hook", () => {
         expect(mockDispatch).toHaveBeenCalledWith(
           openModalActionCreator(payloadErrorModal)
         );
+      });
+    });
+  });
+
+  describe("When getGamesByUser it's called", () => {
+    describe("And fetch have an error", () => {
+      test("Then dispatch must be called with action openModal", async () => {
+        const payloadModal = {
+          message: "¡Algo ha salido mal!",
+          type: false,
+        };
+
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGamesByUser();
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadModal)
+        );
+      });
+    });
+
+    describe("And fetch resolve with a list of games", () => {
+      test("Then dispatch must be called with action showLoader", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGamesByUser();
+
+        expect(mockDispatch).toHaveBeenCalledWith(showLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action closeLoader", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGamesByUser();
+
+        expect(mockDispatch).toHaveBeenCalledWith(closeLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action loadGames", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGamesByUser();
+
+        expect(mockDispatch).toHaveBeenCalledWith(loadGamesActionCreator([]));
       });
     });
   });

@@ -21,6 +21,7 @@ const useGames = () => {
   const getAllGames = useCallback(async () => {
     try {
       dispatch(showLoaderActionCreator());
+
       const response = await fetch(urlAPI + "games/");
 
       if (!response.ok) {
@@ -28,6 +29,7 @@ const useGames = () => {
       }
 
       const gameList = await response.json();
+
       dispatch(closeLoaderActionCreator());
       dispatch(loadGamesActionCreator(gameList.games));
     } catch {
@@ -36,6 +38,36 @@ const useGames = () => {
       );
     }
   }, [urlAPI, dispatch]);
+
+  const getGamesByUser = useCallback(async () => {
+    try {
+      dispatch(showLoaderActionCreator());
+
+      const response = await fetch(`${urlAPI}games/my-list`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      const gameList = await response.json();
+
+      dispatch(closeLoaderActionCreator());
+      dispatch(loadGamesActionCreator(gameList.games));
+    } catch {
+      dispatch(
+        openModalActionCreator({
+          message: "¡Algo ha salido mal!",
+          type: false,
+        })
+      );
+    }
+  }, [dispatch, urlAPI, user.token]);
 
   const deleteGame = async (idGame: string) => {
     try {
@@ -91,7 +123,7 @@ const useGames = () => {
     }
   };
 
-  return { getAllGames, deleteGame, createGame };
+  return { getAllGames, deleteGame, createGame, getGamesByUser };
 };
 
 export default useGames;

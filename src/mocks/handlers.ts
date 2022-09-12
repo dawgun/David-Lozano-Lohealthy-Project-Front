@@ -49,4 +49,12 @@ export const handlers = [
     const status = titleData === "" ? 400 : 201;
     return res(ctx.status(status), ctx.json({ game: gameReturn }));
   }),
+
+  rest.get(`${apiUrl}games/my-list`, async (req, res, ctx) => {
+    return res.once(ctx.status(400));
+  }),
+
+  rest.get(`${apiUrl}games/my-list`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ games: [] }));
+  }),
 ];
