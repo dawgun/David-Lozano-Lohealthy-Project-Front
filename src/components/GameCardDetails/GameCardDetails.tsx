@@ -29,7 +29,7 @@ const GameCardDetails = ({ game }: GameCardDetailsProps): JSX.Element => {
         <h3>Género</h3>
         <span>{game.genre}</span>
         <h3>Lanzamiento</h3>
-        <span>{game.release}</span>
+        <span>{game.release.slice(0, 10)}</span>
         <h3>Sinopsis</h3>
         <p>{game.synopsis}</p>
       </div>
