@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const MyGameListPageStyled = styled.section`
   padding: 1rem;
+  flex: 1;
 
   .my-games {
     &__container {
