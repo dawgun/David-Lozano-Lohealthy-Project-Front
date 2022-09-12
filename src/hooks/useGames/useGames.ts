@@ -67,7 +67,7 @@ const useGames = () => {
         })
       );
     }
-  }, [dispatch, urlAPI]);
+  }, [dispatch, urlAPI, user.token]);
 
   const deleteGame = async (idGame: string) => {
     try {
