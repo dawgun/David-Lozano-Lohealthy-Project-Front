@@ -11,6 +11,7 @@ import UserMenu from "./components/UserMenu/UserMenu";
 import CreateGamePage from "./pages/CreateGamePage/CreateGamePage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import MyGameListPage from "./pages/MyGameListPage/MyGameListPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
@@ -41,6 +42,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
+        <Route
+          path="/mis-juegos"
+          element={
+            <RouteProtector>
+              <MyGameListPage />
+            </RouteProtector>
+          }
+        />
         <Route
           path="/mis-juegos/create"
           element={
