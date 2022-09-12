@@ -57,4 +57,12 @@ export const handlers = [
   rest.get(`${apiUrl}games/my-list`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ games: [] }));
   }),
+
+  rest.get(`${apiUrl}games/correctId`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ game: "game" }));
+  }),
+
+  rest.get(`${apiUrl}games/errorId`, async (req, res, ctx) => {
+    return res(ctx.status(400), ctx.json({ game: "error" }));
+  }),
 ];

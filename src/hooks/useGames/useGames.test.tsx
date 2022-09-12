@@ -266,4 +266,60 @@ describe("Given the useGames custom hook", () => {
       });
     });
   });
+
+  describe("When getGamesById it's called", () => {
+    describe("And fetch with incorrect id and have an error", () => {
+      test("Then dispatch must be called with action openModal", async () => {
+        const incorrectId = "errorId";
+        const payloadModal = {
+          message: "¡Juego no encontrado!",
+          type: false,
+        };
+
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGameById(incorrectId);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadModal)
+        );
+      });
+    });
+
+    describe("And fetch resolve with a list of games", () => {
+      const correctId = "correctId";
+
+      test("Then dispatch must be called with action showLoader", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGameById(correctId);
+
+        expect(mockDispatch).toHaveBeenCalledWith(showLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action closeLoader", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        await result.current.getGameById(correctId);
+
+        expect(mockDispatch).toHaveBeenCalledWith(closeLoaderActionCreator());
+      });
+
+      test("Then should return 'game'", async () => {
+        const { result } = renderHook(() => useGames(), {
+          wrapper: Wrapper,
+        });
+
+        const game = await result.current.getGameById(correctId);
+
+        expect(game).toBe("game");
+      });
+    });
+  });
 });
