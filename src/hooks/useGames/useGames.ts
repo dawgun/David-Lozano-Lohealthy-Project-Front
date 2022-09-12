@@ -39,6 +39,33 @@ const useGames = () => {
     }
   }, [urlAPI, dispatch]);
 
+  const getGameById = useCallback(
+    async (idGame: string) => {
+      try {
+        dispatch(showLoaderActionCreator());
+
+        const response = await fetch(`${urlAPI}games/${idGame}`);
+
+        if (!response.ok) {
+          throw new Error();
+        }
+
+        const game = await response.json();
+
+        dispatch(closeLoaderActionCreator());
+        return game.game;
+      } catch {
+        dispatch(
+          openModalActionCreator({
+            message: "¡Juego no encontrado!",
+            type: false,
+          })
+        );
+      }
+    },
+    [urlAPI, dispatch]
+  );
+
   const getGamesByUser = useCallback(async () => {
     try {
       dispatch(showLoaderActionCreator());
@@ -123,7 +150,7 @@ const useGames = () => {
     }
   };
 
-  return { getAllGames, deleteGame, createGame, getGamesByUser };
+  return { getAllGames, deleteGame, createGame, getGamesByUser, getGameById };
 };
 
 export default useGames;
