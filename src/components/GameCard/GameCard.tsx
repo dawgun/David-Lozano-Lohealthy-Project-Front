@@ -3,6 +3,7 @@ import { Game } from "../../store/games/model/game";
 import { useAppSelector } from "../../store/hooks";
 import GameCardStyled from "./GameCardStyled";
 import { TiDelete } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 
 interface GameCardProps {
   game: Game;
@@ -11,9 +12,14 @@ interface GameCardProps {
 const GameCard = ({ game }: GameCardProps): JSX.Element => {
   const { deleteGame } = useGames();
   const { user } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
   const maxLettersSynopsis = 100;
   const isSamePerson = game.owner === user.id;
   const urlAPI = process.env.REACT_APP_API_URL;
+
+  const infoHandler = () => {
+    navigate(`/details/${game.id}`);
+  };
 
   return (
     <GameCardStyled className="game">
@@ -35,7 +41,7 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
             0,
             maxLettersSynopsis
           )}...`}</p>
-          <button className="game__button" onClick={() => {}}>
+          <button className="game__button" onClick={infoHandler}>
             Info
           </button>
         </div>

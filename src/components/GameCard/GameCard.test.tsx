@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import GameCard from "./GameCard";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 
 let mockSelectorReturn = {
   user: {
@@ -11,6 +12,7 @@ let mockSelectorReturn = {
 };
 
 const mockDeleteGame = jest.fn();
+const mockNavigate = jest.fn();
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
@@ -19,6 +21,11 @@ jest.mock("react-redux", () => ({
 
 jest.mock("../../hooks/useGames/useGames", () => () => ({
   deleteGame: mockDeleteGame,
+}));
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockNavigate,
 }));
 
 const game = {
@@ -42,7 +49,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
         const gameImage = screen.getByRole("img", { name: alternativeText });
@@ -55,7 +64,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
         const gameTitle = screen.getByRole("heading", { name: title });
@@ -68,7 +79,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
         const gameSynopsis = screen.getByText(title);
@@ -81,7 +94,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
         const gameButton = screen.getByRole("button", { name: textButton });
@@ -92,7 +107,9 @@ describe("Given the GameCard component", () => {
       test("Then don't show button with 'X'", () => {
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
 
@@ -110,7 +127,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
 
@@ -124,7 +143,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
         const buttonDelete = screen.getByTestId(iconId);
@@ -140,7 +161,9 @@ describe("Given the GameCard component", () => {
 
         render(
           <Provider store={store}>
-            <GameCard game={game} />
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
           </Provider>
         );
         const gameImage = screen.getByRole("img", {
@@ -149,6 +172,27 @@ describe("Given the GameCard component", () => {
         fireEvent.error(gameImage);
 
         expect(gameImage.getAttribute("src")).toBe(game.backupImage);
+      });
+    });
+
+    describe("And users click on 'Info' button", () => {
+      test("Then navigate has to been called with '/details/1'", async () => {
+        const navigatePath = "/details/1";
+        const textButton = "Info";
+
+        render(
+          <Provider store={store}>
+            <BrowserRouter>
+              <GameCard game={game} />
+            </BrowserRouter>
+          </Provider>
+        );
+        const infoButton = screen.getByRole("button", {
+          name: textButton,
+        });
+        await userEvent.click(infoButton);
+
+        expect(mockNavigate).toHaveBeenCalledWith(navigatePath);
       });
     });
   });
