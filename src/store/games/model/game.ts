@@ -12,3 +12,13 @@ export interface Game extends ProtoGame {
   owner: string;
   backupImage: string;
 }
+
+interface OwnerDetailed {
+  userName: string;
+  id: string;
+}
+export interface DetailGame extends ProtoGame {
+  id: string;
+  owner: OwnerDetailed;
+  backupImage: string;
+}
