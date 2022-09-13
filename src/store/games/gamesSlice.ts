@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Game, gameAPI } from "./model/game";
+import { Game, GameAPI } from "./model/game";
 
-const gameInitialState: gameAPI = {
+const gameInitialState: GameAPI = {
   isPreviousPage: true,
   isNextPage: true,
   games: [],
@@ -11,18 +11,18 @@ const gamesSlice = createSlice({
   name: "games",
   initialState: gameInitialState,
   reducers: {
-    loadGames: (_previousGame: gameAPI, action: PayloadAction<gameAPI>) => ({
+    loadGames: (_previousGame: GameAPI, action: PayloadAction<GameAPI>) => ({
       ...action.payload,
     }),
-    deleteGame: (previousGame: gameAPI, action: PayloadAction<string>) => ({
+    deleteGame: (previousGame: GameAPI, action: PayloadAction<string>) => ({
       ...previousGame,
       games: previousGame.games.filter((game) => game.id !== action.payload),
     }),
-    createGame: (previousgame: gameAPI, action: PayloadAction<Game>) => ({
+    createGame: (previousgame: GameAPI, action: PayloadAction<Game>) => ({
       ...previousgame,
       games: [...previousgame.games, action.payload],
     }),
-    loadMyGames: (previousGame: gameAPI, action: PayloadAction<Game[]>) => ({
+    loadMyGames: (previousGame: GameAPI, action: PayloadAction<Game[]>) => ({
       ...previousGame,
       games: action.payload,
     }),

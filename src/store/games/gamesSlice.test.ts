@@ -5,10 +5,10 @@ import {
   loadGamesActionCreator,
   loadMyGamesActionCreator,
 } from "./gamesSlice";
-import { gameAPI } from "./model/game";
+import { GameAPI } from "./model/game";
 
 describe("Given the gamesSlice", () => {
-  const previousGameState: gameAPI = {
+  const previousGameState: GameAPI = {
     isNextPage: true,
     isPreviousPage: true,
     games: [
@@ -39,7 +39,7 @@ describe("Given the gamesSlice", () => {
 
   describe("When call loadGames reducer with previousGamesState and a list of games", () => {
     test("Then should return a newGamesState same as list of games given", () => {
-      const newListGames: gameAPI = {
+      const newListGames: GameAPI = {
         isNextPage: true,
         isPreviousPage: true,
         games: [
