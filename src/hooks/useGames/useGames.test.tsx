@@ -50,7 +50,7 @@ describe("Given the useGames custom hook", () => {
           wrapper: Wrapper,
         });
 
-        await result.current.getAllGames();
+        await result.current.getAllGames(1);
 
         expect(mockDispatch).toHaveBeenCalledWith(
           openModalActionCreator({
@@ -67,7 +67,7 @@ describe("Given the useGames custom hook", () => {
           wrapper: Wrapper,
         });
 
-        await result.current.getAllGames();
+        await result.current.getAllGames(1);
 
         expect(mockDispatch).toHaveBeenCalledWith(showLoaderActionCreator());
       });
@@ -77,7 +77,7 @@ describe("Given the useGames custom hook", () => {
           wrapper: Wrapper,
         });
 
-        await result.current.getAllGames();
+        await result.current.getAllGames(1);
 
         expect(mockDispatch).toHaveBeenCalledWith(closeLoaderActionCreator());
       });
@@ -87,13 +87,14 @@ describe("Given the useGames custom hook", () => {
           wrapper: Wrapper,
         });
 
-        await result.current.getAllGames();
+        await result.current.getAllGames(1);
 
         expect(mockDispatch).toHaveBeenCalledWith(
           loadGamesActionCreator({
             isPreviousPage: false,
             isNextPage: true,
             totalPages: 1,
+            currentPage: 0,
             games: [],
           })
         );

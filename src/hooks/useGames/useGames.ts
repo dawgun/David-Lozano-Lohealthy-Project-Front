@@ -19,26 +19,32 @@ const useGames = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
 
-  const getAllGames = useCallback(async () => {
-    try {
-      dispatch(showLoaderActionCreator());
+  const getAllGames = useCallback(
+    async (page: number) => {
+      try {
+        dispatch(showLoaderActionCreator());
 
-      const response = await fetch(urlAPI + "games/");
+        const response = await fetch(`${urlAPI}games?page=${page}`);
 
-      if (!response.ok) {
-        throw new Error();
+        if (!response.ok) {
+          throw new Error();
+        }
+
+        const gameList = await response.json();
+
+        dispatch(closeLoaderActionCreator());
+        dispatch(loadGamesActionCreator(gameList.games));
+      } catch {
+        dispatch(
+          openModalActionCreator({
+            message: "¡Algo ha salido mal!",
+            type: false,
+          })
+        );
       }
-
-      const gameList = await response.json();
-
-      dispatch(closeLoaderActionCreator());
-      dispatch(loadGamesActionCreator(gameList.games));
-    } catch {
-      dispatch(
-        openModalActionCreator({ message: "¡Algo ha salido mal!", type: false })
-      );
-    }
-  }, [urlAPI, dispatch]);
+    },
+    [urlAPI, dispatch]
+  );
 
   const getGameById = useCallback(
     async (idGame: string) => {
