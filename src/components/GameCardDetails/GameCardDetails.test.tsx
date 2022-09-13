@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
-import userEvent from "@testing-library/user-event";
 import GameCardDetails from "./GameCardDetails";
 
 let mockSelectorReturn = {
