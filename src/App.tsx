@@ -20,9 +20,7 @@ import { loginUserActionCreator } from "./store/user/userSlice";
 import fetchToken from "./utils/auth/auth";
 
 function App() {
-  const { isModalShowing, isLoadingShowing, isMenuShowing } = useAppSelector(
-    (state) => state.ui
-  );
+  const storeUI = useAppSelector((state) => state.ui);
   const token = localStorage.getItem("token");
   const dispach = useAppDispatch();
 
@@ -33,12 +31,12 @@ function App() {
 
   return (
     <AppStyled className="main-container">
-      {isLoadingShowing && <Loading />}
-      {isModalShowing && <Modal />}
+      {storeUI.isLoadingShowing && <Loading />}
+      {storeUI.isModalShowing && <Modal />}
       <section className="menu-container">
         <Header />
         <Navigation />
-        {isMenuShowing && <UserMenu />}
+        {storeUI.isMenuShowing && <UserMenu />}
       </section>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
