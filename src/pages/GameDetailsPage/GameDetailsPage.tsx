@@ -16,7 +16,7 @@ const GameDetailsPage = (): JSX.Element => {
     owner: { userName: "", id: "" },
     id: "",
   };
-  debugger;
+
   const { getGameById } = useGames();
   const [gameDetail, setGameDetail] = useState(initialGame);
   const { idGame } = useParams();

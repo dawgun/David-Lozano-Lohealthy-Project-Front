@@ -23,7 +23,7 @@ const MyGameListPageStyled = styled.section`
       width: 20rem;
       text-transform: uppercase;
       padding: 1rem;
-      margin: 1rem 0;
+      margin: 1rem 0 3rem 0;
       font-family: "Roboto";
       font-weight: bold;
     }
