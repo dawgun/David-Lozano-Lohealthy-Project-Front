@@ -22,6 +22,10 @@ const gamesSlice = createSlice({
       ...previousgame,
       games: [...previousgame.games, action.payload],
     }),
+    loadMyGames: (previousGame: gameAPI, action: PayloadAction<Game[]>) => ({
+      ...previousGame,
+      games: action.payload,
+    }),
   },
 });
 
@@ -31,4 +35,5 @@ export const {
   loadGames: loadGamesActionCreator,
   deleteGame: deleteGameActionCreator,
   createGame: createGameActionCreator,
+  loadMyGames: loadMyGamesActionCreator,
 } = gamesSlice.actions;
