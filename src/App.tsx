@@ -9,6 +9,7 @@ import ReverseRouteProtector from "./components/ReverseRouteProtector/ReverseRou
 import RouteProtector from "./components/RouteProtector/RouteProtector";
 import UserMenu from "./components/UserMenu/UserMenu";
 import CreateGamePage from "./pages/CreateGamePage/CreateGamePage";
+import GameDetailsPage from "./pages/GameDetailsPage/GameDetailsPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import MyGameListPage from "./pages/MyGameListPage/MyGameListPage";
@@ -42,6 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/details/:idGame" element={<GameDetailsPage />} />
         <Route
           path="/mis-juegos"
           element={
