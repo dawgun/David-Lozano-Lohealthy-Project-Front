@@ -22,3 +22,8 @@ export interface DetailGame extends ProtoGame {
   owner: OwnerDetailed;
   backupImage: string;
 }
+export interface GameAPI {
+  isPreviousPage: boolean;
+  isNextPage: boolean;
+  games: Game[];
+}
