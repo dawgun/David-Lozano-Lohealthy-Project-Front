@@ -5,6 +5,7 @@ import {
   createGameActionCreator,
   deleteGameActionCreator,
   loadGamesActionCreator,
+  loadMyGamesActionCreator,
 } from "../../store/games/gamesSlice";
 import { store } from "../../store/store";
 import {
@@ -88,7 +89,13 @@ describe("Given the useGames custom hook", () => {
 
         await result.current.getAllGames();
 
-        expect(mockDispatch).toHaveBeenCalledWith(loadGamesActionCreator([]));
+        expect(mockDispatch).toHaveBeenCalledWith(
+          loadGamesActionCreator({
+            isPreviousPage: false,
+            isNextPage: true,
+            games: [],
+          })
+        );
       });
     });
   });
@@ -262,7 +269,7 @@ describe("Given the useGames custom hook", () => {
 
         await result.current.getGamesByUser();
 
-        expect(mockDispatch).toHaveBeenCalledWith(loadGamesActionCreator([]));
+        expect(mockDispatch).toHaveBeenCalledWith(loadMyGamesActionCreator([]));
       });
     });
   });

@@ -32,7 +32,12 @@ export const handlers = [
   }),
 
   rest.get(`${apiUrl}games`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ games: [] }));
+    return res(
+      ctx.status(200),
+      ctx.json({
+        games: { isPreviousPage: false, isNextPage: true, games: [] },
+      })
+    );
   }),
 
   rest.delete(`${apiUrl}games/delete/1`, async (req, res, ctx) => {

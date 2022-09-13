@@ -4,6 +4,7 @@ import {
   createGameActionCreator,
   deleteGameActionCreator,
   loadGamesActionCreator,
+  loadMyGamesActionCreator,
 } from "../../store/games/gamesSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -85,7 +86,7 @@ const useGames = () => {
       const gameList = await response.json();
 
       dispatch(closeLoaderActionCreator());
-      dispatch(loadGamesActionCreator(gameList.games));
+      dispatch(loadMyGamesActionCreator(gameList.games));
     } catch {
       dispatch(
         openModalActionCreator({
