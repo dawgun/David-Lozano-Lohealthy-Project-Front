@@ -12,6 +12,7 @@ describe("Given the gamesSlice", () => {
     isNextPage: true,
     isPreviousPage: true,
     totalPages: 1,
+    currentPage: 0,
     games: [
       {
         title: "The Legend of Zelda",
@@ -44,6 +45,7 @@ describe("Given the gamesSlice", () => {
         isNextPage: true,
         isPreviousPage: true,
         totalPages: 1,
+        currentPage: 0,
         games: [
           {
             title: "The Legend of Zelda",
@@ -75,6 +77,7 @@ describe("Given the gamesSlice", () => {
         isNextPage: true,
         isPreviousPage: true,
         totalPages: 1,
+        currentPage: 0,
         games: [
           {
             title: "The Legend of Zelda",

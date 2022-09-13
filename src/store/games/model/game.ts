@@ -26,5 +26,6 @@ export interface GameAPI {
   isPreviousPage: boolean;
   isNextPage: boolean;
   totalPages: number;
+  currentPage: number;
   games: Game[];
 }

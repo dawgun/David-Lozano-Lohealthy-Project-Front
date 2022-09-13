@@ -39,6 +39,7 @@ export const handlers = [
           isPreviousPage: false,
           isNextPage: true,
           totalPages: 1,
+          currentPage: 0,
           games: [],
         },
       })
