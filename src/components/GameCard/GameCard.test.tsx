@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import GameCard from "./GameCard";
 import userEvent from "@testing-library/user-event";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 
 let mockSelectorReturn = {
   user: {
@@ -75,7 +75,7 @@ describe("Given the GameCard component", () => {
       });
 
       test("Then should show the synopsys cutted", () => {
-        const title = `${game.synopsis.slice(0, 100)}...`;
+        const title = `${game.synopsis.slice(0, 80)}...`;
 
         render(
           <Provider store={store}>
@@ -87,21 +87,6 @@ describe("Given the GameCard component", () => {
         const gameSynopsis = screen.getByText(title);
 
         expect(gameSynopsis).toBeInTheDocument();
-      });
-
-      test("Then should show a button with text 'Info'", () => {
-        const textButton = "Info";
-
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
-        const gameButton = screen.getByRole("button", { name: textButton });
-
-        expect(gameButton).toBeInTheDocument();
       });
 
       test("Then don't show button with 'X'", () => {
@@ -120,9 +105,8 @@ describe("Given the GameCard component", () => {
     });
 
     describe("And user is owner of game owner", () => {
-      const iconId = "delete-icon";
-
-      test("Then show button with icon 'X'", () => {
+      test("Then show button with text '✗'", () => {
+        const buttonText = "✗";
         mockSelectorReturn.user.id = "2";
 
         render(
@@ -133,13 +117,14 @@ describe("Given the GameCard component", () => {
           </Provider>
         );
 
-        const buttonDelete = screen.getByTestId(iconId);
+        const buttonDelete = screen.getByText(buttonText);
 
         expect(buttonDelete).toBeInTheDocument();
       });
 
       test("Then deleteGame is called when button is clicked", async () => {
         mockSelectorReturn.user.id = "2";
+        const buttonText = "✗";
 
         render(
           <Provider store={store}>
@@ -148,7 +133,7 @@ describe("Given the GameCard component", () => {
             </BrowserRouter>
           </Provider>
         );
-        const buttonDelete = screen.getByTestId(iconId);
+        const buttonDelete = screen.getByText(buttonText);
         await userEvent.click(buttonDelete);
 
         expect(mockDeleteGame).toHaveBeenCalledWith(game.id);
@@ -175,16 +160,17 @@ describe("Given the GameCard component", () => {
       });
     });
 
-    describe("And users click on 'Info' button", () => {
+    describe("And stay in '/home' path and users click on 'Info' button", () => {
       test("Then navigate has to been called with '/details/1'", async () => {
         const navigatePath = "/details/1";
         const textButton = "Info";
+        const actualPath = "/home";
 
         render(
           <Provider store={store}>
-            <BrowserRouter>
+            <MemoryRouter initialEntries={[actualPath]}>
               <GameCard game={game} />
-            </BrowserRouter>
+            </MemoryRouter>
           </Provider>
         );
         const infoButton = screen.getByRole("button", {
@@ -193,6 +179,26 @@ describe("Given the GameCard component", () => {
         await userEvent.click(infoButton);
 
         expect(mockNavigate).toHaveBeenCalledWith(navigatePath);
+      });
+    });
+
+    describe("And stay in '/mis-juegos' path and users click on 'Info' button", () => {
+      test("Then should show a button with text 'Edit'", async () => {
+        const textButton = "Edit";
+        const actualPath = "/mis-juegos";
+
+        render(
+          <Provider store={store}>
+            <MemoryRouter initialEntries={[actualPath]}>
+              <GameCard game={game} />
+            </MemoryRouter>
+          </Provider>
+        );
+        const editButton = screen.getByRole("button", {
+          name: textButton,
+        });
+
+        expect(editButton).toBeInTheDocument();
       });
     });
   });
