@@ -11,7 +11,7 @@ const mockSelectorReturn = {
   isMenuShowing: true,
   isLogged: true,
   user: "",
-  games: [],
+  games: { games: [] },
 };
 
 const mockDispatch = jest.fn();
