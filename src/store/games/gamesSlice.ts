@@ -4,6 +4,7 @@ import { Game, GameAPI } from "./model/game";
 const gameInitialState: GameAPI = {
   isPreviousPage: true,
   isNextPage: true,
+  totalPages: 1,
   games: [],
 };
 

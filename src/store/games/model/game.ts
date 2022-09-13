@@ -25,5 +25,6 @@ export interface DetailGame extends ProtoGame {
 export interface GameAPI {
   isPreviousPage: boolean;
   isNextPage: boolean;
+  totalPages: number;
   games: Game[];
 }

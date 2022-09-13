@@ -93,6 +93,7 @@ describe("Given the useGames custom hook", () => {
           loadGamesActionCreator({
             isPreviousPage: false,
             isNextPage: true,
+            totalPages: 1,
             games: [],
           })
         );

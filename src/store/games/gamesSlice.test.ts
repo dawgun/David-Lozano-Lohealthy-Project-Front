@@ -11,6 +11,7 @@ describe("Given the gamesSlice", () => {
   const previousGameState: GameAPI = {
     isNextPage: true,
     isPreviousPage: true,
+    totalPages: 1,
     games: [
       {
         title: "The Legend of Zelda",
@@ -42,6 +43,7 @@ describe("Given the gamesSlice", () => {
       const newListGames: GameAPI = {
         isNextPage: true,
         isPreviousPage: true,
+        totalPages: 1,
         games: [
           {
             title: "The Legend of Zelda",
@@ -72,6 +74,7 @@ describe("Given the gamesSlice", () => {
       const expectedNewGameList = {
         isNextPage: true,
         isPreviousPage: true,
+        totalPages: 1,
         games: [
           {
             title: "The Legend of Zelda",
