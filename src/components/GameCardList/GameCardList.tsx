@@ -6,7 +6,7 @@ const GameCardList = (): JSX.Element => {
   const { games } = useAppSelector((state) => state);
   return (
     <GameCardListStyled className="games-container">
-      {games.map((game) => (
+      {games.games.map((game) => (
         <GameCard key={game.id} game={game} />
       ))}
     </GameCardListStyled>

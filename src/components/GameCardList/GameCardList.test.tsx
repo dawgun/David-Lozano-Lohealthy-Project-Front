@@ -6,30 +6,32 @@ import GameCardList from "./GameCardList";
 
 let mockSelectorReturn = {
   user: { id: "1" },
-  games: [
-    {
-      title: "The Legend of Zelda",
-      image: "zelda.jpg",
-      players: "",
-      genre: "",
-      release: "",
-      synopsis:
-        "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
-      id: "1",
-      owner: "24",
-    },
-    {
-      title: "Terranigma",
-      image: "terranigma.jpg",
-      players: "",
-      genre: "",
-      release: "",
-      synopsis:
-        "Un juego donde la fortaleza de mana vuelve a las andadas para detruir el mundo y el arbol sagrado",
-      id: "2",
-      owner: "24",
-    },
-  ],
+  games: {
+    games: [
+      {
+        title: "The Legend of Zelda",
+        image: "zelda.jpg",
+        players: "",
+        genre: "",
+        release: "",
+        synopsis:
+          "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
+        id: "1",
+        owner: "24",
+      },
+      {
+        title: "Terranigma",
+        image: "terranigma.jpg",
+        players: "",
+        genre: "",
+        release: "",
+        synopsis:
+          "Un juego donde la fortaleza de mana vuelve a las andadas para detruir el mundo y el arbol sagrado",
+        id: "2",
+        owner: "24",
+      },
+    ],
+  },
 };
 
 jest.mock("react-redux", () => ({
