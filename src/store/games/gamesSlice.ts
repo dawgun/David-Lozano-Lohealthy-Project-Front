@@ -4,6 +4,8 @@ import { Game, GameAPI } from "./model/game";
 const gameInitialState: GameAPI = {
   isPreviousPage: true,
   isNextPage: true,
+  totalPages: 1,
+  currentPage: 0,
   games: [],
 };
 
@@ -11,7 +13,8 @@ const gamesSlice = createSlice({
   name: "games",
   initialState: gameInitialState,
   reducers: {
-    loadGames: (_previousGame: GameAPI, action: PayloadAction<GameAPI>) => ({
+    loadGames: (previousGame: GameAPI, action: PayloadAction<GameAPI>) => ({
+      ...previousGame,
       ...action.payload,
     }),
     deleteGame: (previousGame: GameAPI, action: PayloadAction<string>) => ({
@@ -26,6 +29,14 @@ const gamesSlice = createSlice({
       ...previousGame,
       games: action.payload,
     }),
+    nextPage: (previousGame: GameAPI) => ({
+      ...previousGame,
+      currentPage: previousGame.currentPage + 1,
+    }),
+    previousPage: (previousGame: GameAPI) => ({
+      ...previousGame,
+      currentPage: previousGame.currentPage - 1,
+    }),
   },
 });
 
@@ -36,4 +47,6 @@ export const {
   deleteGame: deleteGameActionCreator,
   createGame: createGameActionCreator,
   loadMyGames: loadMyGamesActionCreator,
+  nextPage: nextPageActionCreator,
+  previousPage: previousPageActionCreator,
 } = gamesSlice.actions;

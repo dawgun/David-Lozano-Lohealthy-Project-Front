@@ -35,7 +35,13 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        games: { isPreviousPage: false, isNextPage: true, games: [] },
+        games: {
+          isPreviousPage: false,
+          isNextPage: true,
+          totalPages: 1,
+          currentPage: 0,
+          games: [],
+        },
       })
     );
   }),

@@ -3,6 +3,29 @@ import styled from "styled-components";
 const HomePageStyled = styled.section`
   padding: 1rem;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    &__next,
+    &__previous {
+      color: #d43521;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    button {
+      background-color: inherit;
+      border: 0;
+    }
+  }
 
   .homepage {
     &__title {

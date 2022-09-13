@@ -4,6 +4,8 @@ import {
   gameReducer,
   loadGamesActionCreator,
   loadMyGamesActionCreator,
+  nextPageActionCreator,
+  previousPageActionCreator,
 } from "./gamesSlice";
 import { GameAPI } from "./model/game";
 
@@ -11,6 +13,8 @@ describe("Given the gamesSlice", () => {
   const previousGameState: GameAPI = {
     isNextPage: true,
     isPreviousPage: true,
+    totalPages: 1,
+    currentPage: 0,
     games: [
       {
         title: "The Legend of Zelda",
@@ -42,6 +46,8 @@ describe("Given the gamesSlice", () => {
       const newListGames: GameAPI = {
         isNextPage: true,
         isPreviousPage: true,
+        totalPages: 1,
+        currentPage: 0,
         games: [
           {
             title: "The Legend of Zelda",
@@ -72,6 +78,8 @@ describe("Given the gamesSlice", () => {
       const expectedNewGameList = {
         isNextPage: true,
         isPreviousPage: true,
+        totalPages: 1,
+        currentPage: 0,
         games: [
           {
             title: "The Legend of Zelda",
@@ -146,6 +154,40 @@ describe("Given the gamesSlice", () => {
       const newGameList = gameReducer(
         previousGameState,
         loadMyGamesActionCreator(newGame)
+      );
+
+      expect(newGameList).toStrictEqual(expectedNewGameList);
+    });
+  });
+
+  describe("When call nextPage reducer with previousGameState", () => {
+    test("Then should return a new list of games with currentPage incremented 1", () => {
+      const nextPage = 1;
+
+      const expectedNewGameList = {
+        ...previousGameState,
+        currentPage: previousGameState.currentPage + nextPage,
+      };
+
+      const newGameList = gameReducer(
+        previousGameState,
+        nextPageActionCreator()
+      );
+
+      expect(newGameList).toStrictEqual(expectedNewGameList);
+    });
+  });
+
+  describe("When call previousPage reducer with previousGameState", () => {
+    test("Then should return a new list of games with currentPage decremented 1", () => {
+      const expectedNewGameList = {
+        ...previousGameState,
+        currentPage: previousGameState.currentPage - 1,
+      };
+
+      const newGameList = gameReducer(
+        previousGameState,
+        previousPageActionCreator()
       );
 
       expect(newGameList).toStrictEqual(expectedNewGameList);
