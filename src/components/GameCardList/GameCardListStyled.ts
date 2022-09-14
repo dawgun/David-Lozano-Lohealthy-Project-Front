@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const GameCardListStyled = styled.section`
   display: flex;
-  gap: 5rem;
+  gap: 3rem;
   flex-wrap: wrap;
   flex: 1;
   width: 22rem;

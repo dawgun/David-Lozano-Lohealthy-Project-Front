@@ -15,7 +15,9 @@ const MyGameListPageStyled = styled.section`
     }
 
     &__title {
+      font-size: 2rem;
       color: #858383;
+      padding: 1rem 0 0 0;
     }
 
     &__button {
