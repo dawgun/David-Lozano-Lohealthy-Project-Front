@@ -118,7 +118,10 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then dispatch must be called with correct action openModal", async () => {
-        const payloadModal = { message: "Juego borrado", type: true };
+        const payloadModal = {
+          message: "Juego borrado satisfactoriamente",
+          type: true,
+        };
 
         const { result } = renderHook(() => useGames(), {
           wrapper: Wrapper,
