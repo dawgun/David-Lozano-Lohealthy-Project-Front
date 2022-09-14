@@ -47,7 +47,7 @@ describe("Given App component", () => {
     });
 
     test("Then should show a button with 'X' from Modal component", () => {
-      const textButton = "X";
+      const textButton = "✕";
 
       render(
         <Provider store={store}>
