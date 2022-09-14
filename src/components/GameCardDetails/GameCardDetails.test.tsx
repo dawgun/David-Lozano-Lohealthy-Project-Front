@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import GameCardDetails from "./GameCardDetails";
@@ -141,24 +141,6 @@ describe("Given the GameCard component", () => {
         const gameSynopsis = screen.getByText(title);
 
         expect(gameSynopsis).toBeInTheDocument();
-      });
-
-      describe("And original image throw an error", () => {
-        test("Then should show the image backup", () => {
-          const alternativeText = game.title + " game";
-
-          render(
-            <Provider store={store}>
-              <GameCardDetails game={game} />
-            </Provider>
-          );
-          const gameImage = screen.getByRole("img", {
-            name: alternativeText,
-          });
-          fireEvent.error(gameImage);
-
-          expect(gameImage.getAttribute("src")).toBe(game.backupImage);
-        });
       });
     });
   });

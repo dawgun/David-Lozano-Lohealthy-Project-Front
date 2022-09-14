@@ -13,6 +13,7 @@ const GameCardStyled = styled.article`
 
     &__image {
       object-fit: cover;
+      border-radius: 1rem;
     }
 
     &__info {
