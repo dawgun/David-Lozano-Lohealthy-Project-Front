@@ -125,7 +125,12 @@ const useGames = () => {
       );
     }
     dispatch(deleteGameActionCreator(idGame));
-    dispatch(openModalActionCreator({ message: "Juego borrado", type: true }));
+    dispatch(
+      openModalActionCreator({
+        message: "Juego borrado satisfactoriamente",
+        type: true,
+      })
+    );
   };
 
   const createGame = async (formGameData: FormData) => {

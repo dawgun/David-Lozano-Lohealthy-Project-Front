@@ -14,6 +14,10 @@ const HomePageStyled = styled.section`
     justify-content: space-between;
     padding: 1rem;
 
+    .disabled {
+      color: #00000033;
+    }
+
     &__next,
     &__previous {
       color: #d43521;

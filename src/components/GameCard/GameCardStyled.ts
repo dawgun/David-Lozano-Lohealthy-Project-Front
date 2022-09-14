@@ -18,7 +18,7 @@ const GameCardStyled = styled.article`
     &__info {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      width: 15rem;
     }
 
     &__button {

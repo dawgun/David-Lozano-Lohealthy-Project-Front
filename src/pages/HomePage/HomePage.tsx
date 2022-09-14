@@ -20,10 +20,12 @@ const HomePage = (): JSX.Element => {
 
   const previousPageHandler = () => {
     dispatch(previousPageActionCreator());
+    window.scroll(0, 0);
   };
 
   const nextPageHandler = () => {
     dispatch(nextPageActionCreator());
+    window.scroll(0, 0);
   };
 
   return (
@@ -32,7 +34,9 @@ const HomePage = (): JSX.Element => {
       <GameCardList />
       <div className="pagination">
         <button
-          className="pagination__previous"
+          className={`pagination__previous${
+            !page.isPreviousPage ? " disabled" : ""
+          }`}
           onClick={previousPageHandler}
           disabled={!page.isPreviousPage}
         >
@@ -42,7 +46,7 @@ const HomePage = (): JSX.Element => {
           page.totalPages
         }`}</span>
         <button
-          className="pagination__next"
+          className={`pagination__next${!page.isNextPage ? " disabled" : ""}`}
           onClick={nextPageHandler}
           disabled={!page.isNextPage}
         >
