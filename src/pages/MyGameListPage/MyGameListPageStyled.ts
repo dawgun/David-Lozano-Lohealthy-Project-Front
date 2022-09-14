@@ -8,12 +8,6 @@ const MyGameListPageStyled = styled.section`
   align-items: center;
 
   .my-games {
-    &__container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
     &__title {
       font-size: 2rem;
       color: #858383;
