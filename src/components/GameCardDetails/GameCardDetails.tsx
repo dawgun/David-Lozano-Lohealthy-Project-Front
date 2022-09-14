@@ -8,7 +8,7 @@ interface GameCardDetailsProps {
 const GameCardDetails = ({ game }: GameCardDetailsProps): JSX.Element => {
   return (
     <GameCardDetailsStyled className="game-detail">
-      <h2 className="game-detail__title">{game.title}</h2>
+      <h3 className="game-detail__title">{game.title}</h3>
       <img
         className="game-detail__image"
         width={320}
@@ -16,17 +16,27 @@ const GameCardDetails = ({ game }: GameCardDetailsProps): JSX.Element => {
         src={game.image}
         alt={`${game.title} game`}
       ></img>
-      <div className="game-detail__info">
-        <h3>Autor</h3>
-        <span>{game.owner.userName}</span>
-        <h3>Jugadores</h3>
-        <span>{game.players}</span>
-        <h3>Género</h3>
-        <span>{game.genre}</span>
-        <h3>Lanzamiento</h3>
-        <span>{game.release.slice(0, 10)}</span>
-        <h3>Sinopsis</h3>
-        <p>{game.synopsis}</p>
+      <div className="game-detail__list">
+        <div className="game-detail__info">
+          <h4>Autor</h4>
+          <span>{game.owner.userName}</span>
+        </div>
+        <div className="game-detail__info">
+          <h4>Jugadores</h4>
+          <span>{game.players}</span>
+        </div>
+        <div className="game-detail__info">
+          <h4>Género</h4>
+          <span>{game.genre}</span>
+        </div>
+        <div className="game-detail__info">
+          <h4>Lanzamiento</h4>
+          <span>{game.release.slice(0, 10)}</span>
+        </div>
+        <div className="game-detail__sinopsis">
+          <h4>Sinopsis</h4>
+          <p>{game.synopsis}</p>
+        </div>
       </div>
     </GameCardDetailsStyled>
   );
