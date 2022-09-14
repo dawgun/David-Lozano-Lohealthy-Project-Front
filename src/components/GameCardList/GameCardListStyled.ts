@@ -9,6 +9,7 @@ const GameCardListStyled = styled.ul`
   padding: 0;
   margin: 0;
   align-content: flex-start;
+  justify-content: center;
 
   @media (min-width: 1000px) {
     width: 51rem;
