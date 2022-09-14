@@ -43,7 +43,7 @@ describe("Given a Modal component", () => {
       const modal = screen.getByText(expectedText);
       const modalStyle = getComputedStyle(modal);
 
-      expect(modalStyle.backgroundColor).toBe("rgb(74, 172, 14)");
+      expect(modalStyle.borderColor).toBe("rgb(74,172,14)");
     });
 
     test("Then it should show a red background color", async () => {
@@ -62,7 +62,7 @@ describe("Given a Modal component", () => {
       const modal = screen.getByText(expectedText);
       const modalStyle = getComputedStyle(modal);
 
-      expect(modalStyle.backgroundColor).toBe("rgb(212, 53, 33)");
+      expect(modalStyle.borderColor).toBe("rgb(212,53,33)");
     });
 
     test("Then it should show the message it have received", async () => {
@@ -72,7 +72,7 @@ describe("Given a Modal component", () => {
         </Provider>
       );
 
-      const button = screen.getByRole("button", { name: "X" });
+      const button = screen.getByRole("button", { name: "✕" });
       await userEvent.click(button);
 
       expect(mockDispatch).toHaveBeenCalled();

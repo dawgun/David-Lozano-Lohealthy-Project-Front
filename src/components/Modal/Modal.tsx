@@ -14,7 +14,7 @@ const Modal = (): JSX.Element => {
     <ModalStyled>
       <span className={type ? "positive" : "negative"}>
         {message}
-        <button onClick={handleCloseModal}>X</button>
+        <button onClick={handleCloseModal}>✕</button>
       </span>
     </ModalStyled>
   );
