@@ -19,9 +19,9 @@ const Header = (): JSX.Element => {
         <img
           className="header-button__icon"
           alt="Menu icon"
-          height="24"
-          width="22"
-          src="/images/Menu.png"
+          height="32"
+          width="32"
+          src="/images/Menu.svg"
         ></img>
       </button>
     </HeaderStyled>
