@@ -14,7 +14,6 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
   const navigate = useNavigate();
   const maxLettersSynopsis = 80;
   const isSamePerson = game.owner === user.id;
-  const urlAPI = process.env.REACT_APP_API_URL;
   const { pathname } = useLocation();
 
   const infoHandler = () => {
