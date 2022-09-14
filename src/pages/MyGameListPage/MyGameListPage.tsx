@@ -19,12 +19,10 @@ const MyGameListPage = (): JSX.Element => {
   return (
     <MyGameListPageStyled className="my-games__page">
       <h2 className="my-games__title">Mis Juegos</h2>
-      <div className="my-games__container">
-        <button className="my-games__button" onClick={navigateHandler}>
-          Crear Juego
-        </button>
-        <GameCardList />
-      </div>
+      <button className="my-games__button" onClick={navigateHandler}>
+        Crear Juego
+      </button>
+      <GameCardList />
     </MyGameListPageStyled>
   );
 };
