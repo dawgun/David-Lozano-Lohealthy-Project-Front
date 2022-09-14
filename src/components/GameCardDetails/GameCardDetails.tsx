@@ -6,7 +6,6 @@ interface GameCardDetailsProps {
 }
 
 const GameCardDetails = ({ game }: GameCardDetailsProps): JSX.Element => {
-  const urlAPI = process.env.REACT_APP_API_URL;
   return (
     <GameCardDetailsStyled className="game-detail">
       <h2 className="game-detail__title">{game.title}</h2>
@@ -14,12 +13,8 @@ const GameCardDetails = ({ game }: GameCardDetailsProps): JSX.Element => {
         className="game-detail__image"
         width={320}
         height={180}
-        src={`${urlAPI}${game.image}`}
+        src={game.image}
         alt={`${game.title} game`}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = game.backupImage;
-        }}
       ></img>
       <div className="game-detail__info">
         <h3>Autor</h3>

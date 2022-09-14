@@ -14,6 +14,7 @@ const HomePageStyled = styled.section`
     align-items: center;
     justify-content: space-around;
     padding: 1.5rem 0;
+    width: 100%;
 
     .disabled {
       color: #00000033;

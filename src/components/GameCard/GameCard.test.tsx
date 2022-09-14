@@ -140,26 +140,6 @@ describe("Given the GameCard component", () => {
       });
     });
 
-    describe("And original image throw an error", () => {
-      test("Then should show the image backup", () => {
-        const alternativeText = game.title + " game";
-
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
-        const gameImage = screen.getByRole("img", {
-          name: alternativeText,
-        });
-        fireEvent.error(gameImage);
-
-        expect(gameImage.getAttribute("src")).toBe(game.backupImage);
-      });
-    });
-
     describe("And stay in '/home' path and users click on 'Info' button", () => {
       test("Then navigate has to been called with '/details/1'", async () => {
         const navigatePath = "/details/1";

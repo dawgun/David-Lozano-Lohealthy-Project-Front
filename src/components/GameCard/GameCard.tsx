@@ -26,12 +26,8 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
       <img
         width={90}
         height={160}
-        src={`${urlAPI}${game.image}`}
+        src={game.backupImage}
         alt={`${game.title} game`}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = game.backupImage;
-        }}
         className="game__image"
       ></img>
       <div className="game__info">
