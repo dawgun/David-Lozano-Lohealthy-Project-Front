@@ -32,6 +32,12 @@ const MyGameListPageStyled = styled.section`
       font-family: "Roboto";
       font-weight: bold;
     }
+
+    &__button:hover {
+      background-color: white;
+      color: #d43521;
+      border: 1px solid #d43521;
+    }
   }
 `;
 

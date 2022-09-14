@@ -9,6 +9,9 @@ const GameCardList = (): JSX.Element => {
       {games.games.map((game) => (
         <GameCard key={game.id} game={game} />
       ))}
+      {games.games.length === 0 && (
+        <span>No tienes ningun juego ahora mismo</span>
+      )}
     </GameCardListStyled>
   );
 };
