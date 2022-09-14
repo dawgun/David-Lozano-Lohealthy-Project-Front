@@ -145,7 +145,12 @@ const useGames = () => {
       const { game } = await response.json();
 
       dispatch(createGameActionCreator(game));
-      dispatch(openModalActionCreator({ message: "Juego creado", type: true }));
+      dispatch(
+        openModalActionCreator({
+          message: "Juego creado satisfactoriamente",
+          type: true,
+        })
+      );
       navigate("/mis-juegos");
     } catch {
       dispatch(

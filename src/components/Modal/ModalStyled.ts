@@ -10,22 +10,26 @@ const ModalStyled = styled.div`
   display: grid;
   place-items: center;
   background-color: rgba(255, 255, 255, 0.5);
+
   span {
     box-sizing: border-box;
-    border-radius: 3rem;
-    padding: 0.7rem 1rem;
-    width: 100%;
-    color: white;
-    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
     box-shadow: 0 0 70px black;
+    gap: 2rem;
+    align-items: center;
+    display: flex;
 
     &.positive {
-      background-color: #4aac0e;
+      border: 5px solid rgb(74, 172, 14);
+      background: white;
     }
     &.negative {
-      background-color: #d43521;
+      border: 5px solid rgb(212, 53, 33);
+      background: white;
     }
   }
 
@@ -34,7 +38,6 @@ const ModalStyled = styled.div`
     margin: 0;
     padding: 0;
     border: 0;
-    color: white;
     font-size: 1.5rem;
     font-weight: 700;
     font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
