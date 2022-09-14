@@ -3,7 +3,7 @@ import styled from "styled-components";
 const GameCardStyled = styled.article`
   display: flex;
   gap: 1rem;
-  width: 23rem;
+  width: 22rem;
   position: relative;
 
   .game {

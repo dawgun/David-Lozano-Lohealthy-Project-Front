@@ -3,6 +3,9 @@ import styled from "styled-components";
 const MyGameListPageStyled = styled.section`
   padding: 1rem;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .my-games {
     &__container {

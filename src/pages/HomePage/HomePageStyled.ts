@@ -5,14 +5,15 @@ const HomePageStyled = styled.section`
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   .pagination {
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
     align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
+    justify-content: space-around;
+    padding: 1.5rem 0;
 
     .disabled {
       color: #00000033;
