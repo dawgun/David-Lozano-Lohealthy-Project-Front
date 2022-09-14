@@ -17,13 +17,13 @@ export const GameForm = () => {
     image: "",
   };
 
-  const [formGameData, setFormGameData] = useState(initialState);
-  const [gameData, setGameData] = useState(initialFormData);
+  const [newGame, setnewGame] = useState(initialState);
+  const [newFormData, setnewFormData] = useState(initialFormData);
   const { createGame } = useGames();
 
   const handleChange = (event: SyntheticEvent) => {
-    setFormGameData({
-      ...formGameData,
+    setnewGame({
+      ...newGame,
       [(event.target as HTMLInputElement).name]: (
         event.target as HTMLInputElement
       ).value,
@@ -33,29 +33,29 @@ export const GameForm = () => {
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    gameData.append("title", formGameData.title);
-    gameData.append("genre", formGameData.genre);
-    gameData.append("players", formGameData.players);
-    gameData.append("release", formGameData.release);
-    gameData.append("synopsis", formGameData.synopsis);
+    newFormData.append("title", newGame.title);
+    newFormData.append("genre", newGame.genre);
+    newFormData.append("players", newGame.players);
+    newFormData.append("release", newGame.release);
+    newFormData.append("synopsis", newGame.synopsis);
 
-    await createGame(gameData);
-    setFormGameData(initialState);
-    setGameData(new FormData());
+    await createGame(newFormData);
+    setnewGame(initialState);
+    setnewFormData(new FormData());
   };
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    gameData.append("image", event.target.files![0]);
-    setFormGameData({ ...formGameData, image: event.target.value });
+    newFormData.append("image", event.target.files![0]);
+    setnewGame({ ...newGame, image: event.target.value });
   };
 
   const isFormValid =
-    formGameData.title !== "" &&
-    formGameData.genre !== "" &&
-    formGameData.players !== "" &&
-    formGameData.release !== "" &&
-    formGameData.image !== "" &&
-    formGameData.synopsis.length > minLength;
+    newGame.title !== "" &&
+    newGame.genre !== "" &&
+    newGame.players !== "" &&
+    newGame.release !== "" &&
+    newGame.image !== "" &&
+    newGame.synopsis.length > minLength;
 
   return (
     <FormStyled className="game-form">
@@ -64,7 +64,7 @@ export const GameForm = () => {
           <input
             type="text"
             className="game-form__control"
-            value={formGameData.title}
+            value={newGame.title}
             name="title"
             placeholder="Título"
             onChange={handleChange}
@@ -76,7 +76,7 @@ export const GameForm = () => {
           <select
             placeholder="Género"
             className="game-form__control"
-            value={formGameData.genre}
+            value={newGame.genre}
             onChange={handleChange}
             name="genre"
             required
@@ -100,7 +100,7 @@ export const GameForm = () => {
           <select
             placeholder="Jugadores"
             className="game-form__control"
-            value={formGameData.players}
+            value={newGame.players}
             onChange={handleChange}
             name="players"
             required
@@ -119,7 +119,7 @@ export const GameForm = () => {
             placeholder="Fecha"
             className="game-form__control"
             type="date"
-            value={formGameData.release}
+            value={newGame.release}
             name="release"
             onChange={handleChange}
             autoComplete="off"
@@ -129,7 +129,7 @@ export const GameForm = () => {
         <div>
           <textarea
             className="game-form__control"
-            value={formGameData.synopsis}
+            value={newGame.synopsis}
             name="synopsis"
             placeholder="Descripción del juego"
             onChange={handleChange}
@@ -142,7 +142,7 @@ export const GameForm = () => {
             placeholder="Imagen"
             className="game-form__control"
             type="file"
-            value={formGameData.image}
+            value={newGame.image}
             name="image"
             onChange={handleChangeFile}
             autoComplete="off"
