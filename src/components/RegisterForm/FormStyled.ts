@@ -30,6 +30,13 @@ const FormStyled = styled.section`
       padding: 1rem;
       font-family: "Roboto";
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    &__button:hover {
+      background-color: white;
+      color: #d43521;
+      border: 1px solid #d43521;
     }
 
     &__control {

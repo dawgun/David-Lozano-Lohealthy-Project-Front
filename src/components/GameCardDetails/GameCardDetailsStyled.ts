@@ -24,11 +24,6 @@ const GameCardDetailsStyled = styled.article`
       display: flex;
       flex-direction: column;
       width: 10rem;
-      padding: 1rem 0;
-    }
-
-    &__sinopsis {
-      padding: 1rem 0;
     }
   }
 `;

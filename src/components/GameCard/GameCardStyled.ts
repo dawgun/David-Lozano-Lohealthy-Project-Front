@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const GameCardStyled = styled.article`
+const GameCardStyled = styled.li`
   display: flex;
   gap: 1rem;
   width: 22rem;
   position: relative;
+  list-style: none;
 
   .game {
     &__title {
@@ -33,6 +34,13 @@ const GameCardStyled = styled.article`
       font-family: "Roboto";
       font-weight: bold;
       align-self: flex-end;
+      cursor: pointer;
+    }
+
+    &__button:hover {
+      background-color: white;
+      color: #d43521;
+      border: 1px solid #d43521;
     }
 
     &__delete {
