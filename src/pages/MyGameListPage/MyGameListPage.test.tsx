@@ -1,3 +1,4 @@
+import mockUseGames from "../../utils/testUtils/mocks/mockUseGames/mockUseGames";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -6,15 +7,10 @@ import MyGameListPage from "./MyGameListPage";
 import userEvent from "@testing-library/user-event";
 
 const mockNavigate = jest.fn();
-const mockGetGamesByUser = jest.fn();
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
-}));
-
-jest.mock("../../hooks/useGames/useGames", () => () => ({
-  getGamesByUser: mockGetGamesByUser,
 }));
 
 describe("Given MyGameListPage page", () => {
@@ -43,7 +39,7 @@ describe("Given MyGameListPage page", () => {
         </Provider>
       );
 
-      expect(mockGetGamesByUser).toHaveBeenCalled();
+      expect(mockUseGames.getGamesByUser).toHaveBeenCalledWith();
     });
 
     test("Then should show 'Crear Juego' in a button", () => {

@@ -9,15 +9,9 @@ let mockSelectorReturn = {
   },
 };
 
-const mockDeleteGame = jest.fn();
-
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useSelector: () => mockSelectorReturn,
-}));
-
-jest.mock("../../hooks/useGames/useGames", () => () => ({
-  deleteGame: mockDeleteGame,
 }));
 
 const game = {
