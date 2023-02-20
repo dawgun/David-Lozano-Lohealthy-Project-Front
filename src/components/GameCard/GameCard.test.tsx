@@ -1,3 +1,4 @@
+import mockUseGames from "../../utils/testUtils/mocks/mockUseGames/mockUseGames";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
@@ -11,16 +12,11 @@ let mockSelectorReturn = {
   },
 };
 
-const mockDeleteGame = jest.fn();
 const mockNavigate = jest.fn();
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useSelector: () => mockSelectorReturn,
-}));
-
-jest.mock("../../hooks/useGames/useGames", () => () => ({
-  deleteGame: mockDeleteGame,
 }));
 
 jest.mock("react-router-dom", () => ({
@@ -136,7 +132,7 @@ describe("Given the GameCard component", () => {
         const buttonDelete = screen.getByText(buttonText);
         await userEvent.click(buttonDelete);
 
-        expect(mockDeleteGame).toHaveBeenCalledWith(game.id);
+        expect(mockUseGames.deleteGame).toHaveBeenCalledWith(game.id);
       });
     });
 

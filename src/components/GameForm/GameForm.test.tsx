@@ -1,12 +1,7 @@
+import mockUseGames from "../../utils/testUtils/mocks/mockUseGames/mockUseGames";
 import { render, screen } from "@testing-library/react";
 import GameForm from "./GameForm";
 import userEvent from "@testing-library/user-event";
-
-const mockcreateGame = jest.fn();
-
-jest.mock("../../hooks/useGames/useGames", () => () => ({
-  createGame: mockcreateGame,
-}));
 
 describe("Given the GameForm component", () => {
   describe("When it's instantiated", () => {
@@ -72,7 +67,7 @@ describe("Given the GameForm component", () => {
         const button = screen.getByRole("button", { name: textButton });
         await userEvent.click(button);
 
-        expect(mockcreateGame).not.toHaveBeenCalled();
+        expect(mockUseGames.createGame).not.toHaveBeenCalled();
       });
     });
 
@@ -114,7 +109,7 @@ describe("Given the GameForm component", () => {
         expect(synopsis).toBeInTheDocument();
         expect(fileImage).toBeInTheDocument();
 
-        expect(mockcreateGame).toHaveBeenCalled();
+        expect(mockUseGames.createGame).toHaveBeenCalled();
       });
     });
   });
