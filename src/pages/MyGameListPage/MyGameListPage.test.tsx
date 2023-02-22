@@ -1,10 +1,8 @@
-import mockUseGames from "../../utils/testUtils/mocks/mockUseGames/mockUseGames";
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "../../store/store";
+import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
+import { screen } from "@testing-library/react";
 import MyGameListPage from "./MyGameListPage";
 import userEvent from "@testing-library/user-event";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 
 const mockNavigate = jest.fn();
 
@@ -18,26 +16,15 @@ describe("Given MyGameListPage page", () => {
     test("Then should show 'Mis Juegos' in a heading", () => {
       const titleHeading = "Mis Juegos";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <MyGameListPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<MyGameListPage />);
+
       const title = screen.getByRole("heading", { name: titleHeading });
 
       expect(title).toBeInTheDocument();
     });
 
     test("Then should getGamesByUser be called", () => {
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <MyGameListPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<MyGameListPage />);
 
       expect(mockUseGames.getGamesByUser).toHaveBeenCalledWith();
     });
@@ -45,13 +32,8 @@ describe("Given MyGameListPage page", () => {
     test("Then should show 'Crear Juego' in a button", () => {
       const textButton = "Crear Juego";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <MyGameListPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<MyGameListPage />);
+
       const button = screen.getByRole("button", { name: textButton });
 
       expect(button).toBeInTheDocument();
@@ -62,13 +44,8 @@ describe("Given MyGameListPage page", () => {
         const textButton = "Crear Juego";
         const pathNavigate = "/mis-juegos/create";
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <MyGameListPage />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<MyGameListPage />);
+
         const button = screen.getByRole("button", { name: textButton });
         await userEvent.click(button);
 

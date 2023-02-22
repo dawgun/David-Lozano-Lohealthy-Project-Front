@@ -6,7 +6,7 @@ const mockUseGames = {
   getGameById: jest.fn(),
 };
 
-jest.mock("../../../../hooks/useGames/useGames", () => () => ({
+jest.mock("../../../hooks/useGames/useGames", () => () => ({
   getAllGames: mockUseGames.getAllGames,
   deleteGame: mockUseGames.deleteGame,
   createGame: mockUseGames.createGame,

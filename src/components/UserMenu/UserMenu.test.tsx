@@ -1,17 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "../../store/store";
+import {
+  initialUserState,
+  mockStore,
+} from "../../testUtils/mocks/mockStore/mockStore";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import UserMenu from "./UserMenu";
-
-const mockSelectorReturn = {
-  isLogged: false,
-  user: {
-    userName: "Nachus",
-    image: "",
-  },
-};
 
 const mockuserLogout = jest.fn();
 const mockDispatch = jest.fn();
@@ -22,7 +16,6 @@ jest.mock("../../hooks/useUser/useUser", () => () => ({
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
-  useSelector: () => mockSelectorReturn,
   useDispatch: () => mockDispatch,
 }));
 
@@ -31,13 +24,8 @@ describe("Given the UserMenu component", () => {
     test("Then should show two nav links", async () => {
       const expectedLenght = 2;
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <UserMenu />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<UserMenu />);
+
       const navlinks = await screen.findAllByRole("link");
 
       expect(navlinks).toHaveLength(expectedLenght);
@@ -47,13 +35,8 @@ describe("Given the UserMenu component", () => {
       test("Then should functions has been called", async () => {
         const calledTimes = 2;
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <UserMenu />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<UserMenu />);
+
         const navlinks = await screen.findAllByRole("link");
         await userEvent.click(navlinks[0]);
         await userEvent.click(navlinks[1]);
@@ -64,18 +47,19 @@ describe("Given the UserMenu component", () => {
   });
 
   describe("When user is logged", () => {
+    const storeWithUserLogged = mockStore({
+      userPreloadState: {
+        isLogged: true,
+        user: { ...initialUserState.user, userName: "Nachus", image: "" },
+      },
+    });
+
     test("Then should show an user name 'Nachus' and image with alternativeText 'Profile pic representing user'", async () => {
       const userName = "Nachus";
       const alternativeText = "Profile pic representing user";
-      mockSelectorReturn.isLogged = true;
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <UserMenu />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<UserMenu />, { store: storeWithUserLogged });
+
       const text = screen.getByText(userName);
       const image = screen.getByRole("img", { name: alternativeText });
 
@@ -87,13 +71,8 @@ describe("Given the UserMenu component", () => {
       test("Then should have been called userLogout function", async () => {
         const logoutText = "Logout";
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <UserMenu />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<UserMenu />, { store: storeWithUserLogged });
+
         const button = screen.getByRole("button", { name: logoutText });
         await userEvent.click(button);
 

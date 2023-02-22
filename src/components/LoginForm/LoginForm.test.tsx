@@ -1,8 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "../../store/store";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import LoginForm from "./LoginForm";
 
 const mockuserLogin = jest.fn();
@@ -20,13 +18,8 @@ describe("Given the Register component", () => {
     const passwordTextInput = "12345";
 
     test("Then should show userName and password inputs", () => {
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <LoginForm />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<LoginForm />);
+
       const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
       const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
 
@@ -36,13 +29,7 @@ describe("Given the Register component", () => {
 
     describe("And user type 'Dan' in userName input", () => {
       test("Then should show 'Dan' in userName input", async () => {
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <LoginForm />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<LoginForm />);
 
         const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
         await userEvent.type(userNameInput, userNameTextInput);
@@ -53,13 +40,7 @@ describe("Given the Register component", () => {
 
     describe("And user type '12345' in password input", () => {
       test("Then should show '12345' in password input", async () => {
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <LoginForm />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<LoginForm />);
 
         const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
         await userEvent.type(passwordInput, passwordTextInput);
@@ -70,13 +51,8 @@ describe("Given the Register component", () => {
 
     describe("And user doesn't type and click on register button", () => {
       test("Then it doesn't call userLogin function", async () => {
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <LoginForm />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<LoginForm />);
+
         const button = screen.getByRole("button", { name: "Login" });
         await userEvent.click(button);
 
@@ -91,13 +67,8 @@ describe("Given the Register component", () => {
           password: passwordTextInput,
         };
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <LoginForm />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<LoginForm />);
+
         const button = screen.getByRole("button", {
           name: "Login",
         });

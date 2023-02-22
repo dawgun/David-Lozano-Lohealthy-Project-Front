@@ -10,6 +10,7 @@ describe("Given the Footer component", () => {
       const alternativeTextYoutube = "Youtube icon";
 
       render(<Footer />);
+
       const instagramImage = screen.getByRole("img", {
         name: alternativeTextInstagram,
       });
@@ -34,6 +35,7 @@ describe("Given the Footer component", () => {
       const copyrightText = "©2022 Todos los derechos reservados.";
 
       render(<Footer />);
+
       const property = screen.getByText(propertyText);
       const copyright = screen.getByText(copyrightText);
 

@@ -5,6 +5,7 @@ describe("Given a Loading component", () => {
   describe("When it's instantiated", () => {
     test("Then it should show a gif with alternative text 'Zelda dancing'", () => {
       const gifAlternativeText = "Zelda dancing";
+
       render(<Loading />);
 
       const image = screen.getByTitle(gifAlternativeText);
@@ -14,6 +15,7 @@ describe("Given a Loading component", () => {
 
     test("Then it should show text 'Cargando...'", () => {
       const textLoading = "Cargando...";
+
       render(<Loading />);
 
       const text = screen.getByText(textLoading);

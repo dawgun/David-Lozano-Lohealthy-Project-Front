@@ -1,56 +1,49 @@
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "../../store/store";
+import { screen } from "@testing-library/react";
+import { Game } from "../../store/games/model/game";
+import {
+  initialGameState,
+  mockStore,
+} from "../../testUtils/mocks/mockStore/mockStore";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import GameCardList from "./GameCardList";
 
-let mockSelectorReturn = {
-  user: { id: "1" },
-  games: {
-    games: [
-      {
-        title: "The Legend of Zelda",
-        image: "zelda.jpg",
-        players: "",
-        genre: "",
-        release: "",
-        synopsis:
-          "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
-        id: "1",
-        owner: "24",
-      },
-      {
-        title: "Terranigma",
-        image: "terranigma.jpg",
-        players: "",
-        genre: "",
-        release: "",
-        synopsis:
-          "Un juego donde la fortaleza de mana vuelve a las andadas para detruir el mundo y el arbol sagrado",
-        id: "2",
-        owner: "24",
-      },
-    ],
-  },
-};
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: () => mockSelectorReturn,
-}));
-
 describe("Given the GameCardList component", () => {
+  let gameList: Game[] = [
+    {
+      title: "The Legend of Zelda",
+      image: "zelda.jpg",
+      players: "",
+      genre: "",
+      release: "",
+      synopsis:
+        "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
+      id: "1",
+      owner: "24",
+      backupImage: "",
+    },
+    {
+      title: "Terranigma",
+      image: "terranigma.jpg",
+      players: "",
+      genre: "",
+      release: "",
+      synopsis:
+        "Un juego donde la fortaleza de mana vuelve a las andadas para detruir el mundo y el arbol sagrado",
+      id: "2",
+      owner: "24",
+      backupImage: "",
+    },
+  ];
+  const customStore = mockStore({
+    gamesPreloadState: { ...initialGameState, games: gameList },
+  });
+
   describe("When it's instantiated", () => {
     test("Then should show two game cards with titles of Zelda and Secret of mana", () => {
       const cardListLength = 2;
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <GameCardList />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<GameCardList />, { store: customStore });
+
       const listOfTitles = screen.getAllByRole("heading");
 
       expect(listOfTitles).toHaveLength(cardListLength);
@@ -60,13 +53,8 @@ describe("Given the GameCardList component", () => {
       const firstTitle = "The Legend of Zelda";
       const secondTitle = "Terranigma";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <GameCardList />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<GameCardList />, { store: customStore });
+
       const zeldaTitle = screen.getByRole("heading", { name: firstTitle });
       const terranigmaTitle = screen.getByRole("heading", {
         name: secondTitle,

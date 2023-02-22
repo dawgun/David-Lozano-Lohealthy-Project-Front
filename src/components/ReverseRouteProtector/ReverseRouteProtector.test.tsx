@@ -1,33 +1,23 @@
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import LoginPage from "../../pages/LoginPage/LoginPage";
-import { store } from "../../store/store";
+import {
+  initialUserState,
+  mockStore,
+} from "../../testUtils/mocks/mockStore/mockStore";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import ReverseRouteProtector from "./ReverseRouteProtector";
-
-let mockSelectorReturn = {
-  isLogged: false,
-};
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: () => mockSelectorReturn,
-}));
 
 describe("Given the ReverseRouteProtector component", () => {
   const textTitle = "Login";
 
   describe("When it's instantiated with user not logged and login page", () => {
     test("Then should show 'Login' in a heading", () => {
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <ReverseRouteProtector>
-              <LoginPage />
-            </ReverseRouteProtector>
-          </BrowserRouter>
-        </Provider>
+      customRender(
+        <ReverseRouteProtector>
+          <LoginPage />
+        </ReverseRouteProtector>
       );
+
       const loginTitle = screen.getByRole("heading", { name: textTitle });
 
       expect(loginTitle).toBeInTheDocument();
@@ -36,17 +26,17 @@ describe("Given the ReverseRouteProtector component", () => {
 
   describe("When it's instantiated with user logged and login page", () => {
     test("Then shouldn't show 'Login' in a heading", () => {
-      mockSelectorReturn.isLogged = true;
+      const storeWithUserLogged = mockStore({
+        userPreloadState: { ...initialUserState, isLogged: true },
+      });
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <ReverseRouteProtector>
-              <LoginPage />
-            </ReverseRouteProtector>
-          </BrowserRouter>
-        </Provider>
+      customRender(
+        <ReverseRouteProtector>
+          <LoginPage />
+        </ReverseRouteProtector>,
+        { store: storeWithUserLogged }
       );
+
       const loginTitle = screen.queryByRole("heading", { name: textTitle });
 
       expect(loginTitle).not.toBeInTheDocument();
