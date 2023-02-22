@@ -1,7 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "../../store/store";
+import { screen } from "@testing-library/react";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import RegisterPage from "./RegisterPage";
 
 describe("Given the RegisterPage page", () => {
@@ -9,13 +7,8 @@ describe("Given the RegisterPage page", () => {
     test("Then should show 'Registro' in heading", () => {
       const headingText = "Registro";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <RegisterPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<RegisterPage />);
+
       const expectedText = screen.getByRole("heading", { name: headingText });
 
       expect(expectedText).toBeInTheDocument();

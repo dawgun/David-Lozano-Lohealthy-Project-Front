@@ -1,4 +1,4 @@
-import mockUseGames from "../../utils/testUtils/mocks/mockUseGames/mockUseGames";
+import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
 import { render, screen } from "@testing-library/react";
 import GameForm from "./GameForm";
 import userEvent from "@testing-library/user-event";

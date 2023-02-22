@@ -1,7 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { store } from "../../store/store";
+import { screen } from "@testing-library/react";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import LoginPage from "./LoginPage";
 
 describe("Given the LoginPage page", () => {
@@ -9,13 +7,8 @@ describe("Given the LoginPage page", () => {
     test("Then should show 'Login' in heading", () => {
       const headingText = "Login";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <LoginPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<LoginPage />);
+
       const expectedText = screen.getByRole("heading", { name: headingText });
 
       expect(expectedText).toBeInTheDocument();
@@ -24,13 +17,8 @@ describe("Given the LoginPage page", () => {
     test("Then should show '¿No tienes cuenta?'", () => {
       const text = "¿No tienes cuenta?";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <LoginPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<LoginPage />);
+
       const expectedText = screen.getByText(text);
 
       expect(expectedText).toBeInTheDocument();
@@ -39,13 +27,8 @@ describe("Given the LoginPage page", () => {
     test("Then should show 'Registrate' in a navlink", () => {
       const text = "Registrate";
 
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <LoginPage />
-          </BrowserRouter>
-        </Provider>
-      );
+      customRender(<LoginPage />);
+
       const expectedText = screen.getByRole("link", { name: text });
 
       expect(expectedText).toBeInTheDocument();

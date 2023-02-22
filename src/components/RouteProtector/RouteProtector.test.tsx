@@ -1,33 +1,28 @@
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import LoginPage from "../../pages/LoginPage/LoginPage";
-import { store } from "../../store/store";
+import {
+  initialUserState,
+  mockStore,
+} from "../../testUtils/mocks/mockStore/mockStore";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import RouteProtector from "./RouteProtector";
-
-let mockSelectorReturn = {
-  isLogged: true,
-};
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: () => mockSelectorReturn,
-}));
 
 describe("Given the RouteProtector component", () => {
   const textTitle = "Login";
 
   describe("When it's instantiated with user logged and login page", () => {
     test("Then should show 'Login' in a heading", () => {
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <RouteProtector>
-              <LoginPage />
-            </RouteProtector>
-          </BrowserRouter>
-        </Provider>
+      const storeWithUserLogged = mockStore({
+        userPreloadState: { ...initialUserState, isLogged: true },
+      });
+
+      customRender(
+        <RouteProtector>
+          <LoginPage />
+        </RouteProtector>,
+        { store: storeWithUserLogged }
       );
+
       const loginTitle = screen.getByRole("heading", { name: textTitle });
 
       expect(loginTitle).toBeInTheDocument();
@@ -36,17 +31,12 @@ describe("Given the RouteProtector component", () => {
 
   describe("When it's instantiated with user not logged and login page", () => {
     test("Then shouldn't show 'Login' in a heading", () => {
-      mockSelectorReturn.isLogged = false;
-
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <RouteProtector>
-              <LoginPage />
-            </RouteProtector>
-          </BrowserRouter>
-        </Provider>
+      customRender(
+        <RouteProtector>
+          <LoginPage />
+        </RouteProtector>
       );
+
       const loginTitle = screen.queryByRole("heading", { name: textTitle });
 
       expect(loginTitle).not.toBeInTheDocument();

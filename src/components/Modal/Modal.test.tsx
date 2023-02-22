@@ -1,81 +1,78 @@
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "../../store/store";
+import { screen } from "@testing-library/react";
 import Modal from "./Modal";
 import userEvent from "@testing-library/user-event";
-
-let mockSelectorReturn = {
-  isModalShowing: false,
-  message: "This test is awesome",
-  type: true,
-};
+import customRender from "../../testUtils/wrappers/customRender/customRender";
+import {
+  initialUiState,
+  mockStore,
+} from "../../testUtils/mocks/mockStore/mockStore";
+import { closeModalActionCreator } from "../../store/UI/UISlice";
 
 const mockDispatch = jest.fn();
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useDispatch: () => mockDispatch,
-  useSelector: () => mockSelectorReturn,
 }));
 
 describe("Given a Modal component", () => {
-  describe("When instantiated", () => {
+  let uiState = {
+    isModalShowing: false,
+    message: "This test is awesome",
+    type: true,
+  };
+
+  describe("When it's instantiated", () => {
     const expectedText = "This test is awesome";
+    const customStore = mockStore({
+      uiPreloadState: { ...initialUiState, ...uiState },
+    });
+
     test("Then it should show 'This test is awesome'", async () => {
-      render(
-        <Provider store={store}>
-          <Modal />
-        </Provider>
-      );
+      customRender(<Modal />, { store: customStore });
 
       const text = screen.getByText(expectedText);
 
       expect(text).toBeInTheDocument();
     });
 
-    test("Then it should show a green background color", async () => {
-      render(
-        <Provider store={store}>
-          <Modal />
-        </Provider>
-      );
+    describe("And type of message is true", () => {
+      test("Then it should show a green background color", async () => {
+        customRender(<Modal />, { store: customStore });
 
-      const modal = screen.getByText(expectedText);
-      const modalStyle = getComputedStyle(modal);
+        const modal = screen.getByText(expectedText);
+        const modalStyle = getComputedStyle(modal);
 
-      expect(modalStyle.borderColor).toBe("rgb(74,172,14)");
+        expect(modalStyle.borderColor).toBe("rgb(74,172,14)");
+      });
     });
 
-    test("Then it should show a red background color", async () => {
-      mockSelectorReturn = {
-        isModalShowing: false,
-        message: "This test is awesome",
-        type: false,
-      };
+    describe("And type of message is false", () => {
+      test("Then it should show a red background color", async () => {
+        const customStore = mockStore({
+          uiPreloadState: { ...initialUiState, ...uiState, type: false },
+        });
 
-      render(
-        <Provider store={store}>
-          <Modal />
-        </Provider>
-      );
+        customRender(<Modal />, { store: customStore });
 
-      const modal = screen.getByText(expectedText);
-      const modalStyle = getComputedStyle(modal);
+        const modal = screen.getByText(expectedText);
+        const modalStyle = getComputedStyle(modal);
 
-      expect(modalStyle.borderColor).toBe("rgb(212,53,33)");
+        expect(modalStyle.borderColor).toBe("rgb(212,53,33)");
+      });
     });
 
-    test("Then it should show the message it have received", async () => {
-      render(
-        <Provider store={store}>
-          <Modal />
-        </Provider>
-      );
+    describe("And user click on '✕' button", () => {
+      test("Then dispatch must to be called with close modal action", async () => {
+        const closeModalAction = closeModalActionCreator();
 
-      const button = screen.getByRole("button", { name: "✕" });
-      await userEvent.click(button);
+        customRender(<Modal />, { store: customStore });
 
-      expect(mockDispatch).toHaveBeenCalled();
+        const button = screen.getByRole("button", { name: "✕" });
+        await userEvent.click(button);
+
+        expect(mockDispatch).toHaveBeenCalledWith(closeModalAction);
+      });
     });
   });
 });

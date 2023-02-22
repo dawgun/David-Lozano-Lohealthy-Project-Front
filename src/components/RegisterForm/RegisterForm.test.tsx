@@ -22,6 +22,7 @@ describe("Given the Register component", () => {
 
     test("Then should show userName, email, password and password repeat inputs", () => {
       render(<RegisterForm />);
+
       const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
       const userEmailInput = screen.getByPlaceholderText(emailPlaceholder);
       const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
@@ -71,6 +72,7 @@ describe("Given the Register component", () => {
     describe("And user type '12345' in repeat password input", () => {
       test("Then should show '12345' in repeat password input", async () => {
         render(<RegisterForm />);
+
         const passwordRepeatInput = screen.getByPlaceholderText(
           passwordRepeatPlaceholder
         );
@@ -123,6 +125,7 @@ describe("Given the Register component", () => {
     describe("And user doesn't type and click on register button", () => {
       test("Then it doesn't call userRegister function", async () => {
         render(<RegisterForm />);
+
         const button = screen.getByRole("button", { name: "Crear cuenta" });
         await userEvent.click(button);
 
@@ -133,6 +136,7 @@ describe("Given the Register component", () => {
     describe("And user types correctly in form and click on register button", () => {
       test("Then it call userRegister function", async () => {
         render(<RegisterForm />);
+
         const button = screen.getByRole("button", {
           name: "Crear cuenta",
         });

@@ -1,55 +1,41 @@
-import mockUseGames from "../../utils/testUtils/mocks/mockUseGames/mockUseGames";
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "../../store/store";
+import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
+import { screen } from "@testing-library/react";
 import GameCard from "./GameCard";
 import userEvent from "@testing-library/user-event";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
-
-let mockSelectorReturn = {
-  user: {
-    id: "1",
-  },
-};
+import {
+  mockStore,
+  initialUserState,
+} from "../../testUtils/mocks/mockStore/mockStore";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 
 const mockNavigate = jest.fn();
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: () => mockSelectorReturn,
-}));
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
 }));
 
-const game = {
-  title: "The Legend of Zelda",
-  image: "zelda.jpg",
-  backupImage: "backup-zelda.jpg",
-  players: "One Player",
-  genre: "RPG",
-  release: "88/08/23",
-  synopsis:
-    "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
-  id: "1",
-  owner: "2",
-};
-
 describe("Given the GameCard component", () => {
   describe("When it's instantiated", () => {
+    const game = {
+      title: "The Legend of Zelda",
+      image: "zelda.jpg",
+      backupImage: "backup-zelda.jpg",
+      players: "One Player",
+      genre: "RPG",
+      release: "88/08/23",
+      synopsis:
+        "El primer juego de zelda donde aparece la princesa secuestrada y todos lo quieren matar.",
+      id: "1",
+      owner: "2",
+    };
+
     describe("And user not owner of game", () => {
       test("Then should show an image with alternative text of game", () => {
         const alternativeText = game.title + " game";
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />);
+
         const gameImage = screen.getByRole("img", { name: alternativeText });
 
         expect(gameImage).toBeInTheDocument();
@@ -58,13 +44,8 @@ describe("Given the GameCard component", () => {
       test("Then should show the title 'The Legend of Zelda' in a heading", () => {
         const title = "The Legend of Zelda";
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />);
+
         const gameTitle = screen.getByRole("heading", { name: title });
 
         expect(gameTitle).toBeInTheDocument();
@@ -73,26 +54,15 @@ describe("Given the GameCard component", () => {
       test("Then should show the synopsys cutted", () => {
         const title = `${game.synopsis.slice(0, 80)}...`;
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />);
+
         const gameSynopsis = screen.getByText(title);
 
         expect(gameSynopsis).toBeInTheDocument();
       });
 
       test("Then don't show button with 'X'", () => {
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />);
 
         const button = screen.queryByRole("button", { name: "X" });
 
@@ -101,17 +71,17 @@ describe("Given the GameCard component", () => {
     });
 
     describe("And user is owner of game owner", () => {
+      const customStore = mockStore({
+        userPreloadState: {
+          ...initialUserState,
+          user: { ...initialUserState.user, id: "2" },
+        },
+      });
+
       test("Then show button with text '✗'", () => {
         const buttonText = "✗";
-        mockSelectorReturn.user.id = "2";
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />, { store: customStore });
 
         const buttonDelete = screen.getByText(buttonText);
 
@@ -119,16 +89,10 @@ describe("Given the GameCard component", () => {
       });
 
       test("Then deleteGame is called when button is clicked", async () => {
-        mockSelectorReturn.user.id = "2";
         const buttonText = "✗";
 
-        render(
-          <Provider store={store}>
-            <BrowserRouter>
-              <GameCard game={game} />
-            </BrowserRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />, { store: customStore });
+
         const buttonDelete = screen.getByText(buttonText);
         await userEvent.click(buttonDelete);
 
@@ -142,13 +106,10 @@ describe("Given the GameCard component", () => {
         const textButton = "Info";
         const actualPath = "/home";
 
-        render(
-          <Provider store={store}>
-            <MemoryRouter initialEntries={[actualPath]}>
-              <GameCard game={game} />
-            </MemoryRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />, {
+          initialEntries: [actualPath],
+        });
+
         const infoButton = screen.getByRole("button", {
           name: textButton,
         });
@@ -163,13 +124,10 @@ describe("Given the GameCard component", () => {
         const textButton = "Edit";
         const actualPath = "/mis-juegos";
 
-        render(
-          <Provider store={store}>
-            <MemoryRouter initialEntries={[actualPath]}>
-              <GameCard game={game} />
-            </MemoryRouter>
-          </Provider>
-        );
+        customRender(<GameCard game={game} />, {
+          initialEntries: [actualPath],
+        });
+
         const editButton = screen.getByRole("button", {
           name: textButton,
         });
