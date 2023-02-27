@@ -1,6 +1,8 @@
 import { PreloadedState } from "@reduxjs/toolkit";
 import { RenderOptions } from "@testing-library/react";
 import { PropsWithChildren } from "react";
+import useGames from "../../../../hooks/useGames/useGames";
+import useUser from "../../../../hooks/useUser/useUser";
 import { RootState, store } from "../../../../store/store";
 
 export interface ExtendedPropsWithChildren extends PropsWithChildren {
@@ -10,6 +12,11 @@ export interface ExtendedPropsWithChildren extends PropsWithChildren {
 export interface ExtendedRenderOptions
   extends Omit<RenderOptions, "queries">,
     ExtendedPropsWithChildren {
+  dispatch?: jest.Mock<any, any>;
   preloadedState?: PreloadedState<RootState>;
   store?: typeof store;
+}
+
+export interface ExtendedRenderHookOptions extends ExtendedRenderOptions {
+  customHook: typeof useGames | typeof useUser;
 }
