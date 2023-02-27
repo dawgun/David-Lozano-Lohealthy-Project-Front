@@ -8,15 +8,9 @@ import customRender from "../../testUtils/wrappers/customRender/customRender";
 import UserMenu from "./UserMenu";
 
 const mockuserLogout = jest.fn();
-const mockDispatch = jest.fn();
 
 jest.mock("../../hooks/useUser/useUser", () => () => ({
   userLogout: mockuserLogout,
-}));
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useDispatch: () => mockDispatch,
 }));
 
 describe("Given the UserMenu component", () => {
@@ -34,8 +28,9 @@ describe("Given the UserMenu component", () => {
     describe("And user click on 'Registrar' or 'Login'", () => {
       test("Then should functions has been called", async () => {
         const calledTimes = 2;
+        const mockDispatch = jest.fn();
 
-        customRender(<UserMenu />);
+        customRender(<UserMenu />, { dispatch: mockDispatch });
 
         const navlinks = await screen.findAllByRole("link");
         await userEvent.click(navlinks[0]);

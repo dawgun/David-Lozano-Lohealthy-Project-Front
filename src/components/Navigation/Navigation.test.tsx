@@ -4,13 +4,6 @@ import { closeMenuActionCreator } from "../../store/UI/UISlice";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 import Navigation from "./Navigation";
 
-const mockDispatch = jest.fn();
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useDispatch: () => mockDispatch,
-}));
-
 describe("Given the Navigation component", () => {
   const alternativeTextHome = "Home icon";
   const myGamesText = "Mis Juegos";
@@ -36,7 +29,9 @@ describe("Given the Navigation component", () => {
 
     describe("And user clicks on home icon", () => {
       test("Then dispatch it would be called with closeMenu action", async () => {
-        customRender(<Navigation />);
+        const mockDispatch = jest.fn();
+
+        customRender(<Navigation />, { dispatch: mockDispatch });
 
         const navHome = screen.getByRole("link", {
           name: alternativeTextHome,
@@ -50,7 +45,9 @@ describe("Given the Navigation component", () => {
 
     describe("And user clicks on 'Mis Juegos'", () => {
       test("Then dispatch it would be called with closeMenu action", async () => {
-        customRender(<Navigation />);
+        const mockDispatch = jest.fn();
+
+        customRender(<Navigation />, { dispatch: mockDispatch });
 
         const navMygames = screen.getByRole("link", {
           name: myGamesText,

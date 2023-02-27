@@ -1,16 +1,14 @@
-import { renderHook } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { RenderHookResult } from "@testing-library/react";
 import { ProtoUser } from "../../store/user/model/user";
-import { store } from "../../store/store";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import {
   loginUserActionCreator,
   logoutUserActionCreator,
 } from "../../store/user/userSlice";
 import useUser from "./useUser";
+import customRenderHook from "../../testUtils/wrappers/customRenderHook/customRenderHook";
 
-const mockDispatch = jest.fn();
+// const mockDispatch = jest.fn();
 const mockNavigate = jest.fn();
 const mockuserWithToken = {
   token: "token",
@@ -21,29 +19,10 @@ const mockuserWithToken = {
 
 jest.mock("../../utils/auth/auth", () => () => mockuserWithToken);
 
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useDispatch: () => mockDispatch,
-}));
-
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
 }));
-
-interface WrapperProps {
-  children: JSX.Element | JSX.Element[];
-}
-
-let Wrapper: ({ children }: WrapperProps) => JSX.Element;
-
-Wrapper = ({ children }: WrapperProps): JSX.Element => {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>{children}</BrowserRouter>
-    </Provider>
-  );
-};
 
 describe("Given the useUser custom hook", () => {
   let user: ProtoUser;
@@ -62,7 +41,9 @@ describe("Given the useUser custom hook", () => {
       test("Then should navigate has been called with '/login'", async () => {
         const linkNavigate = "/login";
 
-        const { result } = renderHook(() => useUser(), { wrapper: Wrapper });
+        const { result } = customRenderHook({
+          customHook: useUser,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
         expect(mockNavigate).toHaveBeenCalledWith(linkNavigate);
@@ -73,8 +54,12 @@ describe("Given the useUser custom hook", () => {
           message: "Cuenta creada satisfactoriamente",
           type: true,
         };
+        const mockDispatch = jest.fn();
 
-        const { result } = renderHook(() => useUser(), { wrapper: Wrapper });
+        const { result } = customRenderHook({
+          customHook: useUser,
+          dispatch: mockDispatch,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -90,7 +75,13 @@ describe("Given the useUser custom hook", () => {
           message: "Error al crear cuenta",
           type: false,
         };
-        const { result } = renderHook(() => useUser(), { wrapper: Wrapper });
+        const mockDispatch = jest.fn();
+
+        const { result } = customRenderHook({
+          customHook: useUser,
+          dispatch: mockDispatch,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        await result.current.userRegister(user);
 
         await result.current.userRegister(user);
 
@@ -108,9 +99,13 @@ describe("Given the useUser custom hook", () => {
     };
     describe("And called with a valid user", () => {
       test("Then should dispatch has been called with action login with an user", async () => {
-        const { result } = renderHook(() => useUser(), {
-          wrapper: Wrapper,
-        });
+        const mockDispatch = jest.fn();
+
+        const { result } = customRenderHook({
+          customHook: useUser,
+          dispatch: mockDispatch,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        await result.current.userRegister(user);
 
         await result.current.userLogin(userLogin);
 
@@ -124,9 +119,10 @@ describe("Given the useUser custom hook", () => {
         Storage.prototype.setItem = jest.fn();
         const localStorageKey = "token";
 
-        const { result } = renderHook(() => useUser(), {
-          wrapper: Wrapper,
-        });
+        const { result } = customRenderHook({
+          customHook: useUser,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        await result.current.userRegister(user);
         await result.current.userLogin(userLogin);
 
         expect(localStorage.setItem).toHaveBeenCalledWith(
@@ -137,9 +133,11 @@ describe("Given the useUser custom hook", () => {
 
       test("Then should navigation has been called with '/home'", async () => {
         const pathNavigate = -1;
-        const { result } = renderHook(() => useUser(), {
-          wrapper: Wrapper,
-        });
+
+        const { result } = customRenderHook({
+          customHook: useUser,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        await result.current.userRegister(user);
 
         await result.current.userLogin(userLogin);
 
@@ -154,9 +152,13 @@ describe("Given the useUser custom hook", () => {
           type: false,
         };
         userLogin.userName = "";
-        const { result } = renderHook(() => useUser(), {
-          wrapper: Wrapper,
-        });
+        const mockDispatch = jest.fn();
+
+        const { result } = customRenderHook({
+          customHook: useUser,
+          dispatch: mockDispatch,
+        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        await result.current.userRegister(user);
 
         await result.current.userLogin(userLogin);
 
@@ -169,9 +171,13 @@ describe("Given the useUser custom hook", () => {
 
   describe("When userLogout it's called", () => {
     test("Then dispatch to have been called with logout action", async () => {
-      const { result } = renderHook(() => useUser(), {
-        wrapper: Wrapper,
-      });
+      const mockDispatch = jest.fn();
+
+      const { result } = customRenderHook({
+        customHook: useUser,
+        dispatch: mockDispatch,
+      }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+      await result.current.userRegister(user);
 
       await result.current.userLogout();
 
@@ -183,9 +189,10 @@ describe("Given the useUser custom hook", () => {
       Storage.prototype.removeItem = jest.fn();
       const localStorageKey = "token";
 
-      const { result } = renderHook(() => useUser(), {
-        wrapper: Wrapper,
-      });
+      const { result } = customRenderHook({
+        customHook: useUser,
+      }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+      await result.current.userRegister(user);
 
       await result.current.userLogout();
 

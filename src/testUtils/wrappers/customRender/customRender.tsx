@@ -6,13 +6,19 @@ import {
   ExtendedPropsWithChildren,
   ExtendedRenderOptions,
 } from "./types/types";
-import { store as appStore } from "../../../store/store";
+import { configureStore } from "@reduxjs/toolkit";
+import { userReducer } from "../../../store/user/userSlice";
+import { UIReducer } from "../../../store/UI/UISlice";
+import { gameReducer } from "../../../store/games/gamesSlice";
 
 const customRender = (
   ui: React.ReactElement,
   {
+    dispatch,
     initialEntries,
-    store = appStore,
+    store = configureStore({
+      reducer: { user: userReducer, ui: UIReducer, games: gameReducer },
+    }),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) => {
@@ -26,6 +32,10 @@ const customRender = (
       <BrowserRouter>{children}</BrowserRouter>
     );
   };
+
+  if (dispatch) {
+    store.dispatch = dispatch;
+  }
 
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
