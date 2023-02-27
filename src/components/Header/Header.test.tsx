@@ -1,19 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event/";
+import { store } from "../../store/store";
 import { toggleMenuActionCreator } from "../../store/UI/UISlice";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import Header from "./Header";
-
-const mockDispatch = jest.fn();
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useDispatch: () => mockDispatch,
-}));
 
 describe("Given the Header component", () => {
   describe("When it's instantiated", () => {
     test("Then it should show Lohealthy Games in heading", () => {
-      render(<Header />);
+      customRender(<Header />);
 
       const title = screen.getByRole("heading", { name: "Lohealthy Games" });
 
@@ -21,7 +16,7 @@ describe("Given the Header component", () => {
     });
 
     test("Then it should show a button", () => {
-      render(<Header />);
+      customRender(<Header />, { store });
 
       const button = screen.getByRole("button");
 
@@ -30,7 +25,9 @@ describe("Given the Header component", () => {
 
     describe("And users click on button", () => {
       test("Then it should be called the function", async () => {
-        render(<Header />);
+        const mockDispatch = jest.fn();
+
+        customRender(<Header />, { dispatch: mockDispatch });
 
         const button = screen.getByRole("button");
         await userEvent.click(button);

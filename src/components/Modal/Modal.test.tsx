@@ -8,13 +8,6 @@ import {
 } from "../../testUtils/mocks/mockStore/mockStore";
 import { closeModalActionCreator } from "../../store/UI/UISlice";
 
-const mockDispatch = jest.fn();
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useDispatch: () => mockDispatch,
-}));
-
 describe("Given a Modal component", () => {
   let uiState = {
     isModalShowing: false,
@@ -64,9 +57,10 @@ describe("Given a Modal component", () => {
 
     describe("And user click on '✕' button", () => {
       test("Then dispatch must to be called with close modal action", async () => {
+        const mockDispatch = jest.fn();
         const closeModalAction = closeModalActionCreator();
 
-        customRender(<Modal />, { store: customStore });
+        customRender(<Modal />, { store: customStore, dispatch: mockDispatch });
 
         const button = screen.getByRole("button", { name: "✕" });
         await userEvent.click(button);

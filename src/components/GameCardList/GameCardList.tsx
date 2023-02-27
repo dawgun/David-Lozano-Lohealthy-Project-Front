@@ -5,8 +5,6 @@ import GameCardListStyled from "./GameCardListStyled";
 const GameCardList = (): JSX.Element => {
   const { games } = useAppSelector((state) => state.games);
 
-  debugger;
-
   return (
     <GameCardListStyled className="games-container">
       {games.map((game) => (
