@@ -1,3 +1,4 @@
+import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import { RenderHookResult } from "@testing-library/react";
 import { ProtoUser } from "../../store/user/model/user";
 import { openModalActionCreator } from "../../store/UI/UISlice";
@@ -8,8 +9,6 @@ import {
 import useUser from "./useUser";
 import customRenderHook from "../../testUtils/wrappers/customRenderHook/customRenderHook";
 
-// const mockDispatch = jest.fn();
-const mockNavigate = jest.fn();
 const mockuserWithToken = {
   token: "token",
   id: "",
@@ -18,11 +17,6 @@ const mockuserWithToken = {
 };
 
 jest.mock("../../utils/auth/auth", () => () => mockuserWithToken);
-
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockNavigate,
-}));
 
 describe("Given the useUser custom hook", () => {
   let user: ProtoUser;
@@ -46,7 +40,7 @@ describe("Given the useUser custom hook", () => {
         }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
-        expect(mockNavigate).toHaveBeenCalledWith(linkNavigate);
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(linkNavigate);
       });
 
       test("Then should dispatch has been called with action openModal with succesful message", async () => {
@@ -141,7 +135,7 @@ describe("Given the useUser custom hook", () => {
 
         await result.current.userLogin(userLogin);
 
-        expect(mockNavigate).toHaveBeenCalledWith(pathNavigate);
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(pathNavigate);
       });
     });
 

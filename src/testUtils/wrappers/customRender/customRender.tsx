@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { PropsWithChildren } from "react";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import {
   ExtendedPropsWithChildren,
@@ -16,6 +16,7 @@ const customRender = (
   {
     dispatch,
     initialEntries,
+    path = "*",
     store = configureStore({
       reducer: { user: userReducer, ui: UIReducer, games: gameReducer },
     }),
@@ -27,7 +28,11 @@ const customRender = (
     initialEntries,
   }: ExtendedPropsWithChildren): JSX.Element => {
     return initialEntries ? (
-      <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+      <MemoryRouter initialEntries={initialEntries}>
+        <Routes>
+          <Route path={path} element={children}></Route>
+        </Routes>
+      </MemoryRouter>
     ) : (
       <BrowserRouter>{children}</BrowserRouter>
     );
