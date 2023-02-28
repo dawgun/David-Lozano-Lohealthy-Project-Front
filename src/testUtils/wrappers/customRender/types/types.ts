@@ -7,6 +7,7 @@ import { RootState, store } from "../../../../store/store";
 
 export interface ExtendedPropsWithChildren extends PropsWithChildren {
   initialEntries?: string[];
+  path?: string;
 }
 
 export interface ExtendedRenderOptions
