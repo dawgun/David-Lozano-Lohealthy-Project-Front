@@ -16,7 +16,7 @@ const customRender = (
   {
     dispatch,
     initialEntries,
-    path = "/",
+    path = "*",
     store = configureStore({
       reducer: { user: userReducer, ui: UIReducer, games: gameReducer },
     }),
