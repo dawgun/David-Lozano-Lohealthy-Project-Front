@@ -1,4 +1,5 @@
 import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
+import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import { screen } from "@testing-library/react";
 import GameCard from "./GameCard";
 import userEvent from "@testing-library/user-event";
@@ -7,13 +8,6 @@ import {
   initialUserState,
 } from "../../testUtils/mocks/mockStore/mockStore";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
-
-const mockNavigate = jest.fn();
-
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockNavigate,
-}));
 
 describe("Given the GameCard component", () => {
   describe("When it's instantiated", () => {
@@ -115,7 +109,7 @@ describe("Given the GameCard component", () => {
         });
         await userEvent.click(infoButton);
 
-        expect(mockNavigate).toHaveBeenCalledWith(navigatePath);
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(navigatePath);
       });
     });
 

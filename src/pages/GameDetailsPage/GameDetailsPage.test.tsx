@@ -1,17 +1,16 @@
 import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
 import { render, screen } from "@testing-library/react";
 import GameDetailsPage from "./GameDetailsPage";
-
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useParams: () => ({ idGame: "juegazo1234" }),
-}));
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 
 describe("Given the GameDetailsPage page", () => {
   describe("When it's instantiated", () => {
     test("Then getGameById has to been called with 'juegazo1234'", () => {
       const paramPath = "juegazo1234";
-      render(<GameDetailsPage />);
+      customRender(<GameDetailsPage />, {
+        initialEntries: [`/details/${paramPath}`],
+        path: "details/:idGame",
+      });
 
       expect(mockUseGames.getGameById).toHaveBeenCalledWith(paramPath);
     });

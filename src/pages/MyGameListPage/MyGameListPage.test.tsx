@@ -1,15 +1,9 @@
+import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
 import { screen } from "@testing-library/react";
 import MyGameListPage from "./MyGameListPage";
 import userEvent from "@testing-library/user-event";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
-
-const mockNavigate = jest.fn();
-
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockNavigate,
-}));
 
 describe("Given MyGameListPage page", () => {
   describe("When it's instantiated", () => {
@@ -49,7 +43,7 @@ describe("Given MyGameListPage page", () => {
         const button = screen.getByRole("button", { name: textButton });
         await userEvent.click(button);
 
-        expect(mockNavigate).toHaveBeenCalledWith(pathNavigate);
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(pathNavigate);
       });
     });
   });

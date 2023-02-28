@@ -1,3 +1,4 @@
+import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import { RenderHookResult } from "@testing-library/react";
 import {
   createGameActionCreator,
@@ -12,13 +13,6 @@ import {
 } from "../../store/UI/UISlice";
 import customRenderHook from "../../testUtils/wrappers/customRenderHook/customRenderHook";
 import useGames from "./useGames";
-
-const mockNavigate = jest.fn();
-
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockNavigate,
-}));
 
 describe("Given the useGames custom hook", () => {
   describe("When getAllGames it's called", () => {
@@ -207,7 +201,7 @@ describe("Given the useGames custom hook", () => {
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.createGame(correctFormGameData);
 
-        expect(mockNavigate).toHaveBeenCalledWith(navigatePath);
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(navigatePath);
       });
     });
 
