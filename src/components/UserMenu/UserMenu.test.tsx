@@ -1,3 +1,4 @@
+import mockUseUser from "../../testUtils/mocks/mockUseUser/mockUseUser";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
@@ -6,12 +7,6 @@ import {
 } from "../../testUtils/mocks/mockStore/mockStore";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 import UserMenu from "./UserMenu";
-
-const mockuserLogout = jest.fn();
-
-jest.mock("../../hooks/useUser/useUser", () => () => ({
-  userLogout: mockuserLogout,
-}));
 
 describe("Given the UserMenu component", () => {
   describe("When user is not logged", () => {
@@ -71,7 +66,7 @@ describe("Given the UserMenu component", () => {
         const button = screen.getByRole("button", { name: logoutText });
         await userEvent.click(button);
 
-        expect(mockuserLogout).toHaveBeenCalled();
+        expect(mockUseUser.userLogout).toHaveBeenCalledWith();
       });
     });
   });
