@@ -1,13 +1,8 @@
+import mockUseUser from "../../testUtils/mocks/mockUseUser/mockUseUser";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 import LoginForm from "./LoginForm";
-
-const mockuserLogin = jest.fn();
-
-jest.mock("../../hooks/useUser/useUser", () => () => ({
-  userLogin: mockuserLogin,
-}));
 
 describe("Given the Register component", () => {
   describe("When it's instantiated", () => {
@@ -56,7 +51,7 @@ describe("Given the Register component", () => {
         const button = screen.getByRole("button", { name: "Login" });
         await userEvent.click(button);
 
-        expect(mockuserLogin).not.toHaveBeenCalled();
+        expect(mockUseUser.userLogin).not.toHaveBeenCalled();
       });
     });
 
@@ -79,7 +74,7 @@ describe("Given the Register component", () => {
         await userEvent.type(passwordInput, passwordTextInput);
         await userEvent.click(button);
 
-        expect(mockuserLogin).toHaveBeenCalledWith(formData);
+        expect(mockUseUser.userLogin).toHaveBeenCalledWith(formData);
       });
     });
   });
