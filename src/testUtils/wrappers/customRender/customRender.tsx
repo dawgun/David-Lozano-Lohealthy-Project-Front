@@ -10,6 +10,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "../../../store/user/userSlice";
 import { UIReducer } from "../../../store/UI/UISlice";
 import { gameReducer } from "../../../store/games/gamesSlice";
+import GlobalStyle from "../../../styles/GlobalStyle";
 
 const customRender = (
   ui: React.ReactElement,
@@ -45,6 +46,7 @@ const customRender = (
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
       <Router initialEntries={initialEntries}>
+        <GlobalStyle />
         <Provider store={store}>{children}</Provider>
       </Router>
     );
