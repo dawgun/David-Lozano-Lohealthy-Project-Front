@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 import Footer from "./Footer";
 
 describe("Given the Footer component", () => {
@@ -9,7 +10,7 @@ describe("Given the Footer component", () => {
       const alternativeTextFacebook = "Facebook icon";
       const alternativeTextYoutube = "Youtube icon";
 
-      render(<Footer />);
+      customRender(<Footer />);
 
       const instagramImage = screen.getByRole("img", {
         name: alternativeTextInstagram,
@@ -34,7 +35,7 @@ describe("Given the Footer component", () => {
       const propertyText = "Lohealthy Games es propiedad de David Lozano.";
       const copyrightText = "©2022 Todos los derechos reservados.";
 
-      render(<Footer />);
+      customRender(<Footer />);
 
       const property = screen.getByText(propertyText);
       const copyright = screen.getByText(copyrightText);

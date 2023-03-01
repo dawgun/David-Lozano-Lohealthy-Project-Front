@@ -1,7 +1,8 @@
 import mockUseUser from "../../testUtils/mocks/mockUseUser/mockUseUser";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RegisterForm from "./RegisterForm";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 
 describe("Given the Register component", () => {
   describe("When it's instantiated", () => {
@@ -16,7 +17,7 @@ describe("Given the Register component", () => {
     const passwordRepeatTextInput = "12345";
 
     test("Then should show userName, email, password and password repeat inputs", () => {
-      render(<RegisterForm />);
+      customRender(<RegisterForm />);
 
       const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
       const userEmailInput = screen.getByPlaceholderText(emailPlaceholder);
@@ -33,7 +34,7 @@ describe("Given the Register component", () => {
 
     describe("And user type 'Dan' in userName input", () => {
       test("Then should show 'Dan' in userName input", async () => {
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const userNameInput = screen.getByPlaceholderText(userNamePlaceholder);
         await userEvent.type(userNameInput, userNameTextInput);
@@ -44,7 +45,7 @@ describe("Given the Register component", () => {
 
     describe("And user type 'nachus@hotmail.com' in email input", () => {
       test("Then should show 'nachus@hotmail.com' in email input", async () => {
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const emailInput = screen.getByPlaceholderText(emailPlaceholder);
         await userEvent.type(emailInput, emailTextInput);
@@ -55,7 +56,7 @@ describe("Given the Register component", () => {
 
     describe("And user type '12345' in password input", () => {
       test("Then should show '12345' in password input", async () => {
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
         await userEvent.type(passwordInput, passwordTextInput);
@@ -66,7 +67,7 @@ describe("Given the Register component", () => {
 
     describe("And user type '12345' in repeat password input", () => {
       test("Then should show '12345' in repeat password input", async () => {
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const passwordRepeatInput = screen.getByPlaceholderText(
           passwordRepeatPlaceholder
@@ -82,7 +83,7 @@ describe("Given the Register component", () => {
         const wrongEmailText = "nachus";
         const expectedColor = "#d43521";
 
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const emailInput = screen.getByPlaceholderText(emailPlaceholder);
         await userEvent.type(emailInput, wrongEmailText);
@@ -100,7 +101,7 @@ describe("Given the Register component", () => {
         const repeatPassword = "12345";
         const expectedColor = "#d43521";
 
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const passwordInput = screen.getByPlaceholderText(passwordPlaceholder);
         const passwordRepeatInput = screen.getByPlaceholderText(
@@ -119,7 +120,7 @@ describe("Given the Register component", () => {
 
     describe("And user doesn't type and click on register button", () => {
       test("Then it doesn't call userRegister function", async () => {
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const button = screen.getByRole("button", { name: "Crear cuenta" });
         await userEvent.click(button);
@@ -130,7 +131,7 @@ describe("Given the Register component", () => {
 
     describe("And user types correctly in form and click on register button", () => {
       test("Then it call userRegister function", async () => {
-        render(<RegisterForm />);
+        customRender(<RegisterForm />);
 
         const button = screen.getByRole("button", {
           name: "Crear cuenta",

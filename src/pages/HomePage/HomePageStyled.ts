@@ -22,7 +22,7 @@ const HomePageStyled = styled.section`
 
     &__next,
     &__previous {
-      color: #d43521;
+      color: ${({ theme: { colors } }) => colors.secondaryColor};
       font-weight: 900;
       font-size: 1.5rem;
     }

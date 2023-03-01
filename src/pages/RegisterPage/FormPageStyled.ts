@@ -19,7 +19,7 @@ const FormPageStyled = styled.section`
       font-size: 16px;
       font-weight: 900;
       text-transform: uppercase;
-      background-color: #d43521;
+      background-color: ${({ theme: { colors } }) => colors.secondaryColor};
       width: 20rem;
 
       @media (min-width: 768px) {
@@ -29,7 +29,7 @@ const FormPageStyled = styled.section`
 
     &__login-link,
     &__register-link {
-      color: #d43521;
+      color: ${({ theme: { colors } }) => colors.secondaryColor};
       font-weight: 900;
     }
 
@@ -49,7 +49,7 @@ const FormPageStyled = styled.section`
   }
 
   .nav-link {
-    color: #d43521;
+    color: ${({ theme: { colors } }) => colors.secondaryColor};
     font-weight: 900;
     text-decoration: none;
   }

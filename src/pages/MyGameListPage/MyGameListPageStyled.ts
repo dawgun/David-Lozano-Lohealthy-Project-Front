@@ -15,7 +15,7 @@ const MyGameListPageStyled = styled.section`
     }
 
     &__button {
-      background-color: #d43521;
+      background-color: ${({ theme: { colors } }) => colors.secondaryColor};
       font-size: 1rem;
       color: #ffffff;
       border: 0px;
@@ -29,8 +29,8 @@ const MyGameListPageStyled = styled.section`
 
     &__button:hover {
       background-color: white;
-      color: #d43521;
-      border: 1px solid #d43521;
+      color: ${({ theme: { colors } }) => colors.secondaryColor};
+      border: 1px solid ${({ theme: { colors } }) => colors.secondaryColor};
     }
   }
 `;
