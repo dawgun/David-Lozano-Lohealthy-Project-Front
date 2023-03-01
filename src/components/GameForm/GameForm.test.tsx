@@ -1,14 +1,15 @@
 import mockUseGames from "../../testUtils/mocks/mockUseGames/mockUseGames";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import GameForm from "./GameForm";
 import userEvent from "@testing-library/user-event";
+import customRender from "../../testUtils/wrappers/customRender/customRender";
 
 describe("Given the GameForm component", () => {
   describe("When it's instantiated", () => {
     test("Then it should show a form with two inputs", () => {
       const expectedLength = 2;
 
-      render(<GameForm />);
+      customRender(<GameForm />);
       const inputsText = screen.getAllByRole("textbox");
 
       expect(inputsText).toHaveLength(expectedLength);
@@ -17,7 +18,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with date input", () => {
       const datePlaceholder = "Fecha";
 
-      render(<GameForm />);
+      customRender(<GameForm />);
       const inputsDate = screen.getByPlaceholderText(datePlaceholder);
 
       expect(inputsDate).toBeInTheDocument();
@@ -26,7 +27,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with a text area input", () => {
       const placeholderSynopsis = "Descripción del juego";
 
-      render(<GameForm />);
+      customRender(<GameForm />);
       const textArea = screen.getByPlaceholderText(placeholderSynopsis);
 
       expect(textArea).toBeInTheDocument();
@@ -35,7 +36,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with two selects", () => {
       const expectedLength = 2;
 
-      render(<GameForm />);
+      customRender(<GameForm />);
       const inputOptions = screen.getAllByRole("combobox");
 
       expect(inputOptions).toHaveLength(expectedLength);
@@ -44,7 +45,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with 20 options input", () => {
       const expectedLength = 20;
 
-      render(<GameForm />);
+      customRender(<GameForm />);
       const inputOptions = screen.getAllByRole("option");
 
       expect(inputOptions).toHaveLength(expectedLength);
@@ -53,7 +54,7 @@ describe("Given the GameForm component", () => {
     test("And it should show a form with a button with text 'Crear'", () => {
       const textButton = "Crear";
 
-      render(<GameForm />);
+      customRender(<GameForm />);
       const button = screen.getByRole("button", { name: textButton });
 
       expect(button).toBeInTheDocument();
@@ -63,7 +64,7 @@ describe("Given the GameForm component", () => {
       test("Then gameCreate don't be called", async () => {
         const textButton = "Crear";
 
-        render(<GameForm />);
+        customRender(<GameForm />);
         const button = screen.getByRole("button", { name: textButton });
         await userEvent.click(button);
 
@@ -84,7 +85,7 @@ describe("Given the GameForm component", () => {
         });
         const textButton = "Crear";
 
-        render(<GameForm />);
+        customRender(<GameForm />);
 
         const title = screen.getByPlaceholderText("Título");
         const genre = screen.getByPlaceholderText("Género");
