@@ -11,6 +11,8 @@ import { userReducer } from "../../../store/user/userSlice";
 import { UIReducer } from "../../../store/UI/UISlice";
 import { gameReducer } from "../../../store/games/gamesSlice";
 import GlobalStyle from "../../../styles/GlobalStyle";
+import { ThemeProvider } from "styled-components";
+import mainTheme from "../../../styles/mainTheme";
 
 const customRender = (
   ui: React.ReactElement,
@@ -45,10 +47,12 @@ const customRender = (
 
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
-      <Router initialEntries={initialEntries}>
-        <GlobalStyle />
-        <Provider store={store}>{children}</Provider>
-      </Router>
+      <ThemeProvider theme={mainTheme}>
+        <Router initialEntries={initialEntries}>
+          <GlobalStyle />
+          <Provider store={store}>{children}</Provider>
+        </Router>
+      </ThemeProvider>
     );
   };
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
