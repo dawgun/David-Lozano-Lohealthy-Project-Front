@@ -21,7 +21,7 @@ const FormStyled = styled.section`
   .login-form,
   .game-form {
     &__button {
-      background-color: #d43521;
+      background-color: ${({ theme: { colors } }) => colors.secondaryColor};
       font-size: 1rem;
       color: #ffffff;
       border: 0px;
@@ -35,8 +35,8 @@ const FormStyled = styled.section`
 
     &__button:hover {
       background-color: white;
-      color: #d43521;
-      border: 1px solid #d43521;
+      color: ${({ theme: { colors } }) => colors.secondaryColor};
+      border: 1px solid ${({ theme: { colors } }) => colors.secondaryColor};
     }
 
     &__control {
@@ -56,7 +56,7 @@ const FormStyled = styled.section`
   }
 
   .input-incorrect {
-    border: 2px solid #d43521;
+    border: 2px solid ${({ theme: { colors } }) => colors.secondaryColor};
   }
 
   textarea {

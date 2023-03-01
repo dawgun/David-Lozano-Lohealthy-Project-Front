@@ -26,7 +26,7 @@ const HeaderStyled = styled.header`
       color: white;
     }
     &__second-part {
-      color: #d43521;
+      color: ${({ theme: { colors } }) => colors.secondaryColor};
     }
   }
 `;
