@@ -3,6 +3,7 @@ import { Game } from "../../store/games/model/game";
 import { useAppSelector } from "../../store/hooks";
 import GameCardStyled from "./GameCardStyled";
 import { useLocation, useNavigate } from "react-router-dom";
+import pathRoutes from "../../utils/pathRoutes/pathRoutes";
 
 interface GameCardProps {
   game: Game;
@@ -15,6 +16,7 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
   const maxLettersSynopsis = 80;
   const isSamePerson = game.owner === user.id;
   const { pathname } = useLocation();
+  const { home, myGames } = pathRoutes;
 
   const infoHandler = () => {
     navigate(`/details/${game.id}`);
@@ -35,12 +37,12 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
           0,
           maxLettersSynopsis
         )}...`}</p>
-        {pathname === "/home" && (
+        {pathname === home && (
           <button className="game__button" onClick={infoHandler}>
             Info
           </button>
         )}
-        {pathname === "/mis-juegos" && (
+        {pathname === myGames && (
           <button className="game__button" onClick={infoHandler}>
             Edit
           </button>

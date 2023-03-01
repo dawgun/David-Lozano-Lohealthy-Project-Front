@@ -18,11 +18,14 @@ import RegisterPage from "../../pages/RegisterPage/RegisterPage";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { loginUserActionCreator } from "../../store/user/userSlice";
 import fetchToken from "../../utils/auth/auth";
+import pathRoutes from "../../utils/pathRoutes/pathRoutes";
 
 function App() {
   const storeUI = useAppSelector((state) => state.ui);
   const token = localStorage.getItem("token");
   const dispach = useAppDispatch();
+  const { home, details, all, createGame, login, myGames, register, root } =
+    pathRoutes;
 
   if (token) {
     const user = fetchToken(token);
@@ -39,11 +42,11 @@ function App() {
         {storeUI.isMenuShowing && <UserMenu />}
       </section>
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/details/:idGame" element={<GameDetailsPage />} />
+        <Route path={root} element={<Navigate to={home} />} />
+        <Route path={home} element={<HomePage />} />
+        <Route path={details} element={<GameDetailsPage />} />
         <Route
-          path="/mis-juegos"
+          path={myGames}
           element={
             <RouteProtector>
               <MyGameListPage />
@@ -51,7 +54,7 @@ function App() {
           }
         />
         <Route
-          path="/mis-juegos/create"
+          path={`${myGames}${createGame}`}
           element={
             <RouteProtector>
               <CreateGamePage />
@@ -59,7 +62,7 @@ function App() {
           }
         />
         <Route
-          path="/register"
+          path={register}
           element={
             <ReverseRouteProtector>
               <RegisterPage />
@@ -67,14 +70,14 @@ function App() {
           }
         />
         <Route
-          path="/login"
+          path={login}
           element={
             <ReverseRouteProtector>
               <LoginPage />
             </ReverseRouteProtector>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={all} element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </AppStyled>
