@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { closeMenuActionCreator } from "../../store/UI/UISlice";
+import pathRoutes from "../../utils/pathRoutes/pathRoutes";
 import NavigationStyled from "./NavigationStyled";
 
 const Navigation = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const { myGames, home } = pathRoutes;
 
   const closeMenuHandler = () => {
     dispatch(closeMenuActionCreator());
@@ -12,7 +14,7 @@ const Navigation = (): JSX.Element => {
 
   return (
     <NavigationStyled className="navigation">
-      <NavLink onClick={closeMenuHandler} to={"/home"} className="nav-link">
+      <NavLink onClick={closeMenuHandler} to={home} className="nav-link">
         <img
           height={18}
           width={18}
@@ -20,11 +22,7 @@ const Navigation = (): JSX.Element => {
           alt="Home icon"
         ></img>
       </NavLink>
-      <NavLink
-        onClick={closeMenuHandler}
-        to={"/mis-juegos"}
-        className="nav-link"
-      >
+      <NavLink onClick={closeMenuHandler} to={myGames} className="nav-link">
         Mis Juegos
       </NavLink>
     </NavigationStyled>
