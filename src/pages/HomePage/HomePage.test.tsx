@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import HomePage from "./HomePage";
 import userEvent from "@testing-library/user-event";
@@ -60,9 +61,8 @@ describe("Given the HomePage page", () => {
       test("Then dispatch has to been called with nextPage action", async () => {
         const textButton = "ᐳ";
         const nextPageAction = nextPageActionCreator();
-        const mockDispatch = jest.fn();
 
-        customRender(<HomePage />, { dispatch: mockDispatch });
+        customRender(<HomePage />);
 
         const button = screen.getByRole("button", {
           name: textButton,
@@ -77,9 +77,8 @@ describe("Given the HomePage page", () => {
       test("Then dispatch has to been called with nextPage action", async () => {
         const textButton = "ᐸ";
         const previousPageAction = previousPageActionCreator();
-        const mockDispatch = jest.fn();
 
-        customRender(<HomePage />, { dispatch: mockDispatch });
+        customRender(<HomePage />);
 
         const button = screen.getByRole("button", {
           name: textButton,
@@ -100,10 +99,8 @@ describe("Given the HomePage page", () => {
         });
         const textButton = "ᐳ";
         const nextPageAction = nextPageActionCreator();
-        const mockDispatch = jest.fn();
 
         customRender(<HomePage />, {
-          dispatch: mockDispatch,
           store: storeWithoutNext,
         });
 
@@ -126,10 +123,8 @@ describe("Given the HomePage page", () => {
         });
         const textButton = "ᐸ";
         const previousPageAction = previousPageActionCreator();
-        const mockDispatch = jest.fn();
 
         customRender(<HomePage />, {
-          dispatch: mockDispatch,
           store: storeWithoutPrevious,
         });
 

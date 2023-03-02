@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import Modal from "./Modal";
 import userEvent from "@testing-library/user-event";
@@ -57,10 +58,9 @@ describe("Given a Modal component", () => {
 
     describe("And user click on '✕' button", () => {
       test("Then dispatch must to be called with close modal action", async () => {
-        const mockDispatch = jest.fn();
         const closeModalAction = closeModalActionCreator();
 
-        customRender(<Modal />, { store: customStore, dispatch: mockDispatch });
+        customRender(<Modal />, { store: customStore });
 
         const button = screen.getByRole("button", { name: "✕" });
         await userEvent.click(button);

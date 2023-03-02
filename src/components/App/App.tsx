@@ -19,27 +19,32 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { loginUserActionCreator } from "../../store/user/userSlice";
 import fetchToken from "../../utils/auth/auth";
 import pathRoutes from "../../utils/pathRoutes/pathRoutes";
+import { useEffect } from "react";
 
 function App() {
-  const storeUI = useAppSelector((state) => state.ui);
+  const { isLoadingShowing, isModalShowing, isMenuShowing } = useAppSelector(
+    (state) => state.ui
+  );
   const token = localStorage.getItem("token");
-  const dispach = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { home, details, all, createGame, login, myGames, register, root } =
     pathRoutes;
 
-  if (token) {
-    const user = fetchToken(token);
-    dispach(loginUserActionCreator(user));
-  }
+  useEffect(() => {
+    if (token) {
+      const user = fetchToken(token);
+      dispatch(loginUserActionCreator(user));
+    }
+  });
 
   return (
     <AppStyled className="main-container">
-      {storeUI.isLoadingShowing && <Loading />}
-      {storeUI.isModalShowing && <Modal />}
+      {isLoadingShowing && <Loading />}
+      {isModalShowing && <Modal />}
       <section className="menu-container">
         <Header />
         <Navigation />
-        {storeUI.isMenuShowing && <UserMenu />}
+        {isMenuShowing && <UserMenu />}
       </section>
       <Routes>
         <Route path={root} element={<Navigate to={home} />} />
