@@ -16,7 +16,7 @@ const pathRoutes: PathRoutes = {
   myGames: "/mis-juegos",
   createGame: "/create",
   register: "/register",
-  login: "login",
+  login: "/login",
   all: "*",
 };
 

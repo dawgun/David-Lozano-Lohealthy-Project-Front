@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import { RenderHookResult } from "@testing-library/react";
 import {
@@ -18,11 +19,8 @@ describe("Given the useGames custom hook", () => {
   describe("When getAllGames it's called", () => {
     describe("And fetch have an error", () => {
       test("Then dispatch must be called with action openModal", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getAllGames(1);
@@ -38,11 +36,8 @@ describe("Given the useGames custom hook", () => {
 
     describe("And fetch resolve with a list of games", () => {
       test("Then dispatch must be called with action showLoader", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getAllGames(1);
@@ -51,11 +46,8 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then dispatch must be called with action closeLoader", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getAllGames(1);
@@ -64,11 +56,8 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then dispatch must be called with action loadGames", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getAllGames(1);
@@ -90,11 +79,9 @@ describe("Given the useGames custom hook", () => {
     describe("And fetch is done with existent id game", () => {
       test("Then dispatch must be called with delete action openModal with id '2'", async () => {
         const payloadDelete = "2";
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.deleteGame("2");
 
@@ -108,11 +95,9 @@ describe("Given the useGames custom hook", () => {
           message: "Juego borrado satisfactoriamente",
           type: true,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.deleteGame("1");
 
@@ -128,11 +113,9 @@ describe("Given the useGames custom hook", () => {
           message: "Error borrando el juego",
           type: false,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.deleteGame("2");
 
@@ -160,11 +143,9 @@ describe("Given the useGames custom hook", () => {
           owner: "2",
           id: "1",
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.createGame(correctFormGameData);
 
@@ -178,11 +159,9 @@ describe("Given the useGames custom hook", () => {
           message: "Juego creado satisfactoriamente",
           type: true,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.createGame(correctFormGameData);
 
@@ -193,11 +172,9 @@ describe("Given the useGames custom hook", () => {
 
       test("Then navigate must be called with '/mis-juegos'", async () => {
         const navigatePath = "/mis-juegos";
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.createGame(correctFormGameData);
 
@@ -213,11 +190,9 @@ describe("Given the useGames custom hook", () => {
         };
         const incorrectFormGameData = new FormData();
         incorrectFormGameData.append("title", "");
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.createGame(incorrectFormGameData);
 
@@ -235,11 +210,9 @@ describe("Given the useGames custom hook", () => {
           message: "¡Algo ha salido mal!",
           type: false,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getGamesByUser();
@@ -252,11 +225,8 @@ describe("Given the useGames custom hook", () => {
 
     describe("And fetch resolve with a list of games", () => {
       test("Then dispatch must be called with action showLoader", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getGamesByUser();
@@ -265,11 +235,8 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then dispatch must be called with action closeLoader", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.getGamesByUser();
 
@@ -277,11 +244,8 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then dispatch must be called with action loadGames", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getGamesByUser();
@@ -299,11 +263,9 @@ describe("Given the useGames custom hook", () => {
           message: "¡Juego no encontrado!",
           type: false,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getGameById(incorrectId);
@@ -318,11 +280,8 @@ describe("Given the useGames custom hook", () => {
       const correctId = "correctId";
 
       test("Then dispatch must be called with action showLoader", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
         await result.current.getGameById(correctId);
 
@@ -330,11 +289,8 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then dispatch must be called with action closeLoader", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         await result.current.getGameById(correctId);
@@ -343,11 +299,8 @@ describe("Given the useGames custom hook", () => {
       });
 
       test("Then should return 'game'", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useGames,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
 
         const game = await result.current.getGameById(correctId);

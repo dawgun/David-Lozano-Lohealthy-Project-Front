@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event/";
 import { store } from "../../store/store";
@@ -25,9 +26,7 @@ describe("Given the Header component", () => {
 
     describe("And users click on button", () => {
       test("Then it should be called the function", async () => {
-        const mockDispatch = jest.fn();
-
-        customRender(<Header />, { dispatch: mockDispatch });
+        customRender(<Header />);
 
         const button = screen.getByRole("button");
         await userEvent.click(button);

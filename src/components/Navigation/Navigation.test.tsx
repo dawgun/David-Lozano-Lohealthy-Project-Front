@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { closeMenuActionCreator } from "../../store/UI/UISlice";
@@ -29,9 +30,7 @@ describe("Given the Navigation component", () => {
 
     describe("And user clicks on home icon", () => {
       test("Then dispatch it would be called with closeMenu action", async () => {
-        const mockDispatch = jest.fn();
-
-        customRender(<Navigation />, { dispatch: mockDispatch });
+        customRender(<Navigation />);
 
         const navHome = screen.getByRole("link", {
           name: alternativeTextHome,
@@ -45,9 +44,7 @@ describe("Given the Navigation component", () => {
 
     describe("And user clicks on 'Mis Juegos'", () => {
       test("Then dispatch it would be called with closeMenu action", async () => {
-        const mockDispatch = jest.fn();
-
-        customRender(<Navigation />, { dispatch: mockDispatch });
+        customRender(<Navigation />);
 
         const navMygames = screen.getByRole("link", {
           name: myGamesText,

@@ -13,7 +13,6 @@ export interface ExtendedPropsWithChildren extends PropsWithChildren {
 export interface ExtendedRenderOptions
   extends Omit<RenderOptions, "queries">,
     ExtendedPropsWithChildren {
-  dispatch?: jest.Mock<any, any>;
   preloadedState?: PreloadedState<RootState>;
   store?: typeof store;
 }

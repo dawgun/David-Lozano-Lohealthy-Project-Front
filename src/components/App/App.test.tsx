@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import App from "./App";
 import { loginUserActionCreator } from "../../store/user/userSlice";
@@ -87,12 +88,11 @@ describe("Given App component", () => {
     describe("And navigator have a token", () => {
       test("Then dispatch has to been called with loginUser action", () => {
         const loginUserAction = loginUserActionCreator(mockUser);
-        const mockDispatch = jest.fn();
 
         const mockToken = "mockToken";
         window.localStorage.setItem("token", mockToken);
 
-        customRender(<App />, { store, dispatch: mockDispatch });
+        customRender(<App />, { store });
 
         expect(mockDispatch).toHaveBeenCalledWith(loginUserAction);
       });
@@ -154,11 +154,9 @@ describe("Given App component", () => {
       test("Then should show 'Detalles del juego' in a heading MyGameListPage", () => {
         const webPath = "/login";
         const titleText = "Login";
-        const mockDispatch = jest.fn();
 
         customRender(<App />, {
           initialEntries: [webPath],
-          dispatch: mockDispatch,
         });
 
         const title = screen.getByRole("heading", { name: titleText });
@@ -171,11 +169,9 @@ describe("Given App component", () => {
       test("Then should show 'Detalles del juego' in a heading MyGameListPage", () => {
         const webPath = "/register";
         const titleText = "Registro";
-        const mockDispatch = jest.fn();
 
         customRender(<App />, {
           initialEntries: [webPath],
-          dispatch: mockDispatch,
         });
 
         const title = screen.getByRole("heading", { name: titleText });

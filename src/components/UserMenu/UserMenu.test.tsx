@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import mockUseUser from "../../testUtils/mocks/mockUseUser/mockUseUser";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -23,9 +24,8 @@ describe("Given the UserMenu component", () => {
     describe("And user click on 'Registrar' or 'Login'", () => {
       test("Then should functions has been called", async () => {
         const calledTimes = 2;
-        const mockDispatch = jest.fn();
 
-        customRender(<UserMenu />, { dispatch: mockDispatch });
+        customRender(<UserMenu />);
 
         const navlinks = await screen.findAllByRole("link");
         await userEvent.click(navlinks[0]);
