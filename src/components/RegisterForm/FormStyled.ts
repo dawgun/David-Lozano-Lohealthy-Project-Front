@@ -20,25 +20,6 @@ const FormStyled = styled.section`
   .register-form,
   .login-form,
   .game-form {
-    &__button {
-      background-color: ${({ theme: { colors } }) => colors.secondaryColor};
-      font-size: 1rem;
-      color: #ffffff;
-      border: 0px;
-      width: 100%;
-      text-transform: uppercase;
-      padding: 1rem;
-      font-family: "Roboto";
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    &__button:hover {
-      background-color: white;
-      color: ${({ theme: { colors } }) => colors.secondaryColor};
-      border: 1px solid ${({ theme: { colors } }) => colors.secondaryColor};
-    }
-
     &__control {
       border-radius: 1px;
       border: 1px solid #858383;
@@ -49,10 +30,6 @@ const FormStyled = styled.section`
       width: 100%;
       background-color: white;
     }
-  }
-
-  .button-disabled {
-    background-color: #d43521aa;
   }
 
   .input-incorrect {

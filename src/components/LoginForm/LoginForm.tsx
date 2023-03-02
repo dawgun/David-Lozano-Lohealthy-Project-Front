@@ -2,6 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import "@fontsource/roboto";
 import useUser from "../../hooks/useUser/useUser";
 import FormStyled from "../RegisterForm/FormStyled";
+import Button from "../Button/Button";
 
 export const LoginForm = () => {
   const initialState = {
@@ -54,7 +55,13 @@ export const LoginForm = () => {
             required
           />
         </div>
-        <button
+        <Button
+          buttonClass="large-button"
+          text="Login"
+          isDisabled={!isFormValid}
+          typeButton="submit"
+        ></Button>
+        {/* <button
           className={`login-form__button${
             !isFormValid ? " button-disabled" : ""
           }`}
@@ -62,7 +69,7 @@ export const LoginForm = () => {
           disabled={!isFormValid}
         >
           Login
-        </button>
+        </button> */}
       </form>
     </FormStyled>
   );

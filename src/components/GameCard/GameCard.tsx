@@ -4,6 +4,7 @@ import { useAppSelector } from "../../store/hooks";
 import GameCardStyled from "./GameCardStyled";
 import { useLocation, useNavigate } from "react-router-dom";
 import pathRoutes from "../../utils/pathRoutes/pathRoutes";
+import Button from "../Button/Button";
 
 interface GameCardProps {
   game: Game;
@@ -38,14 +39,10 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
           maxLettersSynopsis
         )}...`}</p>
         {pathname === home && (
-          <button className="game__button" onClick={infoHandler}>
-            Info
-          </button>
+          <Button action={infoHandler} text="Info"></Button>
         )}
         {pathname === myGames && (
-          <button className="game__button" onClick={infoHandler}>
-            Edit
-          </button>
+          <Button action={infoHandler} text="Edit"></Button>
         )}
       </div>
       {isSamePerson && (
