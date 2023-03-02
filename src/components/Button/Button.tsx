@@ -15,10 +15,12 @@ const Button = ({
   text,
   buttonClass,
 }: ButtonProps): JSX.Element => {
+  const classButton = `button${buttonClass ? ` ${buttonClass}` : ""}`;
+
   return (
     <ButtonStyled
       type={typeButton}
-      className={`button${buttonClass ? ` ${buttonClass}` : ""}`}
+      className={classButton}
       disabled={isDisabled}
       semantic={"button"}
       onClick={action}
