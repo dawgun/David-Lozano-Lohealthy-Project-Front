@@ -4,6 +4,7 @@ import FormStyled from "./FormStyled";
 import useUser from "../../hooks/useUser/useUser";
 import emailValidator from "../../utils/emailValidator/emailValidator";
 import { ProtoUser } from "../../store/user/model/user";
+import Button from "../Button/Button";
 
 export const RegisterForm = () => {
   const minLenght = 4;
@@ -117,15 +118,13 @@ export const RegisterForm = () => {
             required
           />
         </div>
-        <button
-          className={`register-form__button${
-            !isFormValid ? " button-disabled" : ""
-          }`}
-          type="submit"
-          disabled={!isFormValid}
-        >
-          Crear cuenta
-        </button>
+
+        <Button
+          isDisabled={!isFormValid}
+          typeButton="submit"
+          text="Crear cuenta"
+          buttonClass="large-button"
+        />
       </form>
     </FormStyled>
   );

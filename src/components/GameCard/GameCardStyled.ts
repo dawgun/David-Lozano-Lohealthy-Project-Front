@@ -23,26 +23,6 @@ const GameCardStyled = styled.li`
       width: 15rem;
     }
 
-    &__button {
-      background-color: ${({ theme: { colors } }) => colors.secondaryColor};
-      font-size: 1rem;
-      color: #ffffff;
-      border: 0px;
-      width: 4rem;
-      height: 3rem;
-      text-transform: uppercase;
-      font-family: "Roboto";
-      font-weight: bold;
-      align-self: flex-end;
-      cursor: pointer;
-    }
-
-    &__button:hover {
-      background-color: white;
-      color: ${({ theme: { colors } }) => colors.secondaryColor};
-      border: 1px solid ${({ theme: { colors } }) => colors.secondaryColor};
-    }
-
     &__delete {
       color: red;
       background-color: inherit;
