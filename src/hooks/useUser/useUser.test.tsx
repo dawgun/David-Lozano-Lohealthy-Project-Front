@@ -1,3 +1,4 @@
+import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import { RenderHookResult } from "@testing-library/react";
 import { ProtoUser } from "../../store/user/model/user";
@@ -48,11 +49,9 @@ describe("Given the useUser custom hook", () => {
           message: "Cuenta creada satisfactoriamente",
           type: true,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useUser,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
@@ -69,11 +68,9 @@ describe("Given the useUser custom hook", () => {
           message: "Error al crear cuenta",
           type: false,
         };
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useUser,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
@@ -93,11 +90,8 @@ describe("Given the useUser custom hook", () => {
     };
     describe("And called with a valid user", () => {
       test("Then should dispatch has been called with action login with an user", async () => {
-        const mockDispatch = jest.fn();
-
         const { result } = customRenderHook({
           customHook: useUser,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
@@ -146,11 +140,9 @@ describe("Given the useUser custom hook", () => {
           type: false,
         };
         userLogin.userName = "";
-        const mockDispatch = jest.fn();
 
         const { result } = customRenderHook({
           customHook: useUser,
-          dispatch: mockDispatch,
         }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
         await result.current.userRegister(user);
 
@@ -165,14 +157,11 @@ describe("Given the useUser custom hook", () => {
 
   describe("When userLogout it's called", () => {
     test("Then dispatch to have been called with logout action", async () => {
-      const mockDispatch = jest.fn();
-
       const { result } = customRenderHook({
         customHook: useUser,
-        dispatch: mockDispatch,
       }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
-      await result.current.userRegister(user);
 
+      await result.current.userRegister(user);
       await result.current.userLogout();
 
       expect(mockDispatch).toHaveBeenCalledWith(logoutUserActionCreator());

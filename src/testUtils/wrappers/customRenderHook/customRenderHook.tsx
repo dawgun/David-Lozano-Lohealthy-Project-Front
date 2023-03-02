@@ -8,17 +8,12 @@ import { ExtendedRenderHookOptions } from "../customRender/types/types";
 import { renderHook } from "@testing-library/react";
 
 const customRenderHook = ({
-  dispatch,
   store = configureStore({
     reducer: { user: userReducer, ui: UIReducer, games: gameReducer },
   }),
   customHook,
   ...renderOptions
 }: ExtendedRenderHookOptions) => {
-  if (dispatch) {
-    store.dispatch = dispatch;
-  }
-
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return <Provider store={store}>{children}</Provider>;
   };
