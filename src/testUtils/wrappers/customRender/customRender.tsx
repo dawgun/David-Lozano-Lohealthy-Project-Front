@@ -17,7 +17,6 @@ import mainTheme from "../../../styles/mainTheme";
 const customRender = (
   ui: React.ReactElement,
   {
-    dispatch,
     initialEntries,
     path = "*",
     store = configureStore({
@@ -40,10 +39,6 @@ const customRender = (
       <BrowserRouter>{children}</BrowserRouter>
     );
   };
-
-  if (dispatch) {
-    store.dispatch = dispatch;
-  }
 
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
