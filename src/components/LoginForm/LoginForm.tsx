@@ -61,15 +61,6 @@ export const LoginForm = () => {
           isDisabled={!isFormValid}
           typeButton="submit"
         ></Button>
-        {/* <button
-          className={`login-form__button${
-            !isFormValid ? " button-disabled" : ""
-          }`}
-          type="submit"
-          disabled={!isFormValid}
-        >
-          Login
-        </button> */}
       </form>
     </FormStyled>
   );
