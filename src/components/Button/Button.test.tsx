@@ -21,7 +21,7 @@ describe("Given the Button component", () => {
     test("Then the received action should be called", async () => {
       const mockActionButton = jest.fn();
 
-      customRender(<Button text="" action={mockActionButton} />);
+      customRender(<Button text="" onClick={mockActionButton} />);
 
       const testButton = screen.getByRole("button");
       await userEvent.click(testButton);

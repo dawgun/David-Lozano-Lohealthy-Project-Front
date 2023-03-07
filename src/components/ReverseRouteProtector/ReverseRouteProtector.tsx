@@ -19,7 +19,7 @@ const ReverseRouteProtector = ({
       navigate(home);
     }
   }, [navigate, isLogged, home]);
-  return <>{!isLogged ? children : <></>}</>;
+  return <>{!isLogged && children}</>;
 };
 
 export default ReverseRouteProtector;

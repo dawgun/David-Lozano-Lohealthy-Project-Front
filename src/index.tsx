@@ -18,7 +18,7 @@ root.render(
       <BrowserRouter>
         <ThemeProvider theme={mainTheme}>
           <GlobalStyle />
-          <App />ç
+          <App />
         </ThemeProvider>
       </BrowserRouter>
     </Provider>

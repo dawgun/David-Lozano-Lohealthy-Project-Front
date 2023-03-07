@@ -1,7 +1,6 @@
 import ButtonStyled from "./ButtonStyled";
 
-interface ButtonProps {
-  action?: () => void;
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   typeButton?: "button" | "submit";
   isDisabled?: boolean;
   text: string;
@@ -9,11 +8,11 @@ interface ButtonProps {
 }
 
 const Button = ({
-  action,
   typeButton = "button",
   isDisabled = false,
   text,
   buttonClass,
+  ...props
 }: ButtonProps): JSX.Element => {
   const classButton = `button${buttonClass ? ` ${buttonClass}` : ""}`;
 
@@ -23,7 +22,7 @@ const Button = ({
       className={classButton}
       disabled={isDisabled}
       semantic={"button"}
-      onClick={action}
+      {...props}
     >
       {text}
     </ButtonStyled>

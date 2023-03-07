@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AppStyled = styled.div`
+const LayoutStyled = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,8 @@ const AppStyled = styled.div`
     position: sticky;
     top: 0;
     z-index: 1;
+    width: 100%;
   }
 `;
 
-export default AppStyled;
+export default LayoutStyled;
