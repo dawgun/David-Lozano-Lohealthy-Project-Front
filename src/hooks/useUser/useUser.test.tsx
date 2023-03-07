@@ -1,3 +1,4 @@
+import mockFetchedTokenUser from "../../testUtils/mocks/mockFetchedTokenUser/mockFetchedTokenUser";
 import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
 import { RenderHookResult } from "@testing-library/react";
@@ -9,15 +10,6 @@ import {
 } from "../../store/user/userSlice";
 import useUser from "./useUser";
 import customRenderHook from "../../testUtils/wrappers/customRenderHook/customRenderHook";
-
-const mockuserWithToken = {
-  token: "token",
-  id: "",
-  image: "",
-  userName: "",
-};
-
-jest.mock("../../utils/auth/auth", () => () => mockuserWithToken);
 
 describe("Given the useUser custom hook", () => {
   let user: ProtoUser;
@@ -98,7 +90,7 @@ describe("Given the useUser custom hook", () => {
         await result.current.userLogin(userLogin);
 
         expect(mockDispatch).toHaveBeenCalledWith(
-          loginUserActionCreator(mockuserWithToken)
+          loginUserActionCreator(mockFetchedTokenUser)
         );
       });
 
@@ -115,7 +107,7 @@ describe("Given the useUser custom hook", () => {
 
         expect(localStorage.setItem).toHaveBeenCalledWith(
           localStorageKey,
-          mockuserWithToken.token
+          mockFetchedTokenUser.token
         );
       });
 

@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { loginUserActionCreator } from "../../store/user/userSlice";
-import fetchToken from "../../utils/auth/auth";
+import fetchToken from "../../utils/fetchToken/fetchToken";
 import Layout from "../Layout/Layout";
 import Loading from "../Loading/Loading";
 import Modal from "../Modal/Modal";

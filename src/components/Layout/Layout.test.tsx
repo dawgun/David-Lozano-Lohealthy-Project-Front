@@ -1,3 +1,4 @@
+import "../../testUtils/mocks/mockFetchedTokenUser/mockFetchedTokenUser";
 import { screen } from "@testing-library/react";
 import Layout from "./Layout";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
@@ -6,10 +7,6 @@ import {
   initialUserState,
   mockStore,
 } from "../../testUtils/mocks/mockStore/mockStore";
-
-const mockUser = { userName: "Pedro", image: "", token: "token", id: "1" };
-
-jest.mock("../../utils/auth/auth", () => () => mockUser);
 
 describe("Given Layout component", () => {
   const store = mockStore({

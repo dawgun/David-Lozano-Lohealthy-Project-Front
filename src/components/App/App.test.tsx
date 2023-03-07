@@ -1,3 +1,4 @@
+import mockFetchedTokenUser from "../../testUtils/mocks/mockFetchedTokenUser/mockFetchedTokenUser";
 import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import { loginUserActionCreator } from "../../store/user/userSlice";
@@ -7,10 +8,6 @@ import {
 } from "../../testUtils/mocks/mockStore/mockStore";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 import App from "./App";
-
-const mockUser = { userName: "Pedro", image: "", token: "token", id: "1" };
-
-jest.mock("../../utils/auth/auth", () => () => mockUser);
 
 describe("When it's instantiated", () => {
   const store = mockStore({
@@ -53,7 +50,7 @@ describe("When it's instantiated", () => {
 
   describe("And navigator have a token", () => {
     test("Then dispatch has to been called with loginUser action", () => {
-      const loginUserAction = loginUserActionCreator(mockUser);
+      const loginUserAction = loginUserActionCreator(mockFetchedTokenUser);
 
       const mockToken = "mockToken";
       window.localStorage.setItem("token", mockToken);
