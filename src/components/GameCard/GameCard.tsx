@@ -39,10 +39,10 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
           maxLettersSynopsis
         )}...`}</p>
         {pathname === home && (
-          <Button action={infoHandler} text="Info"></Button>
+          <Button onClick={infoHandler} text="Info"></Button>
         )}
         {pathname === myGames && (
-          <Button action={infoHandler} text="Edit"></Button>
+          <Button onClick={infoHandler} text="Edit"></Button>
         )}
       </div>
       {isSamePerson && (

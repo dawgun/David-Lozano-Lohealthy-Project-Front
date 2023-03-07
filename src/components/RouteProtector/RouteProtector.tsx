@@ -16,7 +16,7 @@ const RouteProtector = ({ children }: RouteProtectorProps): JSX.Element => {
       navigate(home);
     }
   }, [navigate, isLogged, home]);
-  return <>{isLogged ? children : <></>}</>;
+  return <>{isLogged && children}</>;
 };
 
 export default RouteProtector;
