@@ -6,7 +6,7 @@ import {
   loginUserActionCreator,
   logoutUserActionCreator,
 } from "../../store/user/userSlice";
-import fetchToken from "../../utils/auth/auth";
+import fetchToken from "../../utils/fetchToken/fetchToken";
 
 const useUser = () => {
   const urlAPI = process.env.REACT_APP_API_URL;
