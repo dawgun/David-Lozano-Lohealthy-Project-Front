@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import Layout from "./Layout";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 import {
+  initialUiState,
   initialUserState,
   mockStore,
 } from "../../testUtils/mocks/mockStore/mockStore";
@@ -12,6 +13,10 @@ jest.mock("../../utils/auth/auth", () => () => mockUser);
 
 describe("Given Layout component", () => {
   const store = mockStore({
+    uiPreloadState: {
+      ...initialUiState,
+      isMenuShowing: true,
+    },
     userPreloadState: { ...initialUserState, isLogged: true },
   });
 
