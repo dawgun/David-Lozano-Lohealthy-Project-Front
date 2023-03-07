@@ -1,4 +1,4 @@
-import fetchToken from "./auth";
+import fetchToken from "./fetchToken";
 import jwt from "jwt-decode";
 
 jest.mock("jwt-decode", () => jest.fn());
