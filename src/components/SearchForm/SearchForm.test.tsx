@@ -4,9 +4,14 @@ import customRender from "../../testUtils/wrappers/customRender/customRender";
 import userEvent from "@testing-library/user-event";
 import SearchForm from "./SearchForm";
 
+jest.useFakeTimers();
+
 describe("Given the SearchForm component", () => {
   const placeholderText = "Search";
   const gameSearched = "Kirby";
+  const customUserevent = userEvent.setup({
+    advanceTimers: () => jest.runOnlyPendingTimers(),
+  });
 
   describe("When it's instantiated", () => {
     test("Then should show 'Search' in a input", () => {
@@ -24,10 +29,8 @@ describe("Given the SearchForm component", () => {
         const searchInput: HTMLInputElement =
           screen.getByPlaceholderText(placeholderText);
 
-        await userEvent.type(searchInput, "K", { delay: 500 });
-        await userEvent.clear(searchInput);
-
-        jest.advanceTimersByTime(1000);
+        await customUserevent.type(searchInput, "K");
+        await customUserevent.clear(searchInput);
 
         await waitFor(() =>
           expect(mockUseGames.getAllGames).toHaveBeenCalledWith(0)
@@ -42,9 +45,7 @@ describe("Given the SearchForm component", () => {
         const searchInput: HTMLInputElement =
           screen.getByPlaceholderText(placeholderText);
 
-        await userEvent.type(searchInput, gameSearched, { delay: 500 });
-
-        jest.advanceTimersByTime(1000);
+        await customUserevent.type(searchInput, gameSearched);
 
         await waitFor(() =>
           expect(mockUseGames.searchGames).toHaveBeenCalledWith(gameSearched)
