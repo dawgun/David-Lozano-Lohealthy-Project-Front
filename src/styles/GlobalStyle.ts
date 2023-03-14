@@ -18,11 +18,6 @@ h3 {
   margin: 0;
 }
 
-h2,
-h3 {
-  margin-bottom: 2rem;
-}
-
 h4 {
   font-size: 1.2rem;
 }

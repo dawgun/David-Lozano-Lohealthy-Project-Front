@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import GameCardList from "../../components/GameCardList/GameCardList";
+import SearchForm from "../../components/SearchForm/SearchForm";
 import useGames from "../../hooks/useGames/useGames";
 import {
   nextPageActionCreator,
@@ -31,6 +32,7 @@ const HomePage = (): JSX.Element => {
   return (
     <HomePageStyled className="homepage-container">
       <h2 className="homepage__title">Home</h2>
+      <SearchForm />
       <GameCardList />
       <div className="pagination">
         <button
