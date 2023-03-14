@@ -309,4 +309,63 @@ describe("Given the useGames custom hook", () => {
       });
     });
   });
+
+  describe("When searchGames it's called", () => {
+    describe("And fetch have an error", () => {
+      test("Then dispatch must be called with action openModal", async () => {
+        const { result } = customRenderHook({
+          customHook: useGames,
+        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+
+        await result.current.searchGames("badWord");
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator({
+            message: "¡Algo ha salido mal!",
+            type: false,
+          })
+        );
+      });
+    });
+
+    describe("And fetch resolve with a list of games", () => {
+      test("Then dispatch must be called with action showLoader", async () => {
+        const { result } = customRenderHook({
+          customHook: useGames,
+        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+
+        await result.current.searchGames("goodWord");
+
+        expect(mockDispatch).toHaveBeenCalledWith(showLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action closeLoader", async () => {
+        const { result } = customRenderHook({
+          customHook: useGames,
+        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+
+        await result.current.searchGames("goodWord");
+
+        expect(mockDispatch).toHaveBeenCalledWith(closeLoaderActionCreator());
+      });
+
+      test("Then dispatch must be called with action loadGames", async () => {
+        const { result } = customRenderHook({
+          customHook: useGames,
+        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+
+        await result.current.searchGames("goodWord");
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          loadGamesActionCreator({
+            isPreviousPage: false,
+            isNextPage: true,
+            totalPages: 1,
+            currentPage: 0,
+            games: [],
+          })
+        );
+      });
+    });
+  });
 });
