@@ -19,7 +19,8 @@ const FormStyled = styled.section`
 
   .register-form,
   .login-form,
-  .game-form {
+  .game-form,
+  .search-form {
     &__control {
       border-radius: 1px;
       border: 1px solid #858383;
