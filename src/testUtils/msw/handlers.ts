@@ -76,4 +76,25 @@ export const handlers = [
   rest.get(`${apiUrl}games/errorId`, async (req, res, ctx) => {
     return res(ctx.status(400), ctx.json({ game: "error" }));
   }),
+
+  rest.get(`${apiUrl}games/search`, async (req, res, ctx) => {
+    const titleWord = req.url.searchParams.get("title");
+
+    if (titleWord === "badWord") {
+      return res(ctx.status(400));
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        games: {
+          isPreviousPage: false,
+          isNextPage: true,
+          totalPages: 1,
+          currentPage: 0,
+          games: [],
+        },
+      })
+    );
+  }),
 ];
