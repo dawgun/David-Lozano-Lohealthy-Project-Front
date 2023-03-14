@@ -6,6 +6,7 @@ const mockUseGames: ReturnType<typeof useGames> = {
   createGame: jest.fn(),
   getGamesByUser: jest.fn(),
   getGameById: jest.fn(),
+  searchGames: jest.fn(),
 };
 
 jest.mock(
@@ -16,6 +17,7 @@ jest.mock(
     createGame: mockUseGames.createGame,
     getGamesByUser: mockUseGames.getGamesByUser,
     getGameById: mockUseGames.getGameById,
+    searchGames: mockUseGames.searchGames,
   })
 );
 

@@ -167,7 +167,43 @@ const useGames = () => {
     }
   };
 
-  return { getAllGames, deleteGame, createGame, getGamesByUser, getGameById };
+  const searchGames = useCallback(
+    async (gameSearched: string) => {
+      try {
+        dispatch(showLoaderActionCreator());
+
+        const response = await fetch(
+          `${urlAPI}games/search?title=${gameSearched}`
+        );
+
+        if (!response.ok) {
+          throw new Error();
+        }
+
+        const gameList = await response.json();
+
+        dispatch(closeLoaderActionCreator());
+        dispatch(loadGamesActionCreator(gameList.games));
+      } catch {
+        dispatch(
+          openModalActionCreator({
+            message: "¡Algo ha salido mal!",
+            type: false,
+          })
+        );
+      }
+    },
+    [dispatch, urlAPI]
+  );
+
+  return {
+    getAllGames,
+    deleteGame,
+    createGame,
+    getGamesByUser,
+    getGameById,
+    searchGames,
+  };
 };
 
 export default useGames;
