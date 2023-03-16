@@ -22,10 +22,13 @@ export interface DetailGame extends ProtoGame {
   owner: OwnerDetailed;
   backupImage: string;
 }
-export interface GameAPI {
+
+export interface PaginationAPI {
   isPreviousPage: boolean;
   isNextPage: boolean;
   totalPages: number;
   currentPage: number;
+}
+export interface GameAPI extends PaginationAPI {
   games: Game[];
 }
