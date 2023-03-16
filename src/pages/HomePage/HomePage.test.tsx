@@ -1,11 +1,5 @@
-import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import { screen } from "@testing-library/react";
 import HomePage from "./HomePage";
-import userEvent from "@testing-library/user-event";
-import {
-  nextPageActionCreator,
-  previousPageActionCreator,
-} from "../../store/games/gamesSlice";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 import {
   initialGameState,
@@ -57,83 +51,35 @@ describe("Given the HomePage page", () => {
       expect(homeTitle).toBeInTheDocument();
     });
 
-    describe("And user click on button next page 'ᐳ'", () => {
-      test("Then dispatch has to been called with nextPage action", async () => {
-        const textButton = "ᐳ";
-        const nextPageAction = nextPageActionCreator();
+    describe("And total pages is '1'", () => {
+      test("Then shouldn't show 'ᐸ' in a button", () => {
+        const textButton = "ᐸ";
 
         customRender(<HomePage />);
 
-        const button = screen.getByRole("button", {
+        const previousButton = screen.queryByRole("button", {
           name: textButton,
         });
-        await userEvent.click(button);
 
-        expect(mockDispatch).toHaveBeenCalledWith(nextPageAction);
+        expect(previousButton).not.toBeInTheDocument();
       });
     });
 
-    describe("And user click on button previous page 'ᐸ'", () => {
-      test("Then dispatch has to been called with nextPage action", async () => {
+    describe("And total pages is '2'", () => {
+      test("Then should show 'ᐸ' in a button", () => {
+        const totalPages = 2;
         const textButton = "ᐸ";
-        const previousPageAction = previousPageActionCreator();
+        const storeWithMorePages = mockStore({
+          gamesPreloadState: { ...initialGameState, totalPages },
+        });
 
-        customRender(<HomePage />);
+        customRender(<HomePage />, { store: storeWithMorePages });
 
-        const button = screen.getByRole("button", {
+        const previousButton = screen.queryByRole("button", {
           name: textButton,
         });
-        await userEvent.click(button);
 
-        expect(mockDispatch).toHaveBeenCalledWith(previousPageAction);
-      });
-    });
-
-    describe("And user click on button next page when there isn't more pages 'ᐳ'", () => {
-      test("Then dispatch has to been not called with nextPage action", async () => {
-        const storeWithoutNext = mockStore({
-          gamesPreloadState: {
-            ...initialGameState,
-            isNextPage: false,
-          },
-        });
-        const textButton = "ᐳ";
-        const nextPageAction = nextPageActionCreator();
-
-        customRender(<HomePage />, {
-          store: storeWithoutNext,
-        });
-
-        const button = screen.getByRole("button", {
-          name: textButton,
-        });
-        await userEvent.click(button);
-
-        expect(mockDispatch).not.toHaveBeenCalledWith(nextPageAction);
-      });
-    });
-
-    describe("And user click on button previous page when there isn't more pages 'ᐸ'", () => {
-      test("Then dispatch has to been called with nextPage action", async () => {
-        const storeWithoutPrevious = mockStore({
-          gamesPreloadState: {
-            ...initialGameState,
-            isPreviousPage: false,
-          },
-        });
-        const textButton = "ᐸ";
-        const previousPageAction = previousPageActionCreator();
-
-        customRender(<HomePage />, {
-          store: storeWithoutPrevious,
-        });
-
-        const button = screen.getByRole("button", {
-          name: textButton,
-        });
-        await userEvent.click(button);
-
-        expect(mockDispatch).not.toHaveBeenCalledWith(previousPageAction);
+        expect(previousButton).toBeInTheDocument();
       });
     });
   });

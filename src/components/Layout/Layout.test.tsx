@@ -1,4 +1,6 @@
 import "../../testUtils/mocks/mockFetchedTokenUser/mockFetchedTokenUser";
+import "../../testUtils/mocks/mockUseGames/mockUseGames";
+import "../../testUtils/mocks/mockReact/mockReact";
 import { screen } from "@testing-library/react";
 import Layout from "./Layout";
 import customRender from "../../testUtils/wrappers/customRender/customRender";

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { gameReducer } from "../../../store/games/gamesSlice";
 import { UIReducer } from "../../../store/UI/UISlice";
 import { userReducer } from "../../../store/user/userSlice";
-import { GameAPI } from "../../../store/games/model/game";
+import { GameAPI, PaginationAPI } from "../../../store/games/model/game";
 import { UIState } from "../../../store/UI/model/UI";
 import { UserLoginState } from "../../../store/user/model/user";
 import MockStoreProps from "./types/types";
@@ -25,11 +25,15 @@ export const initialUserState: UserLoginState = {
   },
 };
 
-export const initialGameState: GameAPI = {
+export const initialPagination: PaginationAPI = {
   isPreviousPage: true,
   isNextPage: true,
   totalPages: 1,
-  currentPage: 0,
+  currentPage: 1,
+};
+
+export const initialGameState: GameAPI = {
+  ...initialPagination,
   games: [],
 };
 
