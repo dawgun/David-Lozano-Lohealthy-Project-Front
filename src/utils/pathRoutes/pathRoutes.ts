@@ -4,6 +4,7 @@ interface PathRoutes {
   details: string;
   myGames: string;
   createGame: string;
+  updateGame: string;
   register: string;
   login: string;
   all: string;
@@ -15,6 +16,7 @@ const pathRoutes: PathRoutes = {
   details: "/details/:idGame",
   myGames: "/mis-juegos",
   createGame: "/create",
+  updateGame: "/update",
   register: "/register",
   login: "/login",
   all: "*",
