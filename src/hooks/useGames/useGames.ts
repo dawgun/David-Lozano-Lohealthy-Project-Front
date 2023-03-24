@@ -167,6 +167,37 @@ const useGames = () => {
     }
   };
 
+  const updateGame = async (gameUpdate: FormData) => {
+    try {
+      const response = await fetch(`${urlAPI}games/update`, {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+        body: gameUpdate,
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      dispatch(
+        openModalActionCreator({
+          message: "Juego actualizado satisfactoriamente",
+          type: true,
+        })
+      );
+      navigate("/mis-juegos");
+    } catch {
+      dispatch(
+        openModalActionCreator({
+          message: "Error actualizando el juego",
+          type: false,
+        })
+      );
+    }
+  };
+
   const searchGames = useCallback(
     async (gameSearched: string) => {
       try {
@@ -203,6 +234,7 @@ const useGames = () => {
     getGamesByUser,
     getGameById,
     searchGames,
+    updateGame,
   };
 };
 
