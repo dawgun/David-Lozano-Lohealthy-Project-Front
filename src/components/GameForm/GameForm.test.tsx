@@ -73,7 +73,7 @@ describe("Given the GameForm component", () => {
     });
 
     describe("And users type in all inputs", () => {
-      test("Then gameCreate be called", async () => {
+      test("Then createGame function should be called formData and title 'Sonic'", async () => {
         const titleText = "Sonic";
         const genreText = "Estrategia";
         const playersText = "2 jugadores";
@@ -84,6 +84,8 @@ describe("Given the GameForm component", () => {
           type: "image/png",
         });
         const textButton = "Crear";
+
+        const spyFormDataInstance = jest.spyOn(FormData.prototype, "append");
 
         customRender(<GameForm textButton="Crear" />);
 
@@ -103,6 +105,9 @@ describe("Given the GameForm component", () => {
         await userEvent.upload(fileImage, fakeImage);
         await userEvent.click(button);
 
+        const formDataInstanced = spyFormDataInstance.mock
+          .instances[0] as unknown as FormData;
+
         expect(title).toBeInTheDocument();
         expect(genre).toBeInTheDocument();
         expect(players).toBeInTheDocument();
@@ -110,7 +115,8 @@ describe("Given the GameForm component", () => {
         expect(synopsis).toBeInTheDocument();
         expect(fileImage).toBeInTheDocument();
 
-        expect(mockUseGames.createGame).toHaveBeenCalled();
+        expect(mockUseGames.createGame).toHaveBeenCalledWith(formDataInstanced);
+        expect(formDataInstanced.get("title")).toBe(titleText);
       });
     });
   });
