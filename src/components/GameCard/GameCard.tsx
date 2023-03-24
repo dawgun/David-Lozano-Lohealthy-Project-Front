@@ -17,10 +17,14 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
   const maxLettersSynopsis = 80;
   const isSamePerson = game.owner === user.id;
   const { pathname } = useLocation();
-  const { home, myGames } = pathRoutes;
+  const { home, myGames, updateGame } = pathRoutes;
 
   const infoHandler = () => {
     navigate(`/details/${game.id}`);
+  };
+
+  const editHandler = () => {
+    navigate(`${myGames}${updateGame}/${game.id}`);
   };
 
   return (
@@ -42,7 +46,7 @@ const GameCard = ({ game }: GameCardProps): JSX.Element => {
           <Button onClick={infoHandler} text="Info"></Button>
         )}
         {pathname === myGames && (
-          <Button onClick={infoHandler} text="Edit"></Button>
+          <Button onClick={editHandler} text="Edit"></Button>
         )}
       </div>
       {isSamePerson && (
