@@ -1,4 +1,6 @@
-const mockFetchedTokenUser = {
+import fetchToken from "../../../utils/fetchToken/fetchToken";
+
+const mockFetchedTokenUser: ReturnType<typeof fetchToken> = {
   userName: "Pedro",
   image: "",
   token: "token",
@@ -7,7 +9,7 @@ const mockFetchedTokenUser = {
 
 jest.mock(
   "../../../utils/fetchToken/fetchToken",
-  () => () => mockFetchedTokenUser
+  () => (): ReturnType<typeof fetchToken> => mockFetchedTokenUser
 );
 
 export default mockFetchedTokenUser;
