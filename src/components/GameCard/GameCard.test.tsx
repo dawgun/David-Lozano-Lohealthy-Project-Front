@@ -128,6 +128,23 @@ describe("Given the GameCard component", () => {
 
         expect(editButton).toBeInTheDocument();
       });
+
+      test("Then navigate has to been called with '/mis-juegos/update/1'", async () => {
+        const navigatePath = "/mis-juegos/update/1";
+        const textButton = "Edit";
+        const actualPath = "/mis-juegos";
+
+        customRender(<GameCard game={game} />, {
+          initialEntries: [actualPath],
+        });
+
+        const infoButton = screen.getByRole("button", {
+          name: textButton,
+        });
+        await userEvent.click(infoButton);
+
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(navigatePath);
+      });
     });
   });
 });
