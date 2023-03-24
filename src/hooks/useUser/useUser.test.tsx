@@ -1,7 +1,6 @@
 import mockFetchedTokenUser from "../../testUtils/mocks/mockFetchedTokenUser/mockFetchedTokenUser";
 import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
-import { RenderHookResult } from "@testing-library/react";
 import { ProtoUser } from "../../store/user/model/user";
 import { openModalActionCreator } from "../../store/UI/UISlice";
 import {
@@ -30,7 +29,7 @@ describe("Given the useUser custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
 
         expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(linkNavigate);
@@ -44,7 +43,7 @@ describe("Given the useUser custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -63,7 +62,7 @@ describe("Given the useUser custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
 
         await result.current.userRegister(user);
@@ -84,7 +83,7 @@ describe("Given the useUser custom hook", () => {
       test("Then should dispatch has been called with action login with an user", async () => {
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
 
         await result.current.userLogin(userLogin);
@@ -101,7 +100,7 @@ describe("Given the useUser custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
         await result.current.userLogin(userLogin);
 
@@ -116,7 +115,7 @@ describe("Given the useUser custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
 
         await result.current.userLogin(userLogin);
@@ -135,7 +134,7 @@ describe("Given the useUser custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useUser,
-        }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+        });
         await result.current.userRegister(user);
 
         await result.current.userLogin(userLogin);
@@ -151,7 +150,7 @@ describe("Given the useUser custom hook", () => {
     test("Then dispatch to have been called with logout action", async () => {
       const { result } = customRenderHook({
         customHook: useUser,
-      }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+      });
 
       await result.current.userRegister(user);
       await result.current.userLogout();
@@ -166,7 +165,7 @@ describe("Given the useUser custom hook", () => {
 
       const { result } = customRenderHook({
         customHook: useUser,
-      }) as RenderHookResult<ReturnType<typeof useUser>, unknown>;
+      });
       await result.current.userRegister(user);
 
       await result.current.userLogout();
