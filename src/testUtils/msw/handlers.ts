@@ -97,4 +97,11 @@ export const handlers = [
       })
     );
   }),
+
+  rest.patch(`${apiUrl}games/update`, async (req, res, ctx) => {
+    const request: any = await req;
+    const titleData: string = await request._body.get("title");
+    const status = titleData === "" ? 400 : 201;
+    return res(ctx.status(status), ctx.json({ game: gameReturn }));
+  }),
 ];
