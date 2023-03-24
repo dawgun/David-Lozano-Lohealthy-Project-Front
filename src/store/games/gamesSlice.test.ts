@@ -6,6 +6,7 @@ import {
   loadMyGamesActionCreator,
   nextPageActionCreator,
   previousPageActionCreator,
+  updateGameActionCreator,
 } from "./gamesSlice";
 import { GameAPI } from "./model/game";
 
@@ -125,6 +126,33 @@ describe("Given the gamesSlice", () => {
       const newGameList = gameReducer(
         previousGameState,
         createGameActionCreator(newGame)
+      );
+
+      expect(newGameList).toStrictEqual(expectedNewGameList);
+    });
+  });
+
+  describe("When call updateGame reducer with previousGameState and a game", () => {
+    test("Then should return a new list of games with game same id updated", () => {
+      const updatedGame = {
+        title: "Fortnite",
+        image: "fortnite.jpg",
+        backupImage: "backup-fortnite.jpg",
+        genre: "Shooter",
+        id: "2",
+        players: "MMO",
+        release: "2019-09-04T17:14:58.542Z",
+        synopsis: "Great shooter multiplayer",
+        owner: "1",
+      };
+      const expectedNewGameList = {
+        ...previousGameState,
+        games: [previousGameState.games[0], updatedGame],
+      };
+
+      const newGameList = gameReducer(
+        previousGameState,
+        updateGameActionCreator(updatedGame)
       );
 
       expect(newGameList).toStrictEqual(expectedNewGameList);
