@@ -3,23 +3,20 @@ import FormStyled from "../RegisterForm/FormStyled";
 import { ProtoGame } from "../../store/games/model/game";
 import useGames from "../../hooks/useGames/useGames";
 import "@fontsource/roboto";
+import Button from "../Button/Button";
+interface GameFormProps {
+  gameId?: string;
+  textButton: "Crear" | "Editar";
+}
 
-export const GameForm = () => {
+export const GameForm = ({ gameId, textButton }: GameFormProps) => {
+  const initialFormGame = {} as ProtoGame;
   const initialFormData = new FormData();
   const minLength = 50;
 
-  const initialState: ProtoGame = {
-    title: "",
-    genre: "",
-    players: "",
-    release: "",
-    synopsis: "",
-    image: "",
-  };
-
-  const [newGame, setnewGame] = useState(initialState);
+  const [newGame, setnewGame] = useState(initialFormGame);
   const [newFormData, setnewFormData] = useState(initialFormData);
-  const { createGame } = useGames();
+  const { createGame, updateGame } = useGames();
 
   const handleChange = (event: SyntheticEvent) => {
     setnewGame({
@@ -33,15 +30,20 @@ export const GameForm = () => {
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    newFormData.append("title", newGame.title);
-    newFormData.append("genre", newGame.genre);
-    newFormData.append("players", newGame.players);
-    newFormData.append("release", newGame.release);
-    newFormData.append("synopsis", newGame.synopsis);
+    if (gameId) {
+      newFormData.append("id", gameId);
+    }
 
-    await createGame(newFormData);
-    setnewGame(initialState);
-    setnewFormData(new FormData());
+    Object.entries(newGame).forEach(([property, value]) => {
+      if (property !== "image") {
+        newFormData.append(property, value);
+      }
+    });
+
+    gameId ? updateGame(newFormData) : createGame(newFormData);
+
+    setnewGame(() => initialFormGame);
+    setnewFormData(initialFormData);
   };
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,13 +51,22 @@ export const GameForm = () => {
     setnewGame({ ...newGame, image: event.target.value });
   };
 
-  const isFormValid =
+  const isFormCreateValid =
     newGame.title !== "" &&
     newGame.genre !== "" &&
     newGame.players !== "" &&
     newGame.release !== "" &&
-    newGame.image !== "" &&
-    newGame.synopsis.length > minLength;
+    newFormData.get("image") &&
+    newGame.synopsis?.length > minLength;
+
+  const isFormEditValid =
+    (!!newGame.title ||
+      !!newGame.genre ||
+      !!newGame.players ||
+      !!newGame.release ||
+      !!newGame.image ||
+      newGame.synopsis?.length > minLength) &&
+    (!newGame.synopsis || newGame.synopsis?.length > minLength);
 
   return (
     <FormStyled className="game-form">
@@ -64,7 +75,7 @@ export const GameForm = () => {
           <input
             type="text"
             className="game-form__control"
-            value={newGame.title}
+            value={newGame.title ?? ""}
             name="title"
             placeholder="Título"
             onChange={handleChange}
@@ -76,7 +87,7 @@ export const GameForm = () => {
           <select
             placeholder="Género"
             className="game-form__control"
-            value={newGame.genre}
+            value={newGame.genre ?? ""}
             onChange={handleChange}
             name="genre"
             required
@@ -100,7 +111,7 @@ export const GameForm = () => {
           <select
             placeholder="Jugadores"
             className="game-form__control"
-            value={newGame.players}
+            value={newGame.players ?? ""}
             onChange={handleChange}
             name="players"
             required
@@ -119,7 +130,7 @@ export const GameForm = () => {
             placeholder="Fecha"
             className="game-form__control"
             type="date"
-            value={newGame.release}
+            value={newGame.release ?? ""}
             name="release"
             onChange={handleChange}
             autoComplete="off"
@@ -129,7 +140,7 @@ export const GameForm = () => {
         <div>
           <textarea
             className="game-form__control"
-            value={newGame.synopsis}
+            value={newGame.synopsis ?? ""}
             name="synopsis"
             placeholder="Descripción del juego"
             onChange={handleChange}
@@ -142,22 +153,19 @@ export const GameForm = () => {
             placeholder="Imagen"
             className="game-form__control"
             type="file"
-            value={newGame.image}
+            value={newGame.image ?? ""}
             name="image"
             onChange={handleChangeFile}
             autoComplete="off"
             required
           />
         </div>
-        <button
-          className={`game-form__button${
-            !isFormValid ? " button-disabled" : ""
-          }`}
-          type="submit"
-          disabled={!isFormValid}
-        >
-          Crear
-        </button>
+        <Button
+          text={textButton}
+          buttonClass="large-button"
+          typeButton="submit"
+          isDisabled={gameId ? !isFormEditValid : !isFormCreateValid}
+        />
       </form>
     </FormStyled>
   );

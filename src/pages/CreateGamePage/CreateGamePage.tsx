@@ -6,7 +6,7 @@ const CreateGamePage = (): JSX.Element => {
   return (
     <CreateGamePageStyled className="create-game-page">
       <h2 className="create-game-page__title">Crear Juego</h2>
-      <GameForm />
+      <GameForm textButton="Crear" />
       <div className="create-game-page__footer">
         <span className="login-page__register">
           ¿Ya no quieres crear un juego?

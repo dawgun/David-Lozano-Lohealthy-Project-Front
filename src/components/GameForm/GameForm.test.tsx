@@ -5,11 +5,11 @@ import userEvent from "@testing-library/user-event";
 import customRender from "../../testUtils/wrappers/customRender/customRender";
 
 describe("Given the GameForm component", () => {
-  describe("When it's instantiated", () => {
+  describe("When it's instantiated without id", () => {
     test("Then it should show a form with two inputs", () => {
       const expectedLength = 2;
 
-      customRender(<GameForm />);
+      customRender(<GameForm textButton="Crear" />);
       const inputsText = screen.getAllByRole("textbox");
 
       expect(inputsText).toHaveLength(expectedLength);
@@ -18,7 +18,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with date input", () => {
       const datePlaceholder = "Fecha";
 
-      customRender(<GameForm />);
+      customRender(<GameForm textButton="Crear" />);
       const inputsDate = screen.getByPlaceholderText(datePlaceholder);
 
       expect(inputsDate).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with a text area input", () => {
       const placeholderSynopsis = "Descripción del juego";
 
-      customRender(<GameForm />);
+      customRender(<GameForm textButton="Crear" />);
       const textArea = screen.getByPlaceholderText(placeholderSynopsis);
 
       expect(textArea).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with two selects", () => {
       const expectedLength = 2;
 
-      customRender(<GameForm />);
+      customRender(<GameForm textButton="Crear" />);
       const inputOptions = screen.getAllByRole("combobox");
 
       expect(inputOptions).toHaveLength(expectedLength);
@@ -45,7 +45,7 @@ describe("Given the GameForm component", () => {
     test("Then it should show a form with 20 options input", () => {
       const expectedLength = 20;
 
-      customRender(<GameForm />);
+      customRender(<GameForm textButton="Crear" />);
       const inputOptions = screen.getAllByRole("option");
 
       expect(inputOptions).toHaveLength(expectedLength);
@@ -54,7 +54,7 @@ describe("Given the GameForm component", () => {
     test("And it should show a form with a button with text 'Crear'", () => {
       const textButton = "Crear";
 
-      customRender(<GameForm />);
+      customRender(<GameForm textButton="Crear" />);
       const button = screen.getByRole("button", { name: textButton });
 
       expect(button).toBeInTheDocument();
@@ -64,7 +64,7 @@ describe("Given the GameForm component", () => {
       test("Then gameCreate don't be called", async () => {
         const textButton = "Crear";
 
-        customRender(<GameForm />);
+        customRender(<GameForm textButton="Crear" />);
         const button = screen.getByRole("button", { name: textButton });
         await userEvent.click(button);
 
@@ -73,7 +73,7 @@ describe("Given the GameForm component", () => {
     });
 
     describe("And users type in all inputs", () => {
-      test("Then gameCreate be called", async () => {
+      test("Then createGame function should be called formData and title 'Sonic'", async () => {
         const titleText = "Sonic";
         const genreText = "Estrategia";
         const playersText = "2 jugadores";
@@ -85,7 +85,9 @@ describe("Given the GameForm component", () => {
         });
         const textButton = "Crear";
 
-        customRender(<GameForm />);
+        const spyFormDataInstance = jest.spyOn(FormData.prototype, "append");
+
+        customRender(<GameForm textButton="Crear" />);
 
         const title = screen.getByPlaceholderText("Título");
         const genre = screen.getByPlaceholderText("Género");
@@ -103,6 +105,9 @@ describe("Given the GameForm component", () => {
         await userEvent.upload(fileImage, fakeImage);
         await userEvent.click(button);
 
+        const formDataInstanced = spyFormDataInstance.mock
+          .instances[0] as unknown as FormData;
+
         expect(title).toBeInTheDocument();
         expect(genre).toBeInTheDocument();
         expect(players).toBeInTheDocument();
@@ -110,7 +115,32 @@ describe("Given the GameForm component", () => {
         expect(synopsis).toBeInTheDocument();
         expect(fileImage).toBeInTheDocument();
 
-        expect(mockUseGames.createGame).toHaveBeenCalled();
+        expect(mockUseGames.createGame).toHaveBeenCalledWith(formDataInstanced);
+        expect(formDataInstanced.get("title")).toBe(titleText);
+      });
+    });
+  });
+
+  describe("When it's instantiated with an id", () => {
+    describe("And user type in title field 'Mario'", () => {
+      test("Then updateGame should be called with formData and title 'Mario'", async () => {
+        const titleText = "Mario";
+        const textButton = "Crear";
+        const spyFormDataInstance = jest.spyOn(FormData.prototype, "append");
+
+        customRender(<GameForm textButton={textButton} gameId="2" />);
+
+        const title = screen.getByPlaceholderText("Título");
+        const buttonForm = screen.getByRole("button", { name: textButton });
+
+        await userEvent.type(title, titleText);
+        await userEvent.click(buttonForm);
+
+        const formDataInstanced = spyFormDataInstance.mock
+          .instances[0] as unknown as FormData;
+
+        expect(mockUseGames.updateGame).toHaveBeenCalledWith(formDataInstanced);
+        expect(formDataInstanced.get("title")).toBe(titleText);
       });
     });
   });

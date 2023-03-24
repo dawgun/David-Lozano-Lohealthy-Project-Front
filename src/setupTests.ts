@@ -7,5 +7,9 @@ import "@testing-library/jest-dom";
 import { server } from "./testUtils/msw/server";
 
 beforeAll(() => server.listen());
+beforeEach(() => {
+  jest.restoreAllMocks();
+  jest.clearAllMocks();
+});
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
