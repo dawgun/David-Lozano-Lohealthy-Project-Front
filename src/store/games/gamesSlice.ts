@@ -21,9 +21,15 @@ const gamesSlice = createSlice({
       ...previousGame,
       games: previousGame.games.filter((game) => game.id !== action.payload),
     }),
-    createGame: (previousgame: GameAPI, action: PayloadAction<Game>) => ({
-      ...previousgame,
-      games: [...previousgame.games, action.payload],
+    createGame: (previousGame: GameAPI, action: PayloadAction<Game>) => ({
+      ...previousGame,
+      games: [...previousGame.games, action.payload],
+    }),
+    updateGame: (previousGame: GameAPI, action: PayloadAction<Game>) => ({
+      ...previousGame,
+      games: previousGame.games.map((game) =>
+        game.id === action.payload.id ? action.payload : game
+      ),
     }),
     loadMyGames: (previousGame: GameAPI, action: PayloadAction<Game[]>) => ({
       ...previousGame,
@@ -46,6 +52,7 @@ export const {
   loadGames: loadGamesActionCreator,
   deleteGame: deleteGameActionCreator,
   createGame: createGameActionCreator,
+  updateGame: updateGameActionCreator,
   loadMyGames: loadMyGamesActionCreator,
   nextPage: nextPageActionCreator,
   previousPage: previousPageActionCreator,
