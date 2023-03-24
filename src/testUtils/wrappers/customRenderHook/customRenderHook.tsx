@@ -7,13 +7,13 @@ import { userReducer } from "../../../store/user/userSlice";
 import { ExtendedRenderHookOptions } from "../customRender/types/types";
 import { renderHook } from "@testing-library/react";
 
-const customRenderHook = ({
+const customRenderHook = <T extends () => ReturnType<T>>({
   store = configureStore({
     reducer: { user: userReducer, ui: UIReducer, games: gameReducer },
   }),
   customHook,
   ...renderOptions
-}: ExtendedRenderHookOptions) => {
+}: ExtendedRenderHookOptions<T>) => {
   const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return <Provider store={store}>{children}</Provider>;
   };

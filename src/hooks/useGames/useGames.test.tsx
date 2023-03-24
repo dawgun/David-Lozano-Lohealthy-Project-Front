@@ -1,11 +1,11 @@
 import mockDispatch from "../../testUtils/mocks/mockDispatch/mockDispatch";
 import mockReactRouter from "../../testUtils/mocks/mockReactRouter/mockReactRouter";
-import { RenderHookResult } from "@testing-library/react";
 import {
   createGameActionCreator,
   deleteGameActionCreator,
   loadGamesActionCreator,
   loadMyGamesActionCreator,
+  updateGameActionCreator,
 } from "../../store/games/gamesSlice";
 import {
   closeLoaderActionCreator,
@@ -21,7 +21,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action openModal", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getAllGames(1);
 
@@ -38,7 +38,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action showLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getAllGames(1);
 
@@ -48,7 +48,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action closeLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getAllGames(1);
 
@@ -58,7 +58,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action loadGames", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getAllGames(1);
 
@@ -82,7 +82,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.deleteGame("2");
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -98,7 +98,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.deleteGame("1");
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -116,7 +116,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.deleteGame("2");
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -146,7 +146,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.createGame(correctFormGameData);
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -162,7 +162,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.createGame(correctFormGameData);
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -175,7 +175,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.createGame(correctFormGameData);
 
         expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(navigatePath);
@@ -193,7 +193,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.createGame(incorrectFormGameData);
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -213,7 +213,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getGamesByUser();
 
@@ -227,7 +227,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action showLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getGamesByUser();
 
@@ -237,7 +237,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action closeLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.getGamesByUser();
 
         expect(mockDispatch).toHaveBeenCalledWith(closeLoaderActionCreator());
@@ -246,7 +246,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action loadGames", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getGamesByUser();
 
@@ -266,7 +266,7 @@ describe("Given the useGames custom hook", () => {
 
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getGameById(incorrectId);
 
@@ -282,7 +282,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action showLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
         await result.current.getGameById(correctId);
 
         expect(mockDispatch).toHaveBeenCalledWith(showLoaderActionCreator());
@@ -291,7 +291,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action closeLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.getGameById(correctId);
 
@@ -301,7 +301,7 @@ describe("Given the useGames custom hook", () => {
       test("Then should return 'game'", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         const game = await result.current.getGameById(correctId);
 
@@ -315,7 +315,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action openModal", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.searchGames("badWord");
 
@@ -332,7 +332,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action showLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.searchGames("goodWord");
 
@@ -342,7 +342,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action closeLoader", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.searchGames("goodWord");
 
@@ -352,7 +352,7 @@ describe("Given the useGames custom hook", () => {
       test("Then dispatch must be called with action loadGames", async () => {
         const { result } = customRenderHook({
           customHook: useGames,
-        }) as RenderHookResult<ReturnType<typeof useGames>, unknown>;
+        });
 
         await result.current.searchGames("goodWord");
 
@@ -364,6 +364,81 @@ describe("Given the useGames custom hook", () => {
             currentPage: 0,
             games: [],
           })
+        );
+      });
+    });
+  });
+
+  describe("When updateGame it's called", () => {
+    const payloadUpdateAction = {
+      title: "Zelda",
+      genre: "",
+      image: "",
+      backupImage: "",
+      players: "",
+      synopsis: "",
+      release: "",
+      owner: "2",
+      id: "1",
+    };
+
+    describe("And fetch is done with a correct form update game", () => {
+      const correctFormGameData = new FormData();
+      correctFormGameData.append("title", "zelda");
+
+      test("Then dispatch should be called with action creator update with game updated", async () => {
+        const action = updateGameActionCreator(payloadUpdateAction);
+
+        const { result } = customRenderHook({ customHook: useGames });
+        await result.current.updateGame(correctFormGameData);
+
+        expect(mockDispatch).toHaveBeenCalledWith(action);
+      });
+
+      test("Then dispatch must be called with correct action openModal", async () => {
+        const payloadModal = {
+          message: "Juego actualizado satisfactoriamente",
+          type: true,
+        };
+
+        const { result } = customRenderHook({
+          customHook: useGames,
+        });
+        await result.current.updateGame(correctFormGameData);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadModal)
+        );
+      });
+
+      test("Then navigate must be called with '/mis-juegos'", async () => {
+        const navigatePath = "/mis-juegos";
+
+        const { result } = customRenderHook({
+          customHook: useGames,
+        });
+        await result.current.updateGame(correctFormGameData);
+
+        expect(mockReactRouter.useNavigate).toHaveBeenCalledWith(navigatePath);
+      });
+    });
+
+    describe("And fetch is done with incorrect form game", () => {
+      test("Then dispatch must be called with error action openModal", async () => {
+        const payloadErrorModal = {
+          message: "Error actualizando el juego",
+          type: false,
+        };
+        const incorrectFormGameData = new FormData();
+        incorrectFormGameData.append("title", "");
+
+        const { result } = customRenderHook({
+          customHook: useGames,
+        });
+        await result.current.updateGame(incorrectFormGameData);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+          openModalActionCreator(payloadErrorModal)
         );
       });
     });

@@ -1,8 +1,6 @@
 import { PreloadedState } from "@reduxjs/toolkit";
 import { RenderOptions } from "@testing-library/react";
 import { PropsWithChildren } from "react";
-import useGames from "../../../../hooks/useGames/useGames";
-import useUser from "../../../../hooks/useUser/useUser";
 import { RootState, store } from "../../../../store/store";
 
 export interface ExtendedPropsWithChildren extends PropsWithChildren {
@@ -17,6 +15,7 @@ export interface ExtendedRenderOptions
   store?: typeof store;
 }
 
-export interface ExtendedRenderHookOptions extends ExtendedRenderOptions {
-  customHook: typeof useGames | typeof useUser;
+export interface ExtendedRenderHookOptions<T extends () => ReturnType<T>>
+  extends ExtendedRenderOptions {
+  customHook: T;
 }

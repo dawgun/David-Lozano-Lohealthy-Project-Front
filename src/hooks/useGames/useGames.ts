@@ -5,6 +5,7 @@ import {
   deleteGameActionCreator,
   loadGamesActionCreator,
   loadMyGamesActionCreator,
+  updateGameActionCreator,
 } from "../../store/games/gamesSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -167,6 +168,41 @@ const useGames = () => {
     }
   };
 
+  const updateGame = async (gameUpdate: FormData) => {
+    try {
+      const response = await fetch(`${urlAPI}games/update`, {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+        body: gameUpdate,
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      const { game } = await response.json();
+
+      dispatch(updateGameActionCreator(game));
+
+      dispatch(
+        openModalActionCreator({
+          message: "Juego actualizado satisfactoriamente",
+          type: true,
+        })
+      );
+      navigate("/mis-juegos");
+    } catch {
+      dispatch(
+        openModalActionCreator({
+          message: "Error actualizando el juego",
+          type: false,
+        })
+      );
+    }
+  };
+
   const searchGames = useCallback(
     async (gameSearched: string) => {
       try {
@@ -203,6 +239,7 @@ const useGames = () => {
     getGamesByUser,
     getGameById,
     searchGames,
+    updateGame,
   };
 };
 
