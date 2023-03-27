@@ -11,6 +11,8 @@ import Pagination from "./Pagination";
 import { initialPagination } from "../../testUtils/mocks/mockStore/mockStore";
 
 describe("Given the Pagination component", () => {
+  window.scroll = jest.fn();
+
   describe("When it's instantiated", () => {
     const paginationWithPages: PaginationAPI = {
       ...initialPagination,

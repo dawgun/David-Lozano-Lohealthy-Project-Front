@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GameCardDetails from "../../components/GameCardDetails/GameCardDetails";
+import GameForm from "../../components/GameForm/GameForm";
 import useGames from "../../hooks/useGames/useGames";
 import { DetailGame } from "../../store/games/model/game";
-import GameDetailsPageStyled from "./GameDetailsPageStyled";
+import UpdateGamePageStyled from "./UpdateGamePageStyled";
 
-const GameDetailsPage = (): JSX.Element => {
+const UpdateGamePage = (): JSX.Element => {
   const initialGame = {} as DetailGame;
 
   const { getGameById } = useGames();
@@ -20,11 +21,14 @@ const GameDetailsPage = (): JSX.Element => {
   }, [getGameById, idGame]);
 
   return (
-    <GameDetailsPageStyled className="details-page">
-      <h2 className="details-page__title">Detalles del juego</h2>
-      <GameCardDetails game={gameDetail} />
-    </GameDetailsPageStyled>
+    <UpdateGamePageStyled className="update-page">
+      <h2 className="update-page__title">Update</h2>
+      <div className="update-page__container">
+        <GameCardDetails game={gameDetail} />
+        <GameForm textButton="Editar" gameId={gameDetail.id} />
+      </div>
+    </UpdateGamePageStyled>
   );
 };
 
-export default GameDetailsPage;
+export default UpdateGamePage;
