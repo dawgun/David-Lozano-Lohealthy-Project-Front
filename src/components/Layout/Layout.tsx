@@ -15,11 +15,21 @@ import RegisterPage from "../../pages/RegisterPage/RegisterPage";
 import { useAppSelector } from "../../store/hooks";
 import pathRoutes from "../../utils/pathRoutes/pathRoutes";
 import LayoutStyled from "./LayoutStyle";
+import UpdateGamePage from "../../pages/UpdateGamePage/UpdateGamePage";
 
 function Layout() {
   const { isMenuShowing } = useAppSelector((state) => state.ui);
-  const { home, details, all, createGame, login, myGames, register, root } =
-    pathRoutes;
+  const {
+    home,
+    details,
+    all,
+    createGame,
+    updateGame,
+    login,
+    myGames,
+    register,
+    root,
+  } = pathRoutes;
 
   return (
     <LayoutStyled className="main-container">
@@ -47,6 +57,10 @@ function Layout() {
               <CreateGamePage />
             </RouteProtector>
           }
+        />
+        <Route
+          path={`${myGames}${updateGame}/:idGame`}
+          element={<UpdateGamePage />}
         />
         <Route
           path={register}

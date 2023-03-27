@@ -9,6 +9,7 @@ const FooterStyled = styled.footer`
   font-size: 0.9rem;
   padding: 1rem;
   gap: 1rem;
+  width: 100%;
 
   .footer {
     &__social {

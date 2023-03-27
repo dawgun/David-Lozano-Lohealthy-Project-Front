@@ -2,20 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GameCardDetails from "../../components/GameCardDetails/GameCardDetails";
 import useGames from "../../hooks/useGames/useGames";
+import { DetailGame } from "../../store/games/model/game";
 import GameDetailsPageStyled from "./GameDetailsPageStyled";
 
 const GameDetailsPage = (): JSX.Element => {
-  const initialGame = {
-    title: "",
-    image: "",
-    backupImage: "",
-    players: "",
-    genre: "",
-    release: "",
-    synopsis: "",
-    owner: { userName: "", id: "" },
-    id: "",
-  };
+  const initialGame = {} as DetailGame;
 
   const { getGameById } = useGames();
   const [gameDetail, setGameDetail] = useState(initialGame);
