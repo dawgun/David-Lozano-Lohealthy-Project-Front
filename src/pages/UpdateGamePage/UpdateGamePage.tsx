@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import GameCardDetails from "../../components/GameCardDetails/GameCardDetails";
 import GameForm from "../../components/GameForm/GameForm";
 import useGames from "../../hooks/useGames/useGames";
-import { useEffect, useState } from "react";
 import { DetailGame } from "../../store/games/model/game";
-import GameCardDetails from "../../components/GameCardDetails/GameCardDetails";
 import UpdateGamePageStyled from "./UpdateGamePageStyled";
 
 const UpdateGamePage = (): JSX.Element => {
