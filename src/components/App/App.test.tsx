@@ -38,12 +38,12 @@ describe("When it's instantiated", () => {
     expect(button).toBeInTheDocument();
   });
 
-  test("Then should show 'Home' in a heading", () => {
+  test("Then should show 'Home' in a heading", async () => {
     const homeTitle = "Home";
 
     customRender(<App />);
 
-    const headingHome = screen.getByRole("heading", { name: homeTitle });
+    const headingHome = await screen.findByRole("heading", { name: homeTitle });
 
     expect(headingHome).toBeInTheDocument();
   });
