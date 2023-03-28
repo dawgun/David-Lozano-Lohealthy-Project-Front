@@ -40,12 +40,12 @@ describe("Given Layout component", () => {
       expect(navLink).toBeInTheDocument();
     });
 
-    test("Then should show 'Home' in a heading from HomePage", () => {
+    test("Then should show 'Home' in a heading from HomePage", async () => {
       const titleHome = "Home";
 
       customRender(<Layout />);
 
-      const title = screen.getByRole("heading", { name: titleHome });
+      const title = await screen.findByRole("heading", { name: titleHome });
 
       expect(title).toBeInTheDocument();
     });
@@ -61,59 +61,76 @@ describe("Given Layout component", () => {
     });
 
     describe("And path on navigator is '/error'", () => {
-      test("Then should show 'Mazmorra no encontrada' in a heading from NotFoundPage", () => {
+      test("Then should show 'Mazmorra no encontrada' in a heading from NotFoundPage", async () => {
         const webPath = "/error";
         const titleHeading = "Mazmorra no encontrada";
 
         customRender(<Layout />, { initialEntries: [webPath] });
 
-        const title = screen.getByRole("heading", { name: titleHeading });
+        const title = await screen.findByRole("heading", {
+          name: titleHeading,
+        });
 
         expect(title).toBeInTheDocument();
       });
     });
 
     describe("And path on navigator is '/mis-juegos'", () => {
-      test("Then should show 'Mis Juegos' in a heading from MyGameListPage", () => {
+      test("Then should show 'Mis Juegos' in a heading from MyGameListPage", async () => {
         const webPath = "/mis-juegos";
         const titleText = "Mis Juegos";
 
         customRender(<Layout />, { initialEntries: [webPath], store });
 
-        const title = screen.getByRole("heading", { name: titleText });
+        const title = await screen.findByRole("heading", { name: titleText });
 
         expect(title).toBeInTheDocument();
       });
     });
 
     describe("And path on navigator is '/mis-juegos/create'", () => {
-      test("Then should show 'Crear Juego' in a heading from CreateGamePage", () => {
+      test("Then should show 'Crear Juego' in a heading from CreateGamePage", async () => {
         const webPath = "/mis-juegos/create";
         const titleText = "Crear Juego";
 
         customRender(<Layout />, { initialEntries: [webPath], store });
 
-        const title = screen.getByRole("heading", { name: titleText });
+        const title = await screen.findByRole("heading", { name: titleText });
 
         expect(title).toBeInTheDocument();
       });
     });
 
     describe("And path on navigator is '/details/juego'", () => {
-      test("Then should show 'Detalles del juego' in a heading MyGameListPage", () => {
+      test("Then should show 'Detalles del juego' in a heading GameDetailsPage", async () => {
         const webPath = "/details/juego";
         const titleText = "Detalles del juego";
 
         customRender(<Layout />, { initialEntries: [webPath] });
 
-        const title = screen.getByRole("heading", { name: titleText });
+        const title = await screen.findByRole("heading", { name: titleText });
+
+        expect(title).toBeInTheDocument();
+      });
+    });
+
+    describe("And path on navigator is '/mis-juegos/update'", () => {
+      test("Then should show 'Update' in a heading UpdateGamePage", async () => {
+        const webPath = "/mis-juegos/update/juego";
+        const titleText = "Update";
+
+        customRender(<Layout />, { initialEntries: [webPath] });
+
+        const title = await screen.findByRole("heading", {
+          name: titleText,
+        });
 
         expect(title).toBeInTheDocument();
       });
     });
 
     describe("And user is not logged and path on navigator is '/login'", () => {
-      test("Then should show 'Detalles del juego' in a heading MyGameListPage", () => {
+      test("Then should show 'Login' in a heading LoginPage", async () => {
         const webPath = "/login";
         const titleText = "Login";
 
@@ -121,14 +138,14 @@ describe("Given Layout component", () => {
           initialEntries: [webPath],
         });
 
-        const title = screen.getByRole("heading", { name: titleText });
+        const title = await screen.findByRole("heading", { name: titleText });
 
         expect(title).toBeInTheDocument();
       });
     });
 
     describe("And user is not logged and path on navigator is '/register'", () => {
-      test("Then should show 'Detalles del juego' in a heading MyGameListPage", () => {
+      test("Then should show 'Registro' in a heading RegisterPage", async () => {
         const webPath = "/register";
         const titleText = "Registro";
 
@@ -136,7 +153,7 @@ describe("Given Layout component", () => {
           initialEntries: [webPath],
         });
 
-        const title = screen.getByRole("heading", { name: titleText });
+        const title = await screen.findByRole("heading", { name: titleText });
 
         expect(title).toBeInTheDocument();
       });

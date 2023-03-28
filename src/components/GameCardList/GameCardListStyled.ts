@@ -8,11 +8,10 @@ const GameCardListStyled = styled.ul`
   width: 22rem;
   padding: 0;
   margin: 0;
-  align-content: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (min-width: 1000px) {
-    width: 51rem;
+    width: 47rem;
   }
 `;
 
