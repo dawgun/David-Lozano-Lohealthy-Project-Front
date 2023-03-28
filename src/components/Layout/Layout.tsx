@@ -5,17 +5,20 @@ import Navigation from "../Navigation/Navigation";
 import ReverseRouteProtector from "../ReverseRouteProtector/ReverseRouteProtector";
 import RouteProtector from "../RouteProtector/RouteProtector";
 import UserMenu from "../UserMenu/UserMenu";
-import CreateGamePage from "../../pages/CreateGamePage/CreateGamePage";
-import GameDetailsPage from "../../pages/GameDetailsPage/GameDetailsPage";
-import HomePage from "../../pages/HomePage/HomePage";
-import LoginPage from "../../pages/LoginPage/LoginPage";
-import MyGameListPage from "../../pages/MyGameListPage/MyGameListPage";
-import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
-import RegisterPage from "../../pages/RegisterPage/RegisterPage";
 import { useAppSelector } from "../../store/hooks";
 import pathRoutes from "../../utils/pathRoutes/pathRoutes";
 import LayoutStyled from "./LayoutStyle";
-import UpdateGamePage from "../../pages/UpdateGamePage/UpdateGamePage";
+import { Suspense } from "react";
+import {
+  LazyCreateGamePage,
+  LazyGameDetailsPage,
+  LazyHomePage,
+  LazyLoginPage,
+  LazyMyGameListPage,
+  LazyNotFoundPage,
+  LazyRegisterPage,
+  LazyUpdateGamePage,
+} from "../../utils/lazyComponents/lazyComponents";
 
 function Layout() {
   const { isMenuShowing } = useAppSelector((state) => state.ui);
@@ -40,13 +43,22 @@ function Layout() {
       </section>
       <Routes>
         <Route path={root} element={<Navigate to={home} />} />
-        <Route path={home} element={<HomePage />} />
-        <Route path={details} element={<GameDetailsPage />} />
+        <Route
+          path={home}
+          element={
+            <Suspense fallback={<></>}>
+              <LazyHomePage />
+            </Suspense>
+          }
+        />
+        <Route path={details} element={<LazyGameDetailsPage />} />
         <Route
           path={myGames}
           element={
             <RouteProtector>
-              <MyGameListPage />
+              <Suspense fallback={<></>}>
+                <LazyMyGameListPage />
+              </Suspense>
             </RouteProtector>
           }
         />
@@ -54,19 +66,27 @@ function Layout() {
           path={`${myGames}${createGame}`}
           element={
             <RouteProtector>
-              <CreateGamePage />
+              <Suspense fallback={<></>}>
+                <LazyCreateGamePage />
+              </Suspense>
             </RouteProtector>
           }
         />
         <Route
           path={`${myGames}${updateGame}/:idGame`}
-          element={<UpdateGamePage />}
+          element={
+            <Suspense fallback={<></>}>
+              <LazyUpdateGamePage />
+            </Suspense>
+          }
         />
         <Route
           path={register}
           element={
             <ReverseRouteProtector>
-              <RegisterPage />
+              <Suspense fallback={<></>}>
+                <LazyRegisterPage />
+              </Suspense>
             </ReverseRouteProtector>
           }
         />
@@ -74,11 +94,20 @@ function Layout() {
           path={login}
           element={
             <ReverseRouteProtector>
-              <LoginPage />
+              <Suspense fallback={<></>}>
+                <LazyLoginPage />
+              </Suspense>
             </ReverseRouteProtector>
           }
         />
-        <Route path={all} element={<NotFoundPage />} />
+        <Route
+          path={all}
+          element={
+            <Suspense fallback={<></>}>
+              <LazyNotFoundPage />
+            </Suspense>
+          }
+        />
       </Routes>
       <Footer />
     </LayoutStyled>
