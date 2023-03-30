@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Store } from "@reduxjs/toolkit";
 import { gameReducer } from "../../../store/games/gamesSlice";
 import { UIReducer } from "../../../store/UI/UISlice";
 import { userReducer } from "../../../store/user/userSlice";
@@ -41,7 +41,7 @@ export const mockStore = ({
   gamesPreloadState = initialGameState,
   uiPreloadState = initialUiState,
   userPreloadState = initialUserState,
-}: MockStoreProps) =>
+}: MockStoreProps): Store =>
   configureStore({
     reducer: {
       ui: UIReducer,

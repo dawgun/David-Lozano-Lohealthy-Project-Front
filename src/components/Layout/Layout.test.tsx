@@ -9,9 +9,14 @@ import {
   initialUserState,
   mockStore,
 } from "../../testUtils/mocks/mockStore/mockStore";
+import userEvent from "@testing-library/user-event";
+import { Store } from "@reduxjs/toolkit";
 
-describe("Given Layout component", () => {
-  const store = mockStore({
+let loginStore: Store;
+let logoutStore: Store;
+
+beforeEach(() => {
+  loginStore = mockStore({
     uiPreloadState: {
       ...initialUiState,
       isMenuShowing: true,
@@ -19,6 +24,12 @@ describe("Given Layout component", () => {
     userPreloadState: { ...initialUserState, isLogged: true },
   });
 
+  logoutStore = mockStore({
+    uiPreloadState: { ...initialUiState, isMenuShowing: true },
+  });
+});
+
+describe("Given Layout component", () => {
   describe("When it's instantiated", () => {
     test("Then should show 'Lohealthygames' in a heading from Header component", () => {
       const titleText = "Lohealthy Games";
@@ -80,7 +91,10 @@ describe("Given Layout component", () => {
         const webPath = "/mis-juegos";
         const titleText = "Mis Juegos";
 
-        customRender(<Layout />, { initialEntries: [webPath], store });
+        customRender(<Layout />, {
+          initialEntries: [webPath],
+          store: loginStore,
+        });
 
         const title = await screen.findByRole("heading", { name: titleText });
 
@@ -93,7 +107,10 @@ describe("Given Layout component", () => {
         const webPath = "/mis-juegos/create";
         const titleText = "Crear Juego";
 
-        customRender(<Layout />, { initialEntries: [webPath], store });
+        customRender(<Layout />, {
+          initialEntries: [webPath],
+          store: loginStore,
+        });
 
         const title = await screen.findByRole("heading", { name: titleText });
 
@@ -119,7 +136,10 @@ describe("Given Layout component", () => {
         const webPath = "/mis-juegos/update/juego";
         const titleText = "Update";
 
-        customRender(<Layout />, { initialEntries: [webPath] });
+        customRender(<Layout />, {
+          store: loginStore,
+          initialEntries: [webPath],
+        });
 
         const title = await screen.findByRole("heading", {
           name: titleText,
@@ -156,6 +176,100 @@ describe("Given Layout component", () => {
         const title = await screen.findByRole("heading", { name: titleText });
 
         expect(title).toBeInTheDocument();
+      });
+    });
+
+    describe("And path on navigator is '/home' and user click on 'Login'", () => {
+      test("Then should show 'Login' in a heading", async () => {
+        const webPaths = ["/home"];
+        const titleHome = "Home";
+        const loginText = "Login";
+
+        const { rerender } = customRender(<Layout />, {
+          initialEntries: webPaths,
+          store: logoutStore,
+        });
+
+        const title = await screen.findByRole("heading", {
+          name: titleHome,
+        });
+
+        expect(title).toBeInTheDocument();
+
+        const loginLink = screen.getByRole("link", { name: loginText });
+
+        await userEvent.click(loginLink);
+
+        rerender(<Layout />);
+
+        const myGamesTitle = await screen.findByRole("heading", {
+          name: loginText,
+        });
+
+        expect(myGamesTitle).toBeInTheDocument();
+      });
+    });
+
+    describe("And path on navigator is '/home' and user click on 'Registrar'", () => {
+      test("Then should show 'Registro' in a heading", async () => {
+        const webPaths = ["/home"];
+        const titleHome = "Home";
+        const linkRegister = "Registrar";
+        const titleRegister = "Registro";
+
+        const { rerender } = customRender(<Layout />, {
+          initialEntries: webPaths,
+          store: logoutStore,
+        });
+
+        const title = await screen.findByRole("heading", {
+          name: titleHome,
+        });
+
+        expect(title).toBeInTheDocument();
+
+        const registerLink = screen.getByRole("link", {
+          name: linkRegister,
+        });
+
+        await userEvent.click(registerLink);
+
+        rerender(<Layout />);
+
+        const registerTitle = await screen.findByRole("heading", {
+          name: titleRegister,
+        });
+
+        expect(registerTitle).toBeInTheDocument();
+      });
+    });
+
+    describe("And path on navigator is '/home' and user click on 'Mis juegos'", () => {
+      test("Then should show 'Mis Juegos' in a heading", async () => {
+        const webPaths = ["/home"];
+        const titleHome = "Home";
+        const linkText = "Mis Juegos";
+
+        const { rerender } = customRender(<Layout />, {
+          initialEntries: webPaths,
+          store: loginStore,
+        });
+
+        const title = await screen.findByRole("heading", { name: titleHome });
+
+        expect(title).toBeInTheDocument();
+
+        const myGamesLink = screen.getByRole("link", { name: linkText });
+
+        await userEvent.click(myGamesLink);
+
+        rerender(<Layout />);
+
+        const myGamesTitle = await screen.findByRole("heading", {
+          name: "Mis Juegos",
+        });
+
+        expect(myGamesTitle).toBeInTheDocument();
       });
     });
   });
