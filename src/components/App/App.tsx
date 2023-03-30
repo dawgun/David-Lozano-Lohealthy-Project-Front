@@ -6,7 +6,7 @@ import Loading from "../Loading/Loading";
 import Modal from "../Modal/Modal";
 import { useEffect } from "react";
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const { isLoadingShowing, isModalShowing } = useAppSelector(
     (state) => state.ui
   );
@@ -26,6 +26,6 @@ function App(): JSX.Element {
       <Layout />
     </>
   );
-}
+};
 
 export default App;

@@ -29,7 +29,7 @@ describe("Given the SearchForm component", () => {
         const searchInput: HTMLInputElement =
           screen.getByPlaceholderText(placeholderText);
 
-        await customUserevent.type(searchInput, "K");
+        await customUserevent.type(searchInput, gameSearched);
         await customUserevent.clear(searchInput);
 
         await waitFor(() =>

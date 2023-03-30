@@ -20,7 +20,7 @@ import {
   LazyUpdateGamePage,
 } from "../../utils/lazyComponents/lazyComponents";
 
-function Layout() {
+const Layout = () => {
   const { isMenuShowing } = useAppSelector((state) => state.ui);
   const {
     home,
@@ -75,9 +75,11 @@ function Layout() {
         <Route
           path={`${myGames}${updateGame}/:idGame`}
           element={
-            <Suspense fallback={<></>}>
-              <LazyUpdateGamePage />
-            </Suspense>
+            <RouteProtector>
+              <Suspense fallback={<></>}>
+                <LazyUpdateGamePage />
+              </Suspense>
+            </RouteProtector>
           }
         />
         <Route
@@ -112,6 +114,6 @@ function Layout() {
       <Footer />
     </LayoutStyled>
   );
-}
+};
 
 export default Layout;
