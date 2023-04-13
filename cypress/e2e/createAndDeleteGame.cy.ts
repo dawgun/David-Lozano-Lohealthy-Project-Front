@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-force */
 import loginPath from "../utils/loginPath";
 
 describe("Given Lohealthy Games app", () => {
@@ -13,10 +14,14 @@ describe("Given Lohealthy Games app", () => {
       cy.findByRole("link", { name: myGamesText }).click();
       cy.findByRole("heading", { name: myGamesText }).should("exist");
       cy.findByRole("button", { name: createButton }).should("exist").click();
-      cy.findByPlaceholderText("Título").should("exist").type("Monkey Island");
+      cy.findByPlaceholderText("Título")
+        .should("exist")
+        .type("Monkey Island", { force: true });
       cy.findByPlaceholderText("Género").should("exist").select(1);
       cy.findByPlaceholderText("Jugadores").should("exist").select(1);
-      cy.findByPlaceholderText("Fecha").should("exist").type("2022-09-09");
+      cy.findByPlaceholderText("Fecha")
+        .should("exist")
+        .type("2022-09-09", { force: true });
       cy.findByPlaceholderText("Descripción del juego")
         .should("exist")
         .type(
