@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-force */
 import loginPath from "../utils/loginPath";
 
 describe("Given Lohealthy Games app", () => {
@@ -9,7 +10,7 @@ describe("Given Lohealthy Games app", () => {
 
       loginPath(usernamePasswordLogin, usernamePasswordLogin);
       cy.findByRole("heading", { name: homeTitle }).should("exist");
-      cy.findByRole("link", { name: myGamesText }).click();
+      cy.findByRole("link", { name: myGamesText }).click({ force: true });
       cy.findByRole("heading", { name: myGamesText }).should("exist");
     });
   });

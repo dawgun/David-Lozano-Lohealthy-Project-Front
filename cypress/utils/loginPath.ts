@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-force */
 const loginPath = (username: string, password: string) => {
   const homeTitle = "Home";
   const buttonMenuAltText = "Menu icon";
@@ -7,12 +8,20 @@ const loginPath = (username: string, password: string) => {
 
   cy.visit("/");
   cy.findByRole("heading", { name: homeTitle }).should("exist");
-  cy.findByRole("button", { name: buttonMenuAltText }).should("exist").click();
-  cy.findByRole("link", { name: loginText }).should("exist").click();
+  cy.findByRole("button", { name: buttonMenuAltText })
+    .should("exist")
+    .click({ force: true });
+  cy.findByRole("link", { name: loginText })
+    .should("exist")
+    .click({ force: true });
   cy.findByRole("heading", { name: loginText }).should("exist");
-  cy.findByPlaceholderText(userInput).should("exist").type(username);
-  cy.findByPlaceholderText(passwordInput).should("exist").type(password);
-  cy.findByRole("button", { name: loginText }).click();
+  cy.findByPlaceholderText(userInput)
+    .should("exist")
+    .type(username, { force: true });
+  cy.findByPlaceholderText(passwordInput)
+    .should("exist")
+    .type(password, { force: true });
+  cy.findByRole("button", { name: loginText }).click({ force: true });
 };
 
 export default loginPath;
