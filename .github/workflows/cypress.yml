@@ -1,11 +1,20 @@
-name: ci
-on: [push]
+name: Cypress Tests
+
+on: push
+
 jobs:
-  test:
-    # use the reusable workflow to check out the code, install dependencies
-    # and run the Cypress tests
-    # https://github.com/bahmutov/cypress-workflows
-    uses: bahmutov/cypress-workflows/.github/workflows/standard.yml@v1
-    with:
-      start: npm start
-      wait-on: "http://localhost:3000"
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build
+          start: npm start
+          wait-on: "http://localhost:3000"
+          browser: chrome
+          record: true
+        env:
+          recordKey: ${{ secrets.CYPRESS_RECORD_KEY }}
